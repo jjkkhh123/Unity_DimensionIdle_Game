@@ -5,7 +5,7 @@ public class TickSpeedManager : MonoBehaviour
     public static TickSpeedManager Instance { get; private set; }
 
     public int tickspeedLevel = 0;
-    private BigDouble basePrice = new BigDouble(10);
+    private BigDouble basePrice = new BigDouble(100);
     private const double PRICE_MULTIPLIER = 10.0;
     private const double SPEED_MULTIPLIER_PER_LEVEL = 1.1;
 

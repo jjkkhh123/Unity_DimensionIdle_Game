@@ -107,6 +107,13 @@ public class UIManager : MonoBehaviour
             if (GameManager.Instance.dimensions.Count > 0)
             {
                 perSecond = GameManager.Instance.dimensions[0].GetProduction();
+
+                // 틱스피드 배수 적용
+                if (TickSpeedManager.Instance != null)
+                {
+                    double tickspeedMultiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
+                    perSecond = perSecond * new BigDouble(tickspeedMultiplier);
+                }
             }
             antimatterPerSecondText.text = $"/sec: {perSecond}";
         }

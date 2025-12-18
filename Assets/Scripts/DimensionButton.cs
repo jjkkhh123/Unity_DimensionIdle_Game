@@ -115,10 +115,24 @@ public class DimensionButton : MonoBehaviour
 
     void UpdateMultiplierText()
     {
-        if (multiplierText != null && PrestigeManager.Instance != null)
+        if (multiplierText != null)
         {
-            double multiplier = PrestigeManager.Instance.GetDimensionMultiplier(dimensionTier);
-            multiplierText.text = $"x{multiplier:F2}";
+            double totalMultiplier = 1.0;
+
+            // 프레스티지 배수
+            if (PrestigeManager.Instance != null)
+            {
+                totalMultiplier *= PrestigeManager.Instance.GetDimensionMultiplier(dimensionTier);
+            }
+
+            // DimBoost 배수
+            if (GameManager.Instance != null && dimensionTier > 0 && dimensionTier <= GameManager.Instance.dimensions.Count)
+            {
+                Dimension dim = GameManager.Instance.dimensions[dimensionTier - 1];
+                totalMultiplier *= (double)dim.multiplier.ToDouble();
+            }
+
+            multiplierText.text = $"x{totalMultiplier:F2}";
         }
     }
 

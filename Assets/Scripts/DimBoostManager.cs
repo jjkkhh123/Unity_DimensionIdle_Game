@@ -28,7 +28,7 @@ public class DimBoostManager : MonoBehaviour
         int highestUnlockedTier = GetHighestUnlockedTier();
 
         // 최소 3차원까지 해금되어야 함
-        if (highestUnlockedTier < 3)
+        if (highestUnlockedTier < 2)
             return false;
 
         // 8차원이 아직 해금 안됐으면 기존 로직

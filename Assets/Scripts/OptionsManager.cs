@@ -9,6 +9,7 @@ public class OptionsManager : MonoBehaviour
     public Button exportButton;
     public Button importButton;
     public Button resetButton;
+    public Button quitButton;
     public TextMeshProUGUI statusText;
 
     void Start()
@@ -21,6 +22,9 @@ public class OptionsManager : MonoBehaviour
 
         if (resetButton != null)
             resetButton.onClick.AddListener(ResetGame);
+
+        if (quitButton != null)
+            quitButton.onClick.AddListener(QuitGame);
     }
 
     void ExportSave()
@@ -359,5 +363,42 @@ public class OptionsManager : MonoBehaviour
         });
 
         Debug.Log("[ShowConfirmDialog] Dialog created successfully");
+    }
+
+    void QuitGame()
+    {
+        Debug.Log("[QuitGame] Quit button clicked");
+        StartCoroutine(QuitGameWithConfirmation());
+    }
+
+    System.Collections.IEnumerator QuitGameWithConfirmation()
+    {
+        Debug.Log("[QuitGame] Showing confirmation dialog");
+        bool? confirmed = null;
+        ShowConfirmDialog("Quit Game?", "Are you sure you want to quit?", (result) => {
+            Debug.Log($"[QuitGame] Callback invoked with result: {result}");
+            confirmed = result;
+        });
+
+        yield return new WaitUntil(() => confirmed.HasValue);
+
+        Debug.Log($"[QuitGame] Confirmation received: {confirmed}");
+
+        if (confirmed == false)
+        {
+            ShowStatus("Quit cancelled.");
+            Debug.Log("[QuitGame] User cancelled quit");
+            yield break;
+        }
+
+        Debug.Log("[QuitGame] Quitting application...");
+
+        // 빌드에서는 Application.Quit() 사용
+        // Unity 에디터에서는 작동하지 않음
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
     }
 }

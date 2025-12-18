@@ -9,8 +9,9 @@ public class PrestigeUpgrade
     public int cost;
     public int level;
     public int maxLevel;
+    public double priceScaling; // 가격 증가율 (1.25 = 25% 증가)
 
-    public PrestigeUpgrade(string id, string name, string description, int cost, int maxLevel = 999)
+    public PrestigeUpgrade(string id, string name, string description, int cost, int maxLevel = 999, double priceScaling = 1.25)
     {
         this.id = id;
         this.name = name;
@@ -18,6 +19,7 @@ public class PrestigeUpgrade
         this.cost = cost;
         this.level = 0;
         this.maxLevel = maxLevel;
+        this.priceScaling = priceScaling;
     }
 
     public int GetTotalCost()
@@ -31,8 +33,8 @@ public class PrestigeUpgrade
         if (level >= maxLevel)
             return int.MaxValue;
 
-        // 레벨이 올라갈수록 30%씩 비싸짐 (소수점 버림)
-        double multiplier = Math.Pow(1.3, level);
+        // 레벨이 올라갈수록 priceScaling 비율로 비싸짐 (소수점 버림)
+        double multiplier = Math.Pow(priceScaling, level);
         return (int)(cost * multiplier);
     }
 

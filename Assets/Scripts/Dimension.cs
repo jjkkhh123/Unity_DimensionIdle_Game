@@ -118,6 +118,7 @@ public class Dimension
         amount = BigDouble.Zero;
         bought = 0;
         currentPrice = basePrice;
+        multiplier = BigDouble.One; // DimBoost 배수 초기화
 
         if (tier > 2)
         {

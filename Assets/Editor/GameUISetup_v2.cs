@@ -201,9 +201,10 @@ public class GameUISetup_v2 : EditorWindow
         CreateButton(panel.transform, "ExportButton", "Export Save to Desktop", new Vector2(0, 100), new Vector2(400, 50));
         CreateButton(panel.transform, "ImportButton", "Import Save from Desktop", new Vector2(0, 30), new Vector2(400, 50));
         CreateButton(panel.transform, "ResetButton", "Reset Game", new Vector2(0, -40), new Vector2(400, 50));
+        CreateButton(panel.transform, "QuitButton", "Quit Game", new Vector2(0, -110), new Vector2(400, 50));
 
         // Status Text
-        CreateCenteredText(panel.transform, "StatusText", "", 20, new Vector2(0, -120), new Vector2(600, 100));
+        CreateCenteredText(panel.transform, "StatusText", "", 20, new Vector2(0, -190), new Vector2(600, 100));
 
         panel.SetActive(false);
 
@@ -616,6 +617,7 @@ public class GameUISetup_v2 : EditorWindow
         optionsManager.exportButton = optionsPanel.transform.Find("ExportButton").GetComponent<Button>();
         optionsManager.importButton = optionsPanel.transform.Find("ImportButton").GetComponent<Button>();
         optionsManager.resetButton = optionsPanel.transform.Find("ResetButton").GetComponent<Button>();
+        optionsManager.quitButton = optionsPanel.transform.Find("QuitButton").GetComponent<Button>();
         optionsManager.statusText = optionsPanel.transform.Find("StatusText").GetComponent<TextMeshProUGUI>();
 
         EditorUtility.SetDirty(optionsManager);

@@ -36,14 +36,17 @@ public class PrestigeManager : MonoBehaviour
         );
 
         // 차원별 생산량 2배 (차원마다 다른 가격)
-        int[] dimCosts = { 2, 3, 5, 7, 10, 10, 10, 10 };
+        int[] dimCosts = { 1, 2, 3, 5, 7, 8, 9, 10 };
+        double[] dimPriceScaling = { 1.10, 1.15, 1.15, 1.20, 1.25, 1.25, 1.25, 1.25 };
         for (int i = 1; i <= 8; i++)
         {
             upgrades[$"dim{i}_mult"] = new PrestigeUpgrade(
                 $"dim{i}_mult",
                 $"Dimension {i} Boost",
                 $"Multiplies Dimension {i} production by 2x per upgrade",
-                dimCosts[i - 1]
+                dimCosts[i - 1],
+                999,
+                dimPriceScaling[i - 1]
             );
         }
 
