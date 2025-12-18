@@ -97,7 +97,7 @@ public class PrestigeShopUI : MonoBehaviour
         containerRT.sizeDelta = new Vector2(850, 140);  // 박스 크기
 
         Image bg = btnContainer.AddComponent<Image>();
-        bg.color = new Color(0.2f, 0.2f, 0.3f, 1f);  // 배경색
+        bg.color = ColorScheme.PanelDark;  // 배경색
 
         // Name
         GameObject nameObj = new GameObject("Name");
@@ -159,7 +159,7 @@ public class PrestigeShopUI : MonoBehaviour
         buyRT.sizeDelta = new Vector2(200, 60);
 
         Image buyBg = buyBtnObj.AddComponent<Image>();
-        buyBg.color = new Color(0.3f, 0.6f, 0.3f, 1f);
+        buyBg.color = ColorScheme.ButtonSuccessTop;
 
         Button buyButton = buyBtnObj.AddComponent<Button>();
         buyButton.onClick.AddListener(() => OnBuyUpgrade(upgrade.id));
@@ -172,7 +172,8 @@ public class PrestigeShopUI : MonoBehaviour
         buyTextRT.sizeDelta = Vector2.zero;
 
         TextMeshProUGUI buyText = buyTextObj.AddComponent<TextMeshProUGUI>();
-        buyText.text = $"Buy ({upgrade.cost} PP)";
+        int initialCost = upgrade.GetNextCost();
+        buyText.text = $"Buy ({initialCost} PP)";
         buyText.fontSize = 20;
         buyText.alignment = TextAlignmentOptions.Center;
         buyText.color = Color.white;
@@ -221,7 +222,15 @@ public class PrestigeShopUI : MonoBehaviour
                 Image buyBg = buyButton.GetComponent<Image>();
                 if (buyBg != null)
                 {
-                    buyBg.color = canAfford ? new Color(0.3f, 0.6f, 0.3f, 1f) : new Color(0.4f, 0.4f, 0.4f, 1f);
+                    buyBg.color = canAfford ? ColorScheme.ButtonSuccessTop : ColorScheme.ButtonDisabled;
+                }
+
+                // Update buy button text with actual cost
+                TextMeshProUGUI buyText = buyButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                if (buyText != null)
+                {
+                    int actualCost = upgrade.GetNextCost();
+                    buyText.text = $"Buy ({actualCost} PP)";
                 }
             }
         }

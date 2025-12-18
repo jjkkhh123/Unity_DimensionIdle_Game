@@ -12,7 +12,7 @@ public class Dimension
     public bool unlocked;
     public BigDouble multiplier;
 
-    private const double PRICE_INCREASE_PER_PURCHASE = 1.15;
+    private const double PRICE_INCREASE_PER_PURCHASE = 1.20;
     private const double PRICE_INCREASE_PER_10 = 5.0;
 
     public Dimension(int tier, double basePrice)
@@ -97,10 +97,13 @@ public class Dimension
 
             currentPrice = currentPrice * new BigDouble(PRICE_INCREASE_PER_PURCHASE);
 
-            // 10, 20, 30... 번째 구매 후 다음 가격(11, 21, 31...)에 5배 증가 적용
+            // 10, 20, 30... 번째 구매 후 다음 가격에 증가하는 배수 적용
+            // 10개: 5배, 20개: 5.75배, 30개: 6.6125배 (15%씩 증가)
             if (justBought % 10 == 0 && justBought > 0)
             {
-                currentPrice = currentPrice * new BigDouble(PRICE_INCREASE_PER_10);
+                int tier10Index = (justBought / 10) - 1; // 0-based index
+                double scalingMultiplier = PRICE_INCREASE_PER_10 * System.Math.Pow(1.15, tier10Index);
+                currentPrice = currentPrice * new BigDouble(scalingMultiplier);
             }
         }
     }

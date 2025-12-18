@@ -39,15 +39,12 @@ public class TickSpeedManager : MonoBehaviour
     {
         if (!CanBuyTickspeed())
         {
-            Debug.Log("Not enough antimatter for tickspeed!");
             return;
         }
 
         BigDouble price = GetCurrentPrice();
         GameManager.Instance.antimatter = GameManager.Instance.antimatter - price;
         tickspeedLevel++;
-
-        Debug.Log($"Tickspeed upgraded to level {tickspeedLevel}! Current multiplier: {GetTickspeedMultiplier():F2}x");
     }
 
     public double GetTickspeedMultiplier()

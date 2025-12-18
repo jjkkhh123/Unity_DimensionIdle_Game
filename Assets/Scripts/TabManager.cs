@@ -11,8 +11,8 @@ public class TabManager : MonoBehaviour
     public Button prestigeButton;
     public Button optionsButton;
 
-    private Color activeColor = new Color(0.3f, 0.6f, 0.9f, 1f);
-    private Color inactiveColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+    private Color activeColor = ColorScheme.TabActive;
+    private Color inactiveColor = ColorScheme.TabInactive;
 
     void Start()
     {

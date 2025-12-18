@@ -76,6 +76,15 @@ public class GameManagerSetup : EditorWindow
             Debug.Log("TickSpeedManager added!");
         }
 
+        // DimBoostManager 추가
+        DimBoostManager dimBoostManager = Object.FindFirstObjectByType<DimBoostManager>();
+        if (dimBoostManager == null)
+        {
+            GameObject gmObj = gameManager.gameObject;
+            gmObj.AddComponent<DimBoostManager>();
+            Debug.Log("DimBoostManager added!");
+        }
+
         Debug.Log("Game Managers Setup Complete!");
     }
 }

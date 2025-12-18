@@ -23,12 +23,32 @@ public class DimensionButton : MonoBehaviour
     {
         if (buyButton != null)
         {
+            // 일반 클릭과 홀드 모두 같은 함수 호출
             buyButton.onClick.AddListener(OnBuyButtonClicked);
+
+            // 꾹 누르기 기능 추가 (홀드 시에만 작동)
+            ButtonHoldHandler buyHold = buyButton.gameObject.AddComponent<ButtonHoldHandler>();
+            buyHold.holdDelay = 0.5f;
+            buyHold.initialInterval = 0.15f;
+            buyHold.minInterval = 0.03f;
+            buyHold.acceleration = 0.92f;
+            // 홀드 이벤트도 동일한 함수 호출
+            buyHold.onHoldClick.AddListener(OnBuyButtonClicked);
         }
 
         if (buyMaxButton != null)
         {
+            // 일반 클릭과 홀드 모두 같은 함수 호출
             buyMaxButton.onClick.AddListener(OnBuyMaxButtonClicked);
+
+            // 꾹 누르기 기능 추가 (홀드 시에만 작동)
+            ButtonHoldHandler buyMaxHold = buyMaxButton.gameObject.AddComponent<ButtonHoldHandler>();
+            buyMaxHold.holdDelay = 0.3f;
+            buyMaxHold.initialInterval = 0.1f;
+            buyMaxHold.minInterval = 0.02f;
+            buyMaxHold.acceleration = 0.90f;
+            // 홀드 이벤트도 동일한 함수 호출
+            buyMaxHold.onHoldClick.AddListener(OnBuyMaxButtonClicked);
         }
 
         if (dimensionNameText != null)

@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour
         dimensions.Add(new Dimension(1, 10));
         dimensions.Add(new Dimension(2, 1000));
         dimensions.Add(new Dimension(3, 1e10));
-        dimensions.Add(new Dimension(4, 1e30));
-        dimensions.Add(new Dimension(5, new BigDouble(1, 100)));
-        dimensions.Add(new Dimension(6, new BigDouble(1, 200)));
-        dimensions.Add(new Dimension(7, new BigDouble(1, 300)));
-        dimensions.Add(new Dimension(8, new BigDouble(1, 400)));
+        dimensions.Add(new Dimension(4, new BigDouble(1, 40)));
+        dimensions.Add(new Dimension(5, new BigDouble(1, 80)));
+        dimensions.Add(new Dimension(6, new BigDouble(1, 130)));
+        dimensions.Add(new Dimension(7, new BigDouble(1, 200)));
+        dimensions.Add(new Dimension(8, new BigDouble(1, 260)));
 
         dimensions[0].unlocked = true;
         dimensions[1].unlocked = true;
@@ -46,16 +46,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (infinityReached)
-            return;
-
         float deltaTime = Time.deltaTime;
 
-        ProduceDimensions(deltaTime);
+        CheckInfinity();
+
+        // 반물질이 무한 미만일 때만 생산 (무한 이상이면 생산 중단)
+        if (antimatter < BigDouble.Infinity)
+        {
+            ProduceDimensions(deltaTime);
+        }
 
         CheckDimensionUnlocks();
-
-        CheckInfinity();
     }
 
     void ProduceDimensions(float deltaTime)
@@ -91,21 +92,21 @@ public class GameManager : MonoBehaviour
 
     void CheckDimensionUnlocks()
     {
-        for (int i = 2; i < dimensions.Count; i++)
-        {
-            if (!dimensions[i].unlocked)
-            {
-                dimensions[i].CheckUnlock(dimensions[i - 1]);
-            }
-        }
+        // Dimension Enhance를 통해서만 차원 해금
+        // 기존 자동 해금 로직 제거됨
     }
 
     void CheckInfinity()
     {
-        if (antimatter >= BigDouble.Infinity)
+        // 무한 도달 체크
+        if (antimatter >= BigDouble.Infinity && !infinityReached)
         {
             infinityReached = true;
-            Debug.Log("Infinity Reached!");
+        }
+        // 무한 미만으로 떨어지면 상태 리셋
+        else if (antimatter < BigDouble.Infinity && infinityReached)
+        {
+            infinityReached = false;
         }
     }
 
@@ -129,7 +130,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 totalCost = totalCost + tempPrice;
-                tempPrice = tempPrice * new BigDouble(1.15);
+                tempPrice = tempPrice * new BigDouble(1.20);
 
                 int justBought = dim.bought + i + 1;
                 if (justBought % 10 == 0 && justBought > 0)
@@ -146,7 +147,6 @@ public class GameManager : MonoBehaviour
     {
         if (!CanBuyDimension(tier, count))
         {
-            Debug.Log($"Cannot buy Dimension {tier}");
             return;
         }
 
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 totalCost = totalCost + tempPrice;
-                tempPrice = tempPrice * new BigDouble(1.15);
+                tempPrice = tempPrice * new BigDouble(1.20);
 
                 int justBought = dim.bought + i + 1;
                 if (justBought % 10 == 0 && justBought > 0)
@@ -174,8 +174,6 @@ public class GameManager : MonoBehaviour
 
         antimatter = antimatter - totalCost;
         dim.Buy(count);
-
-        Debug.Log($"Bought {count}x Dimension {tier}. Cost: {totalCost}");
     }
 
     public void BuyMaxDimension(int tier)

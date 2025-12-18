@@ -42,6 +42,9 @@ public class GameUISetup_v2 : EditorWindow
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
 
+        // 배경 그라데이션 추가
+        CreateGradientBackground(canvas.transform);
+
         // Content Area 생성 (상단~하단 메뉴바 위까지)
         GameObject contentArea = new GameObject("ContentArea");
         RectTransform contentRT = contentArea.AddComponent<RectTransform>();
@@ -121,6 +124,9 @@ public class GameUISetup_v2 : EditorWindow
 
         // Tickspeed Panel
         CreateTickspeedPanel(panel.transform);
+
+        // DimBoost Panel
+        CreateDimBoostPanel(panel.transform);
 
         return panel;
     }
@@ -213,7 +219,7 @@ public class GameUISetup_v2 : EditorWindow
         tabBarRT.anchorMax = new Vector2(1, 0.08f);
         tabBarRT.sizeDelta = Vector2.zero;
         Image tabBarBg = tabBar.AddComponent<Image>();
-        tabBarBg.color = new Color(0.1f, 0.1f, 0.1f, 1f);
+        tabBarBg.color = ColorScheme.PanelDark;
 
         Button dimensionsBtn = CreateTabButton(tabBar.transform, "DimensionsButton", "DIMENSIONS", -300);
         Button prestigeBtn = CreateTabButton(tabBar.transform, "PrestigeButton", "PRESTIGE", 0);
@@ -234,7 +240,7 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = new Vector2(300, 60);
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        image.color = ColorScheme.TabInactive;
 
         Button button = btnObj.AddComponent<Button>();
 
@@ -268,11 +274,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.anchoredPosition = new Vector2(xPos, yPos);
 
         Image bgImage = buttonObj.AddComponent<Image>();
-        bgImage.color = new Color(0.2f, 0.2f, 0.3f, 1f);
+        bgImage.color = ColorScheme.PanelDark;
 
         // Texts (왼쪽 정렬)
         CreateDimensionText(buttonObj.transform, "NameText", $"Dimension {tier}", 32, new Vector2(10, 75), new Vector2(240, 30), TextAlignmentOptions.Left);
-        CreateDimensionText(buttonObj.transform, "AmountText", "Bought: 0 | Owned: 0", 24, new Vector2(10, 35), new Vector2(240, 30), TextAlignmentOptions.Left);
+        CreateDimensionText(buttonObj.transform, "AmountText", "Bought: 0 | Owned: 0", 24, new Vector2(10, 35), new Vector2(400, 30), TextAlignmentOptions.Left);
         string prodText = tier == 1 ? "Antimatter/s: 0" : $"Dim {tier - 1}/s: 0";
         CreateDimensionText(buttonObj.transform, "ProductionText", prodText, 24, new Vector2(10, 5), new Vector2(240, 30), TextAlignmentOptions.Left);
         CreateDimensionText(buttonObj.transform, "PriceText", "Price: 0", 24, new Vector2(10, -25), new Vector2(240, 30), TextAlignmentOptions.Left);
@@ -317,7 +323,7 @@ public class GameUISetup_v2 : EditorWindow
         containerRT.sizeDelta = new Vector2(300, 300);
 
         Image containerBg = containerObj.AddComponent<Image>();
-        containerBg.color = new Color(0.15f, 0.15f, 0.15f, 0.9f);
+        containerBg.color = ColorScheme.PanelAccent;
 
         // Title
         GameObject titleObj = new GameObject("Title");
@@ -347,8 +353,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = new Vector2(280, 50);
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.8f, 0.3f, 0.3f, 1f);
+        image.color = ColorScheme.ButtonDangerTop;
         Button button = btnObj.AddComponent<Button>();
+
+        // 프레스티지 버튼 그라데이션 적용
+        ApplyButtonGradient(image, ColorScheme.ButtonDangerTop, ColorScheme.ButtonDangerBottom);
 
         GameObject textObj = new GameObject("Text");
         RectTransform textRT = textObj.AddComponent<RectTransform>();
@@ -393,7 +402,7 @@ public class GameUISetup_v2 : EditorWindow
         containerRT.sizeDelta = new Vector2(300, 300);
 
         Image containerBg = containerObj.AddComponent<Image>();
-        containerBg.color = new Color(0.15f, 0.15f, 0.15f, 0.9f);
+        containerBg.color = ColorScheme.PanelAccent;
 
         // Title
         GameObject titleObj = new GameObject("Title");
@@ -423,8 +432,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = new Vector2(280, 50);
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.3f, 0.7f, 0.3f, 1f);
+        image.color = ColorScheme.ButtonSuccessTop;
         Button button = btnObj.AddComponent<Button>();
+
+        // 틱스피드 버튼 그라데이션 적용
+        ApplyButtonGradient(image, ColorScheme.ButtonSuccessTop, ColorScheme.ButtonSuccessBottom);
 
         GameObject textObj = new GameObject("Text");
         RectTransform textRT = textObj.AddComponent<RectTransform>();
@@ -456,6 +468,84 @@ public class GameUISetup_v2 : EditorWindow
         infoText.color = new Color(0.9f, 0.9f, 0.9f, 1f);
     }
 
+    static void CreateDimBoostPanel(Transform parent)
+    {
+        // DimBoost Container
+        GameObject containerObj = new GameObject("DimBoostContainer");
+        RectTransform containerRT = containerObj.AddComponent<RectTransform>();
+        containerRT.SetParent(parent, false);
+        containerRT.anchorMin = new Vector2(0.5f, 0.5f);
+        containerRT.anchorMax = new Vector2(0.5f, 0.5f);
+        containerRT.pivot = new Vector2(0.5f, 0.5f);
+        containerRT.anchoredPosition = new Vector2(450, 25);
+        containerRT.sizeDelta = new Vector2(300, 300);
+
+        Image containerBg = containerObj.AddComponent<Image>();
+        containerBg.color = ColorScheme.PanelAccent;
+
+        // Title
+        GameObject titleObj = new GameObject("Title");
+        RectTransform titleRT = titleObj.AddComponent<RectTransform>();
+        titleRT.SetParent(containerObj.transform, false);
+        titleRT.anchorMin = new Vector2(0, 1);
+        titleRT.anchorMax = new Vector2(1, 1);
+        titleRT.pivot = new Vector2(0.5f, 1);
+        titleRT.anchoredPosition = new Vector2(0, -10);
+        titleRT.sizeDelta = new Vector2(-20, 30);
+
+        TextMeshProUGUI titleText = titleObj.AddComponent<TextMeshProUGUI>();
+        titleText.text = "DIM BOOST";
+        titleText.fontSize = 24;
+        titleText.alignment = TextAlignmentOptions.Center;
+        titleText.fontStyle = TMPro.FontStyles.Bold;
+        titleText.color = new Color(1f, 0.7f, 0.3f, 1f);
+
+        // DimBoost Button
+        GameObject btnObj = new GameObject("DimBoostButton");
+        RectTransform rt = btnObj.AddComponent<RectTransform>();
+        rt.SetParent(containerObj.transform, false);
+        rt.anchorMin = new Vector2(0.5f, 1);
+        rt.anchorMax = new Vector2(0.5f, 1);
+        rt.pivot = new Vector2(0.5f, 1);
+        rt.anchoredPosition = new Vector2(0, -50);
+        rt.sizeDelta = new Vector2(280, 60);
+
+        Image image = btnObj.AddComponent<Image>();
+        Button button = btnObj.AddComponent<Button>();
+
+        // DimBoost 버튼 그라데이션 적용 (주황색)
+        ApplyButtonGradient(image, new Color(1f, 0.6f, 0.2f, 1f), new Color(0.8f, 0.4f, 0.1f, 1f));
+
+        GameObject textObj = new GameObject("Text");
+        RectTransform textRT = textObj.AddComponent<RectTransform>();
+        textRT.SetParent(btnObj.transform, false);
+        textRT.anchorMin = Vector2.zero;
+        textRT.anchorMax = Vector2.one;
+        textRT.sizeDelta = Vector2.zero;
+
+        TextMeshProUGUI tmp = textObj.AddComponent<TextMeshProUGUI>();
+        tmp.text = "Dimension Enhance\n(Locked)";
+        tmp.fontSize = 16;
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.color = Color.white;
+
+        // Info Text
+        GameObject infoObj = new GameObject("DimBoostInfoText");
+        RectTransform infoRT = infoObj.AddComponent<RectTransform>();
+        infoRT.SetParent(containerObj.transform, false);
+        infoRT.anchorMin = new Vector2(0, 0);
+        infoRT.anchorMax = new Vector2(1, 0);
+        infoRT.pivot = new Vector2(0.5f, 0);
+        infoRT.anchoredPosition = new Vector2(0, 10);
+        infoRT.sizeDelta = new Vector2(-20, 120);
+
+        TextMeshProUGUI infoText = infoObj.AddComponent<TextMeshProUGUI>();
+        infoText.text = "Total Dim Boosts: 0";
+        infoText.fontSize = 14;
+        infoText.alignment = TextAlignmentOptions.Top;
+        infoText.color = new Color(0.9f, 0.9f, 0.9f, 1f);
+    }
+
     static (GameObject, TextMeshProUGUI) CreateInfinityPanel(Transform parent)
     {
         GameObject infinityPanel = new GameObject("InfinityPanel");
@@ -476,8 +566,8 @@ public class GameUISetup_v2 : EditorWindow
         textRT.sizeDelta = Vector2.zero;
 
         TextMeshProUGUI tmp = textObj.AddComponent<TextMeshProUGUI>();
-        tmp.text = "INFINITY REACHED!\n\nCongratulations!\n\nMore content coming soon...";
-        tmp.fontSize = 72;
+        tmp.text = "INFINITY REACHED!\n\nCongratulations!\n\n(Production stopped)\n\nSpend antimatter to resume production\n\nClick anywhere to continue";
+        tmp.fontSize = 42;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = new Color(1f, 0.84f, 0f, 1f);
 
@@ -510,6 +600,10 @@ public class GameUISetup_v2 : EditorWindow
         uiManager.tickspeedButton = dimensionsPanel.transform.Find("TickspeedContainer/TickspeedButton").GetComponent<Button>();
         uiManager.tickspeedButtonText = dimensionsPanel.transform.Find("TickspeedContainer/TickspeedButton/Text").GetComponent<TextMeshProUGUI>();
         uiManager.tickspeedInfoText = dimensionsPanel.transform.Find("TickspeedContainer/TickspeedInfoText").GetComponent<TextMeshProUGUI>();
+
+        uiManager.dimBoostButton = dimensionsPanel.transform.Find("DimBoostContainer/DimBoostButton").GetComponent<Button>();
+        uiManager.dimBoostButtonText = dimensionsPanel.transform.Find("DimBoostContainer/DimBoostButton/Text").GetComponent<TextMeshProUGUI>();
+        uiManager.dimBoostInfoText = dimensionsPanel.transform.Find("DimBoostContainer/DimBoostInfoText").GetComponent<TextMeshProUGUI>();
 
         uiManager.infinityPanel = infinityPanel;
         uiManager.infinityText = infinityText;
@@ -692,8 +786,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = size;
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.3f, 0.5f, 0.8f, 1f);
+        image.color = ColorScheme.ButtonPrimaryTop;
         Button button = btnObj.AddComponent<Button>();
+
+        // 버튼 그라데이션 적용
+        ApplyButtonGradient(image, ColorScheme.ButtonPrimaryTop, ColorScheme.ButtonPrimaryBottom);
 
         GameObject textObj = new GameObject("Text");
         RectTransform textRT = textObj.AddComponent<RectTransform>();
@@ -782,8 +879,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = new Vector2(300, 50);
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.3f, 0.5f, 0.8f, 1f);
+        image.color = ColorScheme.ButtonPrimaryTop;
         Button button = btnObj.AddComponent<Button>();
+
+        // 버튼 그라데이션 적용
+        ApplyButtonGradient(image, ColorScheme.ButtonPrimaryTop, ColorScheme.ButtonPrimaryBottom);
 
         GameObject textObj = new GameObject("Text");
         RectTransform textRT = textObj.AddComponent<RectTransform>();
@@ -812,8 +912,11 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = new Vector2(300, 50);
 
         Image image = btnObj.AddComponent<Image>();
-        image.color = new Color(0.3f, 0.5f, 0.8f, 1f);
+        image.color = ColorScheme.ButtonSuccessTop;
         Button button = btnObj.AddComponent<Button>();
+
+        // 버튼 그라데이션 적용
+        ApplyButtonGradient(image, ColorScheme.ButtonSuccessTop, ColorScheme.ButtonSuccessBottom);
 
         // Progress bars container - 더 길고 크게
         GameObject progressContainer = new GameObject("ProgressBars");
@@ -859,5 +962,79 @@ public class GameUISetup_v2 : EditorWindow
         tmp.color = Color.white;
 
         return progressBars;
+    }
+
+    // === 모던 UI 스타일 헬퍼 함수들 ===
+
+    static void CreateGradientBackground(Transform parent)
+    {
+        GameObject bgObj = new GameObject("GradientBackground");
+        RectTransform bgRT = bgObj.AddComponent<RectTransform>();
+        bgRT.SetParent(parent, false);
+        bgRT.SetSiblingIndex(0); // 맨 뒤로
+        bgRT.anchorMin = Vector2.zero;
+        bgRT.anchorMax = Vector2.one;
+        bgRT.sizeDelta = Vector2.zero;
+
+        Image bgImage = bgObj.AddComponent<Image>();
+        GradientBackground gradient = bgObj.AddComponent<GradientBackground>();
+        gradient.topColor = ColorScheme.BackgroundTop;
+        gradient.bottomColor = ColorScheme.BackgroundBottom;
+    }
+
+    static void ApplyModernButtonStyle(GameObject buttonObj, ModernUIStyle.StyleType styleType)
+    {
+        ModernUIStyle style = buttonObj.AddComponent<ModernUIStyle>();
+        style.styleType = styleType;
+        style.useGradient = true;
+        style.addBorder = false;
+        style.addShadow = false;
+
+        // 버튼 애니메이션 추가
+        UIAnimator animator = buttonObj.AddComponent<UIAnimator>();
+        animator.fadeOnEnable = false;
+        animator.scaleOnEnable = true;
+        animator.scaleDuration = 0.2f;
+    }
+
+    static void ApplyModernPanelStyle(GameObject panelObj, bool withAnimation = true)
+    {
+        Image panelImage = panelObj.GetComponent<Image>();
+        if (panelImage != null)
+        {
+            panelImage.color = ColorScheme.PanelDark;
+        }
+
+        if (withAnimation)
+        {
+            UIAnimator animator = panelObj.AddComponent<UIAnimator>();
+            animator.fadeOnEnable = true;
+            animator.fadeDuration = 0.3f;
+        }
+    }
+
+    static void ApplyButtonGradient(Image image, Color topColor, Color bottomColor)
+    {
+        // Create gradient texture
+        int height = 64;
+        Texture2D gradientTexture = new Texture2D(1, height);
+        gradientTexture.wrapMode = TextureWrapMode.Clamp;
+
+        for (int y = 0; y < height; y++)
+        {
+            float t = (float)y / (height - 1);
+            Color color = Color.Lerp(bottomColor, topColor, t);
+            gradientTexture.SetPixel(0, y, color);
+        }
+
+        gradientTexture.Apply();
+
+        // Apply to image
+        image.sprite = Sprite.Create(
+            gradientTexture,
+            new Rect(0, 0, 1, height),
+            new Vector2(0.5f, 0.5f)
+        );
+        image.type = Image.Type.Sliced;
     }
 }

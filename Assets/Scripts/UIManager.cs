@@ -23,6 +23,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI tickspeedButtonText;
     public TextMeshProUGUI tickspeedInfoText;
 
+    [Header("Dimension Boost")]
+    public Button dimBoostButton;
+    public TextMeshProUGUI dimBoostButtonText;
+    public TextMeshProUGUI dimBoostInfoText;
+
     [Header("Infinity")]
     public GameObject infinityPanel;
     public TextMeshProUGUI infinityText;
@@ -48,7 +53,22 @@ public class UIManager : MonoBehaviour
             prestigeButton.onClick.AddListener(OnPrestigeButtonClicked);
 
         if (tickspeedButton != null)
+        {
             tickspeedButton.onClick.AddListener(OnTickspeedButtonClicked);
+
+            // 틱스피드 버튼에 꾹 누르기 기능 추가
+            ButtonHoldHandler tickspeedHold = tickspeedButton.gameObject.AddComponent<ButtonHoldHandler>();
+            tickspeedHold.holdDelay = 0.4f;
+            tickspeedHold.initialInterval = 0.12f;
+            tickspeedHold.minInterval = 0.02f;
+            tickspeedHold.acceleration = 0.90f;
+            tickspeedHold.onHoldClick.AddListener(OnTickspeedButtonClicked);
+        }
+
+        if (dimBoostButton != null)
+        {
+            dimBoostButton.onClick.AddListener(OnDimBoostButtonClicked);
+        }
     }
 
     void Update()
@@ -68,6 +88,8 @@ public class UIManager : MonoBehaviour
         UpdatePrestigeButton();
 
         UpdateTickspeedButton();
+
+        UpdateDimBoostButton();
 
         UpdateInfinityPanel();
     }
@@ -154,17 +176,39 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private bool infinityPanelDismissed = false;
+
     void UpdateInfinityPanel()
     {
         if (infinityPanel != null && GameManager.Instance != null)
         {
-            if (GameManager.Instance.infinityReached && !infinityPanel.activeSelf)
+            // 무한 상태가 아니면 패널 숨기고 플래그 리셋
+            if (!GameManager.Instance.infinityReached)
             {
-                infinityPanel.SetActive(true);
-
-                if (infinityText != null)
+                if (infinityPanel.activeSelf)
                 {
-                    infinityText.text = "INFINITY REACHED!\n\nCongratulations!\n\nMore content coming soon...";
+                    infinityPanel.SetActive(false);
+                }
+                infinityPanelDismissed = false;
+            }
+            // 무한 도달 시 패널 표시 (사용자가 닫지 않았다면)
+            else if (!infinityPanelDismissed)
+            {
+                if (!infinityPanel.activeSelf)
+                {
+                    infinityPanel.SetActive(true);
+
+                    if (infinityText != null)
+                    {
+                        infinityText.text = "INFINITY REACHED!\n\nCongratulations!\n\n(Production stopped)\n\nSpend antimatter to resume production\n\nClick anywhere to continue";
+                    }
+                }
+
+                // 패널이 활성화되어 있고 클릭하면 닫기
+                if (infinityPanel.activeSelf && Input.GetMouseButtonDown(0))
+                {
+                    infinityPanel.SetActive(false);
+                    infinityPanelDismissed = true;
                 }
             }
         }
@@ -215,6 +259,105 @@ public class UIManager : MonoBehaviour
         if (TickSpeedManager.Instance != null)
         {
             TickSpeedManager.Instance.BuyTickspeed();
+        }
+    }
+
+    void UpdateDimBoostButton()
+    {
+        if (DimBoostManager.Instance == null || GameManager.Instance == null)
+            return;
+
+        bool canDimBoost = DimBoostManager.Instance.CanDimBoost();
+
+        if (dimBoostButton != null)
+        {
+            dimBoostButton.interactable = canDimBoost;
+        }
+
+        if (dimBoostButtonText != null)
+        {
+            int highestTier = DimBoostManager.Instance.GetHighestUnlockedTier();
+
+            if (canDimBoost)
+            {
+                if (highestTier < 8)
+                {
+                    int nextTier = DimBoostManager.Instance.GetNextUnlockTier();
+                    dimBoostButtonText.text = $"Dimension Enhance\n(Unlock {nextTier}th Dimension)";
+                }
+                else
+                {
+                    // 8차원 이미 해금됨
+                    dimBoostButtonText.text = $"Dimension Enhance\n(Boost All Dimensions)";
+                }
+            }
+            else
+            {
+                dimBoostButtonText.text = "Dimension Enhance\n(Locked)";
+            }
+        }
+
+        if (dimBoostInfoText != null)
+        {
+            int highestTier = DimBoostManager.Instance.GetHighestUnlockedTier();
+            int required = DimBoostManager.Instance.GetRequiredAmount();
+            int nextTier = DimBoostManager.Instance.GetNextUnlockTier();
+
+            string statusText = "";
+
+            // 조건 표시
+            if (highestTier >= 3)
+            {
+                if (highestTier < 8)
+                {
+                    // 8차원 해금 전
+                    Dimension highestDim = GameManager.Instance.dimensions[highestTier - 1];
+                    statusText += $"Requires: {required} {highestTier}th Dimensions\n";
+                    statusText += $"Current: {highestDim.bought}\n\n";
+                }
+                else
+                {
+                    // 8차원 해금 후
+                    Dimension dim8 = GameManager.Instance.dimensions[7];
+                    statusText += $"Requires: {required} 8th Dimensions\n";
+                    statusText += $"Current: {dim8.bought}\n\n";
+                }
+            }
+
+            statusText += $"Total Dim Boosts: {DimBoostManager.Instance.dimBoosts}\n\n";
+            statusText += "Effect:\n";
+            statusText += $"• Reset Antimatter & Dimensions\n";
+
+            // 8차원 해금 전에만 "Unlock next Dimension" 표시
+            if (highestTier < 8)
+            {
+                statusText += $"• Unlock next Dimension\n";
+            }
+
+            // 배수 표시
+            int nextBoostCount = DimBoostManager.Instance.dimBoosts + 1;
+            if (nextBoostCount == 1)
+            {
+                statusText += $"• 1st Dimension ×2.0";
+            }
+            else if (nextBoostCount >= 8)
+            {
+                statusText += $"• All Dimensions ×2.0";
+            }
+            else
+            {
+                statusText += $"• Dimensions 1-{nextBoostCount} ×2.0 each";
+            }
+
+            dimBoostInfoText.text = statusText;
+        }
+    }
+
+    void OnDimBoostButtonClicked()
+    {
+        if (DimBoostManager.Instance != null)
+        {
+            DimBoostManager.Instance.DoDimBoost();
         }
     }
 }

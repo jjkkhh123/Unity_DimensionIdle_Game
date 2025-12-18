@@ -116,6 +116,12 @@ public class PrestigeManager : MonoBehaviour
         {
             TickSpeedManager.Instance.Reset();
         }
+
+        // DimBoost 초기화
+        if (DimBoostManager.Instance != null)
+        {
+            DimBoostManager.Instance.Reset();
+        }
     }
 
     public bool CanBuyUpgrade(string upgradeId)
