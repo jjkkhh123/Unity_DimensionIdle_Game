@@ -19,6 +19,31 @@ public class DimensionButton : MonoBehaviour
     public TextMeshProUGUI unlockRequirementText;
     public Image[] buyMaxProgressBars;
 
+    void Awake()
+    {
+        if (PlatformDetector.Instance != null && PlatformDetector.IsMobile)
+        {
+            float scale = PlatformDetector.CurrentConfig.buttonSizeMultiplier;
+
+            // Scale buy buttons for touch targets, but reduce width by 20%
+            if (buyButton != null)
+            {
+                RectTransform rt = buyButton.GetComponent<RectTransform>();
+                Vector2 newSize = rt.sizeDelta * scale;
+                newSize.x *= 0.8f; // Reduce width by 20%
+                rt.sizeDelta = newSize;
+            }
+
+            if (buyMaxButton != null)
+            {
+                RectTransform rt = buyMaxButton.GetComponent<RectTransform>();
+                Vector2 newSize = rt.sizeDelta * scale;
+                newSize.x *= 0.8f; // Reduce width by 20%
+                rt.sizeDelta = newSize;
+            }
+        }
+    }
+
     void Start()
     {
         if (buyButton != null)
@@ -100,7 +125,15 @@ public class DimensionButton : MonoBehaviour
         int current = prevDim.bought;
         int required = 40;
 
-        unlockRequirementText.text = $"LOCKED\n\nRequires:\n{required} Dimension {prevTier}\n\nCurrent: {current}/{required}";
+        // Mobile: Simplified lock text
+        if (PlatformDetector.Instance != null && PlatformDetector.IsMobile)
+        {
+            unlockRequirementText.text = $"LOCKED\n\nNeed {required} Dim {prevTier}\n{current}/{required}";
+        }
+        else
+        {
+            unlockRequirementText.text = $"LOCKED\n\nRequires:\n{required} Dimension {prevTier}\n\nCurrent: {current}/{required}";
+        }
     }
 
     void UpdateAmountText()
@@ -109,7 +142,16 @@ public class DimensionButton : MonoBehaviour
         {
             Dimension dim = GameManager.Instance.dimensions[dimensionTier - 1];
             string amount = GameManager.Instance.GetDimensionAmountString(dimensionTier);
-            amountText.text = $"Bought: {dim.bought} | Owned: {amount}";
+
+            // Mobile: Simplified text layout to prevent overlap
+            if (PlatformDetector.Instance != null && PlatformDetector.IsMobile)
+            {
+                amountText.text = $"Owned: {amount}";
+            }
+            else
+            {
+                amountText.text = $"Bought: {dim.bought} | Owned: {amount}";
+            }
         }
     }
 
