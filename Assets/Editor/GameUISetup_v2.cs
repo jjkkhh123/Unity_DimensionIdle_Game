@@ -109,9 +109,15 @@ public class GameUISetup_v2 : EditorWindow
         OptionsManager optionsManager = optionsPanel.AddComponent<OptionsManager>();
         ConnectOptionsManager(optionsManager, optionsPanel);
 
+        // AdaptiveOptionsLayout 추가 (모바일 지원)
+        optionsPanel.AddComponent<AdaptiveOptionsLayout>();
+
         // PrestigeShopUI 추가
         PrestigeShopUI prestigeShopUI = prestigePanel.AddComponent<PrestigeShopUI>();
         ConnectPrestigeShopUI(prestigeShopUI, prestigePanel);
+
+        // AdaptivePrestigeShopLayout 추가 (모바일 지원)
+        prestigePanel.AddComponent<AdaptivePrestigeShopLayout>();
 
         Debug.Log("Game UI with Tabs Setup Complete!");
 

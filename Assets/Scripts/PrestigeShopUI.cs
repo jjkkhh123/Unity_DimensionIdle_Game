@@ -48,44 +48,66 @@ public class PrestigeShopUI : MonoBehaviour
 
         Debug.Log($"[PrestigeShopUI] Creating {PrestigeManager.Instance.upgrades.Count} upgrade buttons");
 
-        // 먼저 bulk_bonus를 우측 상단에 배치
-        if (PrestigeManager.Instance.upgrades.ContainsKey("bulk_bonus"))
+        bool isMobile = PlatformDetector.Instance != null && PlatformDetector.IsMobile;
+
+        if (isMobile)
         {
-            var bulkBonus = PrestigeManager.Instance.upgrades["bulk_bonus"];
-            GameObject bulkBonusBtn = CreateUpgradeButton(bulkBonus, 450, 320);
-            upgradeButtons["bulk_bonus"] = bulkBonusBtn;
+            // Mobile: 1열 세로 레이아웃
+            Debug.Log("[PrestigeShopUI] Using mobile layout (1 column)");
+
+            int index = 0;
+            foreach (var kvp in PrestigeManager.Instance.upgrades)
+            {
+                float yPos = 380 - (index * 160);  // 세로로 배치
+                GameObject btnObj = CreateUpgradeButton(kvp.Value, 0, yPos, isMobile);
+                upgradeButtons[kvp.Key] = btnObj;
+                index++;
+            }
         }
-
-        // 나머지 업그레이드들을 그리드로 배치
-        int index = 0;
-        foreach (var kvp in PrestigeManager.Instance.upgrades)
+        else
         {
-            if (kvp.Key == "bulk_bonus")
-                continue;  // 이미 배치함
+            // PC: 2열 그리드 레이아웃
+            Debug.Log("[PrestigeShopUI] Using PC layout (2 columns)");
 
-            int col = index / 5;  // 0 또는 1 (2열)
-            int row = index % 5;  // 0~4 (5행)
+            // 먼저 bulk_bonus를 우측 상단에 배치
+            if (PrestigeManager.Instance.upgrades.ContainsKey("bulk_bonus"))
+            {
+                var bulkBonus = PrestigeManager.Instance.upgrades["bulk_bonus"];
+                GameObject bulkBonusBtn = CreateUpgradeButton(bulkBonus, 450, 320, isMobile);
+                upgradeButtons["bulk_bonus"] = bulkBonusBtn;
+            }
 
-            float xPos = -450 + (col * 900);  // -450 (왼쪽), 450 (오른쪽)
+            // 나머지 업그레이드들을 그리드로 배치
+            int index = 0;
+            foreach (var kvp in PrestigeManager.Instance.upgrades)
+            {
+                if (kvp.Key == "bulk_bonus")
+                    continue;  // 이미 배치함
 
-            // 우측 열은 bulk_bonus 아래부터 시작
-            float yPos;
-            if (col == 1)
-                yPos = 160 - (row * 160);  // 두 번째 행부터
-            else
-                yPos = 320 - (row * 160);  // 최상단부터
+                int col = index / 5;  // 0 또는 1 (2열)
+                int row = index % 5;  // 0~4 (5행)
 
-            GameObject btnObj = CreateUpgradeButton(kvp.Value, xPos, yPos);
-            upgradeButtons[kvp.Key] = btnObj;
+                float xPos = -450 + (col * 900);  // -450 (왼쪽), 450 (오른쪽)
 
-            index++;
+                // 우측 열은 bulk_bonus 아래부터 시작
+                float yPos;
+                if (col == 1)
+                    yPos = 160 - (row * 160);  // 두 번째 행부터
+                else
+                    yPos = 320 - (row * 160);  // 최상단부터
+
+                GameObject btnObj = CreateUpgradeButton(kvp.Value, xPos, yPos, isMobile);
+                upgradeButtons[kvp.Key] = btnObj;
+
+                index++;
+            }
         }
 
         buttonsCreated = true;
-        Debug.Log($"[PrestigeShopUI] Successfully created buttons with bulk_bonus at top-right");
+        Debug.Log($"[PrestigeShopUI] Successfully created buttons");
     }
 
-    GameObject CreateUpgradeButton(PrestigeUpgrade upgrade, float xPos, float yPos)
+    GameObject CreateUpgradeButton(PrestigeUpgrade upgrade, float xPos, float yPos, bool isMobile)
     {
         GameObject btnContainer = new GameObject($"Upgrade_{upgrade.id}");
         RectTransform containerRT = btnContainer.AddComponent<RectTransform>();
@@ -94,7 +116,9 @@ public class PrestigeShopUI : MonoBehaviour
         containerRT.anchorMax = new Vector2(0.5f, 0.5f);
         containerRT.pivot = new Vector2(0.5f, 0.5f);
         containerRT.anchoredPosition = new Vector2(xPos, yPos);
-        containerRT.sizeDelta = new Vector2(850, 140);  // 박스 크기
+
+        // Mobile: 더 넓은 버튼, PC: 기존 크기
+        containerRT.sizeDelta = isMobile ? new Vector2(1000, 140) : new Vector2(850, 140);
 
         Image bg = btnContainer.AddComponent<Image>();
         bg.color = ColorScheme.PanelDark;  // 배경색
