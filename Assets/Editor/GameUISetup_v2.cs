@@ -18,24 +18,47 @@ public class GameUISetup_v2 : EditorWindow
 
     static void CreateGameUIWithTabs()
     {
-        // Canvas 찾기 또는 생성
-        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
-        if (canvas == null)
+        // 기존 Canvas와 EventSystem 완전 삭제 (중복 방지)
+        Canvas[] existingCanvases = Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        foreach (Canvas c in existingCanvases)
         {
-            GameObject canvasObj = new GameObject("Canvas");
-            canvas = canvasObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasObj.AddComponent<CanvasScaler>();
-            canvasObj.AddComponent<GraphicRaycaster>();
-
-            // EventSystem 생성
-            if (Object.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
-            {
-                GameObject eventSystem = new GameObject("EventSystem");
-                eventSystem.AddComponent<UnityEngine.EventSystems.EventSystem>();
-                eventSystem.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-            }
+            Object.DestroyImmediate(c.gameObject);
+            Debug.Log("[GameUISetup] Deleted existing Canvas");
         }
+
+        UnityEngine.EventSystems.EventSystem[] existingEventSystems = Object.FindObjectsByType<UnityEngine.EventSystems.EventSystem>(FindObjectsSortMode.None);
+        foreach (UnityEngine.EventSystems.EventSystem es in existingEventSystems)
+        {
+            Object.DestroyImmediate(es.gameObject);
+            Debug.Log("[GameUISetup] Deleted existing EventSystem");
+        }
+
+        // 기존 UIManager와 TabManager 삭제 (중복 방지)
+        UIManager[] existingUIManagers = Object.FindObjectsByType<UIManager>(FindObjectsSortMode.None);
+        foreach (UIManager um in existingUIManagers)
+        {
+            Object.DestroyImmediate(um.gameObject);
+            Debug.Log("[GameUISetup] Deleted existing UIManager");
+        }
+
+        TabManager[] existingTabManagers = Object.FindObjectsByType<TabManager>(FindObjectsSortMode.None);
+        foreach (TabManager tm in existingTabManagers)
+        {
+            Object.DestroyImmediate(tm.gameObject);
+            Debug.Log("[GameUISetup] Deleted existing TabManager");
+        }
+
+        // Canvas 생성
+        GameObject canvasObj = new GameObject("Canvas");
+        Canvas canvas = canvasObj.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasObj.AddComponent<CanvasScaler>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        // EventSystem 생성
+        GameObject eventSystem = new GameObject("EventSystem");
+        eventSystem.AddComponent<UnityEngine.EventSystems.EventSystem>();
+        eventSystem.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
 
         // Canvas Scaler 설정
         CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
@@ -91,6 +114,11 @@ public class GameUISetup_v2 : EditorWindow
         ConnectPrestigeShopUI(prestigeShopUI, prestigePanel);
 
         Debug.Log("Game UI with Tabs Setup Complete!");
+
+        // 씬 저장
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
+        Debug.Log("[GameUISetup] Scene saved!");
     }
 
     static GameObject CreateDimensionsPanel(Transform parent)
@@ -195,20 +223,103 @@ public class GameUISetup_v2 : EditorWindow
         rt.sizeDelta = Vector2.zero;
 
         // Title
-        CreateCenteredText(panel.transform, "OptionsTitle", "OPTIONS", 48, new Vector2(0, 400), new Vector2(600, 80));
+        CreateCenteredText(panel.transform, "OptionsTitle", "OPTIONS", 48, new Vector2(0, 460), new Vector2(600, 80));
 
-        // Save/Load Section
-        CreateButton(panel.transform, "ExportButton", "Export Save to Desktop", new Vector2(0, 100), new Vector2(400, 50));
-        CreateButton(panel.transform, "ImportButton", "Import Save from Desktop", new Vector2(0, 30), new Vector2(400, 50));
-        CreateButton(panel.transform, "ResetButton", "Reset Game", new Vector2(0, -40), new Vector2(400, 50));
-        CreateButton(panel.transform, "QuitButton", "Quit Game", new Vector2(0, -110), new Vector2(400, 50));
+        // Help Toggle Button
+        Button helpButton = CreateButton(panel.transform, "HelpButton", "Show Help", new Vector2(0, 360), new Vector2(500, 60));
 
-        // Status Text
-        CreateCenteredText(panel.transform, "StatusText", "", 20, new Vector2(0, -190), new Vector2(600, 100));
+        // Help Panel (초기에는 숨김)
+        GameObject helpPanel = CreateHelpPanel(panel.transform);
+
+        // Save/Load Section (빈 공간 제거 - 간격 조정)
+        CreateButton(panel.transform, "ExportButton", "Export Save to Desktop", new Vector2(0, 250), new Vector2(500, 60));
+        CreateButton(panel.transform, "ImportButton", "Import Save from Desktop", new Vector2(0, 170), new Vector2(500, 60));
+        CreateButton(panel.transform, "ResetButton", "Reset Game", new Vector2(0, 90), new Vector2(500, 60));
+        CreateButton(panel.transform, "QuitButton", "Quit Game", new Vector2(0, 10), new Vector2(500, 60));
+
+        // Status Text (버튼 바로 아래로 이동)
+        CreateCenteredText(panel.transform, "StatusText", "", 20, new Vector2(0, -100), new Vector2(700, 100));
 
         panel.SetActive(false);
 
         return panel;
+    }
+
+    static GameObject CreateHelpPanel(Transform parent)
+    {
+        // Help Panel Container
+        GameObject helpPanel = new GameObject("HelpPanel");
+        RectTransform rt = helpPanel.AddComponent<RectTransform>();
+        rt.SetParent(parent, false);
+        rt.anchorMin = new Vector2(0.5f, 0.5f);
+        rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchoredPosition = new Vector2(0, 140);
+        rt.sizeDelta = new Vector2(900, 380);
+
+        Image bgImage = helpPanel.AddComponent<Image>();
+        bgImage.color = new Color(0.15f, 0.15f, 0.2f, 0.95f);
+
+        // Title
+        CreateCenteredText(helpPanel.transform, "HelpTitle", "GAME GUIDE", 32, new Vector2(0, 160), new Vector2(800, 50));
+
+        // Help Items (2x2 grid layout)
+        CreateHelpItem(helpPanel.transform, "Dimension", "Purchase Dimensions to produce Antimatter.\nEach Dimension increases production of lower Dimensions.", new Vector2(-220, 60), new Vector2(400, 140));
+        CreateHelpItem(helpPanel.transform, "DimBoost", "Enhance Dimensions to double their production.\nUnlock higher Dimensions.", new Vector2(220, 60), new Vector2(400, 140));
+        CreateHelpItem(helpPanel.transform, "Tickspeed", "Increase production speed of all Dimensions.\nFaster production with each upgrade.", new Vector2(-220, -100), new Vector2(400, 140));
+        CreateHelpItem(helpPanel.transform, "Prestige", "Reset the game to gain permanent upgrades.\nEarn Prestige Points for powerful bonuses.", new Vector2(220, -100), new Vector2(400, 140));
+
+        helpPanel.SetActive(false);
+        return helpPanel;
+    }
+
+    static void CreateHelpItem(Transform parent, string title, string description, Vector2 position, Vector2 size)
+    {
+        GameObject itemObj = new GameObject($"HelpItem_{title}");
+        RectTransform itemRT = itemObj.AddComponent<RectTransform>();
+        itemRT.SetParent(parent, false);
+        itemRT.anchorMin = new Vector2(0.5f, 0.5f);
+        itemRT.anchorMax = new Vector2(0.5f, 0.5f);
+        itemRT.pivot = new Vector2(0.5f, 0.5f);
+        itemRT.anchoredPosition = position;
+        itemRT.sizeDelta = size;
+
+        Image bgImage = itemObj.AddComponent<Image>();
+        bgImage.color = new Color(0.2f, 0.25f, 0.3f, 0.8f);
+
+        // Title Text
+        GameObject titleObj = new GameObject("Title");
+        RectTransform titleRT = titleObj.AddComponent<RectTransform>();
+        titleRT.SetParent(itemObj.transform, false);
+        titleRT.anchorMin = new Vector2(0, 1);
+        titleRT.anchorMax = new Vector2(1, 1);
+        titleRT.pivot = new Vector2(0.5f, 1);
+        titleRT.anchoredPosition = new Vector2(0, -10);
+        titleRT.sizeDelta = new Vector2(-20, 30);
+
+        TextMeshProUGUI titleText = titleObj.AddComponent<TextMeshProUGUI>();
+        titleText.text = title;
+        titleText.fontSize = 24;
+        titleText.fontStyle = TMPro.FontStyles.Bold;
+        titleText.alignment = TextAlignmentOptions.Center;
+        titleText.color = new Color(1f, 0.8f, 0.3f, 1f);
+
+        // Description Text
+        GameObject descObj = new GameObject("Description");
+        RectTransform descRT = descObj.AddComponent<RectTransform>();
+        descRT.SetParent(itemObj.transform, false);
+        descRT.anchorMin = new Vector2(0, 0);
+        descRT.anchorMax = new Vector2(1, 1);
+        descRT.pivot = new Vector2(0.5f, 0.5f);
+        descRT.anchoredPosition = new Vector2(0, -10);
+        descRT.sizeDelta = new Vector2(-20, -50);
+
+        TextMeshProUGUI descText = descObj.AddComponent<TextMeshProUGUI>();
+        descText.text = description;
+        descText.fontSize = 18;
+        descText.alignment = TextAlignmentOptions.Center;
+        descText.color = new Color(0.9f, 0.9f, 0.9f, 1f);
+        descText.enableWordWrapping = true;
     }
 
     static (Button, Button, Button) CreateTabBar(Transform parent)
@@ -614,6 +725,9 @@ public class GameUISetup_v2 : EditorWindow
 
     static void ConnectOptionsManager(OptionsManager optionsManager, GameObject optionsPanel)
     {
+        optionsManager.helpButton = optionsPanel.transform.Find("HelpButton").GetComponent<Button>();
+        optionsManager.helpPanel = optionsPanel.transform.Find("HelpPanel").gameObject;
+        optionsManager.helpButtonText = optionsPanel.transform.Find("HelpButton/Text").GetComponent<TextMeshProUGUI>();
         optionsManager.exportButton = optionsPanel.transform.Find("ExportButton").GetComponent<Button>();
         optionsManager.importButton = optionsPanel.transform.Find("ImportButton").GetComponent<Button>();
         optionsManager.resetButton = optionsPanel.transform.Find("ResetButton").GetComponent<Button>();

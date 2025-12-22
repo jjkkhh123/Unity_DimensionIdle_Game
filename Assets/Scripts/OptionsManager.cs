@@ -5,6 +5,11 @@ using System.IO;
 
 public class OptionsManager : MonoBehaviour
 {
+    [Header("Help")]
+    public Button helpButton;
+    public GameObject helpPanel;
+    public TextMeshProUGUI helpButtonText;
+
     [Header("Save/Load")]
     public Button exportButton;
     public Button importButton;
@@ -12,8 +17,13 @@ public class OptionsManager : MonoBehaviour
     public Button quitButton;
     public TextMeshProUGUI statusText;
 
+    private bool isHelpVisible = false;
+
     void Start()
     {
+        if (helpButton != null)
+            helpButton.onClick.AddListener(ToggleHelp);
+
         if (exportButton != null)
             exportButton.onClick.AddListener(ExportSave);
 
@@ -25,6 +35,24 @@ public class OptionsManager : MonoBehaviour
 
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
+    }
+
+    void ToggleHelp()
+    {
+        isHelpVisible = !isHelpVisible;
+        if (helpPanel != null)
+        {
+            helpPanel.SetActive(isHelpVisible);
+
+            // Help 패널을 화면 최상단(맨 앞)에 배치
+            if (isHelpVisible)
+            {
+                helpPanel.transform.SetAsLastSibling();
+            }
+        }
+
+        if (helpButtonText != null)
+            helpButtonText.text = isHelpVisible ? "Hide Help" : "Show Help";
     }
 
     void ExportSave()
