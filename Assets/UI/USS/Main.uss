@@ -6,19 +6,34 @@
 }
 
 .dimensions-buy-btn {
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-left-color: rgba(149, 149, 149, 0);
-    border-right-color: rgba(149, 149, 149, 0);
-    border-top-color: rgba(149, 149, 149, 0);
-    border-bottom-color: rgba(149, 149, 149, 0);
-    width: 25%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(52, 152, 219, 0.6);
+    border-right-color: rgba(52, 152, 219, 0.6);
+    border-top-color: rgba(52, 152, 219, 0.6);
+    border-bottom-color: rgba(52, 152, 219, 0.6);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
     font-size: 20%;
     color: rgb(255, 255, 255);
+    background-color: rgba(41, 128, 185, 0.15);
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.dimensions-buy-btn:hover {
+    background-color: rgba(52, 152, 219, 0.25);
+    border-left-color: rgba(52, 152, 219, 0.9);
+    border-right-color: rgba(52, 152, 219, 0.9);
+    border-top-color: rgba(52, 152, 219, 0.9);
+    border-bottom-color: rgba(52, 152, 219, 0.9);
+}
+
+.dimensions-buy-btn:active {
+    background-color: rgba(41, 128, 185, 0.35);
 }
 
 .dimensions-owned-text {
@@ -41,4 +56,166 @@
 .dimensions-multi-text {
     font-size: 20%;
     color: rgb(255, 255, 255);
+}
+
+/* Modern Progress Bar Container */
+.progress-container {
+    height: 6px;
+    width: 110%;
+    margin-left: -5%;
+    margin-top: 3px;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+/* Progress Bar Background */
+.progress-bar-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(80, 80, 80, 0.5);
+    border-radius: 3px;
+}
+
+/* Progress Bar - Owned (Green) */
+.progress-bar-owned {
+    position: absolute;
+    height: 100%;
+    background-color: rgb(46, 204, 113);
+    left: 0;
+    width: 0;
+    transition: width 0.2s ease-out;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
+}
+
+/* Progress Bar - Affordable (Yellow-Green) */
+.progress-bar-affordable {
+    position: absolute;
+    height: 100%;
+    background-color: rgb(241, 196, 15);
+    left: 0;
+    width: 0;
+    transition: width 0.2s ease-out;
+    box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+}
+
+/* Prestige Upgrade Card Styles */
+.upgrade-card {
+    background-color: rgba(44, 62, 80, 0.3);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(52, 152, 219, 0.4);
+    border-right-color: rgba(52, 152, 219, 0.4);
+    border-top-color: rgba(52, 152, 219, 0.4);
+    border-bottom-color: rgba(52, 152, 219, 0.4);
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 49%;
+    min-height: 100px;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.upgrade-card:hover {
+    background-color: rgba(52, 73, 94, 0.4);
+    border-left-color: rgba(52, 152, 219, 0.7);
+    border-right-color: rgba(52, 152, 219, 0.7);
+    border-top-color: rgba(52, 152, 219, 0.7);
+    border-bottom-color: rgba(52, 152, 219, 0.7);
+}
+
+.upgrade-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.upgrade-name {
+    font-size: 14%;
+    color: rgb(52, 152, 219);
+    -unity-font-style: bold;
+}
+
+.upgrade-level {
+    font-size: 12%;
+    color: rgb(46, 204, 113);
+    -unity-font-style: bold;
+}
+
+.upgrade-description {
+    font-size: 10%;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+    white-space: normal;
+}
+
+.upgrade-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.upgrade-effect {
+    font-size: 11%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+}
+
+.upgrade-cost {
+    font-size: 12%;
+    color: rgb(255, 255, 255);
+    margin-right: 10px;
+}
+
+.upgrade-buy-btn {
+    background-color: rgba(46, 204, 113, 0.2);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(46, 204, 113, 0.6);
+    border-right-color: rgba(46, 204, 113, 0.6);
+    border-top-color: rgba(46, 204, 113, 0.6);
+    border-bottom-color: rgba(46, 204, 113, 0.6);
+    color: rgb(255, 255, 255);
+    font-size: 10%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    -unity-font-style: bold;
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.upgrade-buy-btn:hover {
+    background-color: rgba(46, 204, 113, 0.35);
+    border-left-color: rgba(46, 204, 113, 0.9);
+    border-right-color: rgba(46, 204, 113, 0.9);
+    border-top-color: rgba(46, 204, 113, 0.9);
+    border-bottom-color: rgba(46, 204, 113, 0.9);
+}
+
+.upgrade-buy-btn:active {
+    background-color: rgba(46, 204, 113, 0.5);
+}
+
+.upgrade-buy-btn:disabled {
+    background-color: rgba(127, 140, 141, 0.2);
+    border-left-color: rgba(127, 140, 141, 0.4);
+    border-right-color: rgba(127, 140, 141, 0.4);
+    border-top-color: rgba(127, 140, 141, 0.4);
+    border-bottom-color: rgba(127, 140, 141, 0.4);
+    color: rgba(255, 255, 255, 0.4);
 }

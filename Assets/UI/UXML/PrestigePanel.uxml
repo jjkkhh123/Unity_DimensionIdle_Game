@@ -1,0 +1,177 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3#Main"/>
+    <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(30, 30, 30); display: flex;">
+        <ui:VisualElement name="prestige-header" style="flex-grow: 0; height: 12%; background-color: rgba(41, 128, 185, 0.1); margin: 2%; padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgba(52, 152, 219, 0.6); border-right-color: rgba(52, 152, 219, 0.6); border-top-color: rgba(52, 152, 219, 0.6); border-bottom-color: rgba(52, 152, 219, 0.6);">
+            <ui:Label text="Prestige Shop" style="-unity-text-align: upper-center; font-size: 20%; color: rgb(52, 152, 219); -unity-font-style: bold; margin-bottom: 5px;"/>
+            <ui:VisualElement style="flex-direction: row; justify-content: space-around;">
+                <ui:VisualElement style="flex-direction: column; align-items: center;">
+                    <ui:Label text="Prestige Points" style="font-size: 12%; color: rgba(255, 255, 255, 0.7);"/>
+                    <ui:Label text="0" name="PrestigePointsAmount" style="font-size: 18%; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: column; align-items: center;">
+                    <ui:Label text="Total Prestiges" style="font-size: 12%; color: rgba(255, 255, 255, 0.7);"/>
+                    <ui:Label text="0" name="TotalPrestigesCount" style="font-size: 18%; color: rgb(46, 204, 113); -unity-font-style: bold;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="prestige-action" style="flex-grow: 0; height: 15%; margin-left: 2%; margin-right: 2%; margin-top: 1%; margin-bottom: 1%; padding: 10px; background-color: rgba(192, 57, 43, 0.1); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgba(231, 76, 60, 0.6); border-right-color: rgba(231, 76, 60, 0.6); border-top-color: rgba(231, 76, 60, 0.6); border-bottom-color: rgba(231, 76, 60, 0.6); justify-content: space-between; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1; justify-content: center; padding-left: 10px;">
+                <ui:Label text="Reset and gain Prestige Points" style="font-size: 14%; color: rgb(255, 255, 255); -unity-font-style: bold; margin-bottom: 5px;"/>
+                <ui:Label text="Requirement: 1.00e10 antimatter" name="PrestigeRequirement" style="font-size: 12%; color: rgba(255, 255, 255, 0.7);"/>
+                <ui:Label text="You will gain: 0 PP" name="PrestigeGainPreview" style="font-size: 12%; color: rgb(241, 196, 15); margin-top: 5px;"/>
+            </ui:VisualElement>
+            <ui:VisualElement style="width: 30%; justify-content: center; align-items: center;">
+                <ui:Button text="PRESTIGE" name="PrestigeBtn" style="width: 90%; height: 60%; font-size: 12%; color: rgb(255, 255, 255); background-color: rgba(192, 57, 43, 0.3); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgba(231, 76, 60, 0.8); border-right-color: rgba(231, 76, 60, 0.8); border-top-color: rgba(231, 76, 60, 0.8); border-bottom-color: rgba(231, 76, 60, 0.8); -unity-font-style: bold;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:ScrollView name="upgrades-scroll" style="flex-grow: 1; margin-left: 2%; margin-right: 2%; margin-top: 1%; margin-bottom: 1%;">
+            <ui:VisualElement name="upgrades-container" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between;">
+                <ui:VisualElement name="TickspeedUpgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header" style="font-size: 10%;">
+                        <ui:Label text="Tickspeed Power" name="TickspeedUpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="TickspeedUpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Increases tickspeed multiplier by 0.01 per upgrade" name="TickspeedUpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer" style="font-size: 10%;">
+                        <ui:Label text="Effect: +0.00 tickspeed" name="TickspeedUpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 1 PP" name="TickspeedUpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="TickspeedUpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim1Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 1 Boost" name="Dim1UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim1UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 1 production by 2x per upgrade" name="Dim1UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim1UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 1 PP" name="Dim1UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim1UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim2Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 2 Boost" name="Dim2UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim2UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 2 production by 2x per upgrade" name="Dim2UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim2UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 2 PP" name="Dim2UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim2UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim3Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 3 Boost" name="Dim3UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim3UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 3 production by 2x per upgrade" name="Dim3UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim3UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 3 PP" name="Dim3UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim3UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim4Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 4 Boost" name="Dim4UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim4UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 4 production by 2x per upgrade" name="Dim4UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim4UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 5 PP" name="Dim4UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim4UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim5Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 5 Boost" name="Dim5UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim5UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 5 production by 2x per upgrade" name="Dim5UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim5UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 7 PP" name="Dim5UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim5UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim6Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 6 Boost" name="Dim6UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim6UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 6 production by 2x per upgrade" name="Dim6UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim6UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 8 PP" name="Dim6UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim6UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim7Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 7 Boost" name="Dim7UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim7UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 7 production by 2x per upgrade" name="Dim7UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim7UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 9 PP" name="Dim7UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim7UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Dim8Upgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Dimension 8 Boost" name="Dim8UpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="Dim8UpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Multiplies Dimension 8 production by 2x per upgrade" name="Dim8UpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: x1.00" name="Dim8UpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 10 PP" name="Dim8UpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="Dim8UpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="BulkBonusUpgrade" class="upgrade-card">
+                    <ui:VisualElement class="upgrade-header">
+                        <ui:Label text="Bulk Purchase Bonus" name="BulkBonusUpgradeName" class="upgrade-name" style="font-size: 12%;"/>
+                        <ui:Label text="Level: 0" name="BulkBonusUpgradeLevel" class="upgrade-level" style="font-size: 8%;"/>
+                    </ui:VisualElement>
+                    <ui:Label text="Increases the x10 purchase bonus by 0.05 per upgrade (base: 2.00x)" name="BulkBonusUpgradeDesc" class="upgrade-description" style="font-size: 10%;"/>
+                    <ui:VisualElement class="upgrade-footer">
+                        <ui:Label text="Effect: 2.00x &#8594; 2.00x" name="BulkBonusUpgradeEffect" class="upgrade-effect" style="font-size: 8%;"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 2 PP" name="BulkBonusUpgradeCost" class="upgrade-cost" style="font-size: 8%;"/>
+                            <ui:Button text="BUY" name="BulkBonusUpgradeBuyBtn" class="upgrade-buy-btn" style="font-size: 5%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+        <ui:VisualElement name="menu" style="flex-grow: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); font-size: 10%; margin-left: 2px; margin-right: 2px;"/>
+            <ui:Button text="Prestige" name="PrestigeMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); font-size: 10%; margin-left: 2px; margin-right: 2px;"/>
+            <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); font-size: 10%; margin-left: 2px; margin-right: 2px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -12,6 +12,8 @@ public class DimensionsPanelController : MonoBehaviour
 
     private UIDocument uiDocument;
     private VisualElement root;
+    private VisualElement dimensionsRoot;
+    private VisualElement prestigeRoot;
 
     // Antimatter Display
     private Label antimatterAmount;
@@ -48,6 +50,21 @@ public class DimensionsPanelController : MonoBehaviour
         }
 
         root = uiDocument.rootVisualElement;
+
+        // Cache panel roots
+        dimensionsRoot = root.Q<VisualElement>("root");
+        prestigeRoot = root.Q<VisualElement>("prestige-root");
+
+        if (dimensionsRoot == null)
+        {
+            Debug.LogError("[DimensionsPanelController] Dimensions root not found!");
+        }
+
+        if (prestigeRoot == null)
+        {
+            Debug.LogError("[DimensionsPanelController] Prestige root not found!");
+        }
+
         CacheUIElements();
         RegisterButtonCallbacks();
     }
@@ -55,20 +72,20 @@ public class DimensionsPanelController : MonoBehaviour
     void CacheUIElements()
     {
         // Antimatter
-        antimatterAmount = root.Q<Label>("AntimatterAmount");
+        antimatterAmount = dimensionsRoot.Q<Label>("AntimatterAmount");
 
         // Buy Mode Button
-        changeBuyModeBtn = root.Q<Button>("ChangeBuyModeBtn");
+        changeBuyModeBtn = dimensionsRoot.Q<Button>("ChangeBuyModeBtn");
 
         // Tickspeed
-        tickspeedMultiplier = root.Q<Label>("TickspeedMultiplier");
-        tickspeedCost = root.Q<Label>("TickspeedCost");
-        tickspeedBuyBtn = root.Q<Button>("TickspeedBuyBtn");
+        tickspeedMultiplier = dimensionsRoot.Q<Label>("TickspeedMultiplier");
+        tickspeedCost = dimensionsRoot.Q<Label>("TickspeedCost");
+        tickspeedBuyBtn = dimensionsRoot.Q<Button>("TickspeedBuyBtn");
 
         // DimBoost
-        dimBoostCount = root.Q<Label>("DimBoostCount");
-        dimBoostRequirement = root.Q<Label>("DimBoostRequirement");
-        dimBoostBtn = root.Q<Button>("DimBoostBtn");
+        dimBoostCount = dimensionsRoot.Q<Label>("DimBoostCount");
+        dimBoostRequirement = dimensionsRoot.Q<Label>("DimBoostRequirement");
+        dimBoostBtn = dimensionsRoot.Q<Button>("DimBoostBtn");
 
         // Dimensions (1-8)
         for (int i = 0; i < 8; i++)
@@ -76,18 +93,21 @@ public class DimensionsPanelController : MonoBehaviour
             int dimensionIndex = i + 1;
             dimensionElements[i] = new DimensionUIElement
             {
-                title = root.Q<Label>($"Dimension{dimensionIndex}Title"),
-                multiplier = root.Q<Label>($"Dimension{dimensionIndex}Multiplier"),
-                amount = root.Q<Label>($"Dimension{dimensionIndex}Amount"),
-                perSec = root.Q<Label>($"Dimension{dimensionIndex}PerSec"),
-                buyBtn = root.Q<Button>($"Dimension{dimensionIndex}BuyBtn")
+                title = dimensionsRoot.Q<Label>($"Dimension{dimensionIndex}Title"),
+                multiplier = dimensionsRoot.Q<Label>($"Dimension{dimensionIndex}Multiplier"),
+                amount = dimensionsRoot.Q<Label>($"Dimension{dimensionIndex}Amount"),
+                perSec = dimensionsRoot.Q<Label>($"Dimension{dimensionIndex}PerSec"),
+                buyBtn = dimensionsRoot.Q<Button>($"Dimension{dimensionIndex}BuyBtn"),
+                progressBg = dimensionsRoot.Q<VisualElement>($"Dimension{dimensionIndex}ProgressBg"),
+                progressOwned = dimensionsRoot.Q<VisualElement>($"Dimension{dimensionIndex}ProgressOwned"),
+                progressAffordable = dimensionsRoot.Q<VisualElement>($"Dimension{dimensionIndex}ProgressAffordable")
             };
         }
 
-        // Bottom Menu
-        dimensionsBtn = root.Q<Button>("DimensionsBtn");
-        prestigeBtn = root.Q<Button>("PrestigeBtn");
-        optionBtn = root.Q<Button>("OptionBtn");
+        // Bottom Menu (from dimensions panel)
+        dimensionsBtn = dimensionsRoot.Q<Button>("DimensionsBtn");
+        prestigeBtn = dimensionsRoot.Q<Button>("PrestigeBtn");
+        optionBtn = dimensionsRoot.Q<Button>("OptionBtn");
     }
 
     void RegisterButtonCallbacks()
@@ -350,8 +370,85 @@ public class DimensionsPanelController : MonoBehaviour
                 }
 
                 ui.buyBtn.style.opacity = canAfford ? 1.0f : 0.6f;
+
+                // Update progress bars
+                UpdateProgressBar(ui, dim);
             }
         }
+    }
+
+    void UpdateProgressBar(DimensionUIElement ui, Dimension dim)
+    {
+        if (ui.progressBg == null || ui.progressOwned == null || ui.progressAffordable == null)
+            return;
+
+        // Get the parent container
+        VisualElement progressContainer = ui.progressBg.parent;
+        if (progressContainer == null)
+            return;
+
+        // Only show progress bar in UntilTen mode
+        if (currentBuyMode != BuyMode.UntilTen)
+        {
+            progressContainer.style.display = DisplayStyle.None;
+            return;
+        }
+
+        progressContainer.style.display = DisplayStyle.Flex;
+
+        // Calculate owned and affordable amounts
+        int currentBought = dim.bought;
+        int ownedInCurrentTen = currentBought % 10; // 0-9
+
+        // Calculate how many can afford until next 10
+        int nextTen = ((currentBought / 10) + 1) * 10;
+        int toBuy = nextTen - currentBought;
+        int canAfford = 0;
+
+        // Simulate purchases to see how many we can afford
+        Dimension tempDim = new Dimension(dim.tier, dim.basePrice);
+        tempDim.amount = dim.amount;
+        tempDim.currentPrice = dim.currentPrice;
+        tempDim.bought = dim.bought;
+        tempDim.unlocked = dim.unlocked;
+        tempDim.multiplier = dim.multiplier;
+
+        BigDouble tempCurrency = GameManager.Instance.antimatter;
+        for (int i = 0; i < toBuy; i++)
+        {
+            if (tempCurrency >= tempDim.currentPrice)
+            {
+                tempCurrency = tempCurrency - tempDim.currentPrice;
+                tempDim.Buy(1);
+                canAfford++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Calculate percentages
+        float ownedPercent = ownedInCurrentTen / 10f;
+        float affordablePercent = canAfford / 10f;
+
+        // Update background: darker if can't afford any, lighter if can afford at least 1
+        if (canAfford > 0)
+        {
+            ui.progressBg.style.backgroundColor = new Color(0.31f, 0.31f, 0.31f, 0.6f);
+        }
+        else
+        {
+            ui.progressBg.style.backgroundColor = new Color(0.31f, 0.31f, 0.31f, 0.5f);
+        }
+
+        // Update owned bar (green) - vibrant green with glow
+        ui.progressOwned.style.width = Length.Percent(ownedPercent * 100f);
+        ui.progressOwned.style.left = 0;
+
+        // Update affordable bar (yellow), positioned after owned
+        ui.progressAffordable.style.width = Length.Percent(affordablePercent * 100f);
+        ui.progressAffordable.style.left = Length.Percent(ownedPercent * 100f);
     }
 
     int CalculateBuyUntilTen(Dimension dim)
@@ -426,9 +523,16 @@ public class DimensionsPanelController : MonoBehaviour
 
     void OnPrestigeClicked()
     {
-        // TODO: Switch to Prestige tab
-        // For now, you can integrate with TabManager or handle tab switching here
-        Debug.Log("Prestige button clicked - Tab switching not yet implemented");
+        if (dimensionsRoot != null && prestigeRoot != null)
+        {
+            dimensionsRoot.style.display = DisplayStyle.None;
+            prestigeRoot.style.display = DisplayStyle.Flex;
+            Debug.Log("[DimensionsPanelController] Switched to Prestige panel");
+        }
+        else
+        {
+            Debug.LogError("[DimensionsPanelController] Cannot switch panels - root elements not found");
+        }
     }
 
     void OnOptionClicked()
@@ -474,5 +578,8 @@ public class DimensionsPanelController : MonoBehaviour
         public Label amount;
         public Label perSec;
         public Button buyBtn;
+        public VisualElement progressBg;
+        public VisualElement progressOwned;
+        public VisualElement progressAffordable;
     }
 }
