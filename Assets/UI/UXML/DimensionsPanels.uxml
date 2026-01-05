@@ -1,24 +1,27 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3#Main"/>
     <ui:VisualElement name="resource" style="flex-grow: 0; height: 10%;">
-        <ui:Label text="antimatter" name="Antimatter" style="-unity-text-align: upper-center; font-size: 28px;"/>
-        <ui:Label text="100" name="AntimatterAmount" style="-unity-text-align: upper-center;"/>
+        <ui:Label text="antimatter" name="Antimatter" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 18px; max-font-size: 32px;"/>
+        <ui:Label text="100" name="AntimatterAmount" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 12px; max-font-size: 20px;"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="buymode-container" style="flex-grow: 0; height: 3%; margin-left: 10%; margin-right: 10%; margin-top: 5px; margin-bottom: 5px;">
+        <ui:Button text="Buy 1" name="ChangeBuyModeBtn" style="flex-grow: 1; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; -unity-text-auto-size: true; min-font-size: 14px; max-font-size: 24px;"/>
     </ui:VisualElement>
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; height: 10%; flex-direction: row;">
         <ui:VisualElement name="tickspeed" style="flex-grow: 1; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
-            <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; font-size: 14px; margin-bottom: 2px;"/>
-            <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; font-size: 12px; margin-bottom: 2px;"/>
+            <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 14px; max-font-size: 24px; margin-bottom: 2px;"/>
+            <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 12px; max-font-size: 20px; margin-bottom: 2px;"/>
             <ui:Button text="Buy Tickspeed" name="TickspeedBuyBtn" style="flex-grow: 1; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"/>
-            <ui:Label text="Cost: 100" name="TickspeedCost" style="-unity-text-align: upper-center; font-size: 10px;"/>
+            <ui:Label text="Cost: 100" name="TickspeedCost" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 10px; max-font-size: 18px;"/>
         </ui:VisualElement>
         <ui:VisualElement name="dimboost" style="flex-grow: 1; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
-            <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; font-size: 14px; margin-bottom: 2px;"/>
-            <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; font-size: 12px; margin-bottom: 2px;"/>
+            <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 14px; max-font-size: 24px; margin-bottom: 2px;"/>
+            <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 12px; max-font-size: 20px; margin-bottom: 2px;"/>
             <ui:Button text="Dimension Boost" name="DimBoostBtn" style="flex-grow: 1; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"/>
-            <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; font-size: 10px;"/>
+            <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; -unity-text-auto-size: true; min-font-size: 10px; max-font-size: 18px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="dimensions" style="flex-grow: 0; height: 70%;">
+    <ui:VisualElement name="dimensions" style="flex-grow: 0; height: 77%;">
         <ui:VisualElement name="Dimension1Panel" style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="Dimension1Information" style="flex-grow: 1; padding-left: 10px; padding-right: 10px; width: 25%;">
                 <ui:Label text="1 dimension " name="Dimension1Title" class="dimensions-title-text"/>
@@ -28,9 +31,8 @@
                 <ui:Label text="1" name="Dimension1Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension1PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension1ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension1BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension1MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension1ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension1BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; height: auto; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension2Panel" style="flex-grow: 1; flex-direction: row;">
@@ -42,9 +44,8 @@
                 <ui:Label text="1" name="Dimension2Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension2PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension2ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension2BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension2MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension2ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension2BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension3Panel" style="flex-grow: 1; flex-direction: row;">
@@ -56,9 +57,8 @@
                 <ui:Label text="1" name="Dimension3Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension3PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension3ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension3BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension3MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension3ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension3BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension4Panel" style="flex-grow: 1; flex-direction: row;">
@@ -70,9 +70,8 @@
                 <ui:Label text="1" name="Dimension4Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension4PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension4ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension4BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension4MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension4ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension4BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension5Panel" style="flex-grow: 1; flex-direction: row;">
@@ -84,9 +83,8 @@
                 <ui:Label text="1" name="Dimension5Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension5PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension5ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension5BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension5MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension5ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension5BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension6Panel" style="flex-grow: 1; flex-direction: row;">
@@ -98,9 +96,8 @@
                 <ui:Label text="1" name="Dimension6Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension6PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension6ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension6BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension6MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension6ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension6BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension7Panel" style="flex-grow: 1; flex-direction: row;">
@@ -112,9 +109,8 @@
                 <ui:Label text="1" name="Dimension7Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension7PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension7ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension7BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension7MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension7ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension7BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Dimension8Panel" style="flex-grow: 1; flex-direction: row;">
@@ -126,13 +122,12 @@
                 <ui:Label text="1" name="Dimension8Amount" emoji-fallback-support="true" class="dimensions-owned-text"/>
                 <ui:Label text="( + 1/s)" name="Dimension8PerSec" class="dimensions-owned-persec"/>
             </ui:VisualElement>
-            <ui:VisualElement name="Dimension8ButtonContainer" style="flex-grow: 1; width: 40%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Buy 1" name="Dimension8BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; margin-bottom: 2px;"/>
-                <ui:Button text="Buy Max" name="Dimension8MaxBtn" class="dimensions-buy-btn" style="flex-grow: 1;"/>
+            <ui:VisualElement name="Dimension8ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center;">
+                <ui:Button text="Buy 1" name="Dimension8BuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 70%; align-self: center; margin-top: 10%; margin-bottom: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="menu" style="flex-grow: 0; height: 10%; flex-direction: row; margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%;">
+    <ui:VisualElement name="menu" style="flex-grow: 0; height: 5%; flex-direction: row; margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%;">
         <ui:Button text="Dimensions" name="DimensionsBtn" style="flex-grow: 1; flex-shrink: 1;"/>
         <ui:Button text="Prestige" name="PrestigeBtn" style="flex-grow: 1; flex-shrink: 1;"/>
         <ui:Button text="Option" name="OptionBtn" style="flex-grow: 1; flex-shrink: 1;"/>

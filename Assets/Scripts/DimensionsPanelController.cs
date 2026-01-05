@@ -3,11 +3,22 @@ using UnityEngine.UIElements;
 
 public class DimensionsPanelController : MonoBehaviour
 {
+    // Buy Mode Enum
+    public enum BuyMode
+    {
+        BuyOne,
+        UntilTen
+    }
+
     private UIDocument uiDocument;
     private VisualElement root;
 
     // Antimatter Display
     private Label antimatterAmount;
+
+    // Buy Mode
+    private Button changeBuyModeBtn;
+    private BuyMode currentBuyMode = BuyMode.BuyOne;
 
     // Tickspeed Panel
     private Label tickspeedMultiplier;
@@ -46,6 +57,9 @@ public class DimensionsPanelController : MonoBehaviour
         // Antimatter
         antimatterAmount = root.Q<Label>("AntimatterAmount");
 
+        // Buy Mode Button
+        changeBuyModeBtn = root.Q<Button>("ChangeBuyModeBtn");
+
         // Tickspeed
         tickspeedMultiplier = root.Q<Label>("TickspeedMultiplier");
         tickspeedCost = root.Q<Label>("TickspeedCost");
@@ -66,8 +80,7 @@ public class DimensionsPanelController : MonoBehaviour
                 multiplier = root.Q<Label>($"Dimension{dimensionIndex}Multiplier"),
                 amount = root.Q<Label>($"Dimension{dimensionIndex}Amount"),
                 perSec = root.Q<Label>($"Dimension{dimensionIndex}PerSec"),
-                buyBtn = root.Q<Button>($"Dimension{dimensionIndex}BuyBtn"),
-                maxBtn = root.Q<Button>($"Dimension{dimensionIndex}MaxBtn")
+                buyBtn = root.Q<Button>($"Dimension{dimensionIndex}BuyBtn")
             };
         }
 
@@ -79,6 +92,12 @@ public class DimensionsPanelController : MonoBehaviour
 
     void RegisterButtonCallbacks()
     {
+        // Buy Mode
+        if (changeBuyModeBtn != null)
+        {
+            changeBuyModeBtn.clicked += OnChangeBuyModeClicked;
+        }
+
         // Tickspeed
         if (tickspeedBuyBtn != null)
         {
@@ -100,11 +119,6 @@ public class DimensionsPanelController : MonoBehaviour
             if (elem.buyBtn != null)
             {
                 elem.buyBtn.clicked += () => OnDimensionBuy(index);
-            }
-
-            if (elem.maxBtn != null)
-            {
-                elem.maxBtn.clicked += () => OnDimensionBuyMax(index);
             }
         }
 
@@ -130,10 +144,19 @@ public class DimensionsPanelController : MonoBehaviour
         if (GameManager.Instance == null)
             return;
 
+        UpdateBuyModeButton();
         UpdateAntimatterDisplay();
         UpdateTickspeedPanel();
         UpdateDimBoostPanel();
         UpdateDimensions();
+    }
+
+    void UpdateBuyModeButton()
+    {
+        if (changeBuyModeBtn != null)
+        {
+            changeBuyModeBtn.text = currentBuyMode == BuyMode.BuyOne ? "Buy 1" : "Until 10";
+        }
     }
 
     void UpdateAntimatterDisplay()
@@ -253,7 +276,7 @@ public class DimensionsPanelController : MonoBehaviour
             Dimension dim = GameManager.Instance.dimensions[i];
             DimensionUIElement ui = dimensionElements[i];
 
-            if (ui.buyBtn == null || ui.maxBtn == null)
+            if (ui.buyBtn == null)
                 continue;
 
             bool isLocked = !dim.unlocked;
@@ -262,9 +285,7 @@ public class DimensionsPanelController : MonoBehaviour
             {
                 // Locked state
                 ui.buyBtn.SetEnabled(false);
-                ui.maxBtn.SetEnabled(false);
                 ui.buyBtn.style.opacity = 0.4f;
-                ui.maxBtn.style.opacity = 0.4f;
 
                 if (ui.amount != null)
                     ui.amount.text = "Locked";
@@ -276,13 +297,11 @@ public class DimensionsPanelController : MonoBehaviour
                     ui.perSec.text = "";
 
                 ui.buyBtn.text = "Locked";
-                ui.maxBtn.text = "Locked";
             }
             else
             {
                 // Unlocked state
                 ui.buyBtn.SetEnabled(true);
-                ui.maxBtn.SetEnabled(true);
 
                 // Update amount
                 if (ui.amount != null)
@@ -316,21 +335,40 @@ public class DimensionsPanelController : MonoBehaviour
                     ui.perSec.text = $"(+{production}/s)";
                 }
 
-                // Update buy button
+                // Update buy button based on current buy mode
                 BigDouble cost = dim.currentPrice;
                 bool canAfford = GameManager.Instance.antimatter >= cost;
 
-                ui.buyBtn.text = $"Buy 1\n{cost}";
-                ui.buyBtn.style.opacity = canAfford ? 1.0f : 0.6f;
+                if (currentBuyMode == BuyMode.BuyOne)
+                {
+                    ui.buyBtn.text = $"Buy 1\n{cost}";
+                }
+                else // UntilTen
+                {
+                    int buyAmount = CalculateBuyUntilTen(dim);
+                    ui.buyBtn.text = buyAmount > 0 ? $"Buy {buyAmount}\n{cost}" : $"Until 10\n{cost}";
+                }
 
-                // Update max button
-                ui.maxBtn.text = "Buy Max";
-                ui.maxBtn.style.opacity = canAfford ? 1.0f : 0.6f;
+                ui.buyBtn.style.opacity = canAfford ? 1.0f : 0.6f;
             }
         }
     }
 
+    int CalculateBuyUntilTen(Dimension dim)
+    {
+        int currentAmount = dim.bought;
+        int remainder = currentAmount % 10;
+        int amountToBuy = remainder == 0 ? 10 : (10 - remainder);
+        return amountToBuy;
+    }
+
     // Button Event Handlers
+    void OnChangeBuyModeClicked()
+    {
+        // Toggle between BuyOne and UntilTen
+        currentBuyMode = currentBuyMode == BuyMode.BuyOne ? BuyMode.UntilTen : BuyMode.BuyOne;
+    }
+
     void OnTickspeedBuyClicked()
     {
         if (TickSpeedManager.Instance != null)
@@ -355,23 +393,34 @@ public class DimensionsPanelController : MonoBehaviour
         int tier = index + 1;
         Dimension dim = GameManager.Instance.dimensions[index];
 
-        if (dim.unlocked && GameManager.Instance.CanBuyDimension(tier, 1))
-        {
-            GameManager.Instance.BuyDimension(tier, 1);
-        }
-    }
-
-    void OnDimensionBuyMax(int index)
-    {
-        if (GameManager.Instance == null)
+        if (!dim.unlocked)
             return;
 
-        int tier = index + 1;
-        Dimension dim = GameManager.Instance.dimensions[index];
-
-        if (dim.unlocked)
+        if (currentBuyMode == BuyMode.BuyOne)
         {
-            GameManager.Instance.BuyMaxDimension(tier);
+            // Buy 1
+            if (GameManager.Instance.CanBuyDimension(tier, 1))
+            {
+                GameManager.Instance.BuyDimension(tier, 1);
+            }
+        }
+        else // UntilTen
+        {
+            // Buy until next multiple of 10
+            int amountToBuy = CalculateBuyUntilTen(dim);
+
+            // Try to buy the calculated amount
+            for (int i = 0; i < amountToBuy; i++)
+            {
+                if (GameManager.Instance.CanBuyDimension(tier, 1))
+                {
+                    GameManager.Instance.BuyDimension(tier, 1);
+                }
+                else
+                {
+                    break; // Stop if we can't afford more
+                }
+            }
         }
     }
 
@@ -392,6 +441,9 @@ public class DimensionsPanelController : MonoBehaviour
     void OnDestroy()
     {
         // Unregister callbacks
+        if (changeBuyModeBtn != null)
+            changeBuyModeBtn.clicked -= OnChangeBuyModeClicked;
+
         if (tickspeedBuyBtn != null)
             tickspeedBuyBtn.clicked -= OnTickspeedBuyClicked;
 
@@ -405,9 +457,6 @@ public class DimensionsPanelController : MonoBehaviour
 
             if (elem.buyBtn != null)
                 elem.buyBtn.clicked -= () => OnDimensionBuy(index);
-
-            if (elem.maxBtn != null)
-                elem.maxBtn.clicked -= () => OnDimensionBuyMax(index);
         }
 
         if (prestigeBtn != null)
@@ -425,6 +474,5 @@ public class DimensionsPanelController : MonoBehaviour
         public Label amount;
         public Label perSec;
         public Button buyBtn;
-        public Button maxBtn;
     }
 }
