@@ -1,4 +1,8 @@
 :root {
+    background-color: rgb(30, 30, 30);
+    width: 100%;
+    height: 100%;
+    color: rgb(255, 255, 255);
 }
 
 .dimensions-buy-btn {
@@ -13,19 +17,28 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    font-size: 20%;
+    color: rgb(255, 255, 255);
 }
 
 .dimensions-owned-text {
     -unity-text-align: upper-center;
+    font-size: 20%;
+    color: rgb(255, 255, 255);
 }
 
 .dimensions-owned-persec {
     -unity-text-align: upper-center;
+    font-size: 20%;
+    color: rgb(255, 255, 255);
 }
 
 .dimensions-title-text {
+    font-size: 20%;
+    color: rgb(255, 255, 255);
 }
 
 .dimensions-multi-text {
-    font-size: 10px;
+    font-size: 20%;
+    color: rgb(255, 255, 255);
 }
