@@ -100,79 +100,76 @@
     box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
 }
 
-/* Prestige Upgrade Card Styles */
+/* Prestige Upgrade Card - Flexible em-based */
 .upgrade-card {
     background-color: rgba(44, 62, 80, 0.3);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-left-color: rgba(52, 152, 219, 0.4);
-    border-right-color: rgba(52, 152, 219, 0.4);
-    border-top-color: rgba(52, 152, 219, 0.4);
-    border-bottom-color: rgba(52, 152, 219, 0.4);
-    padding: 10px;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.4);
+    padding: 0.625em;
+    margin-bottom: 0.5em;
     width: 49%;
-    min-height: 100px;
+    flex-shrink: 0;
+    min-width: 0;
     transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .upgrade-card:hover {
     background-color: rgba(52, 73, 94, 0.4);
-    border-left-color: rgba(52, 152, 219, 0.7);
-    border-right-color: rgba(52, 152, 219, 0.7);
-    border-top-color: rgba(52, 152, 219, 0.7);
-    border-bottom-color: rgba(52, 152, 219, 0.7);
+    border-color: rgba(52, 152, 219, 0.7);
 }
 
 .upgrade-header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.3em;
 }
 
 .upgrade-name {
-    font-size: 14%;
+    font-size: 0.875em;
     color: rgb(52, 152, 219);
     -unity-font-style: bold;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .upgrade-level {
-    font-size: 12%;
+    font-size: 0.75em;
     color: rgb(46, 204, 113);
     -unity-font-style: bold;
+    flex-shrink: 0;
 }
 
 .upgrade-description {
-    font-size: 10%;
+    font-size: 0.6875em;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 8px;
+    margin-bottom: 0.4em;
     white-space: normal;
+    overflow: hidden;
 }
 
 .upgrade-footer {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 0.3em;
 }
 
 .upgrade-effect {
-    font-size: 11%;
+    font-size: 0.75em;
     color: rgb(241, 196, 15);
     -unity-font-style: bold;
+    flex-shrink: 1;
+    overflow: hidden;
 }
 
 .upgrade-cost {
-    font-size: 12%;
+    font-size: 0.75em;
     color: rgb(255, 255, 255);
-    margin-right: 10px;
+    margin-right: 0.5em;
+    flex-shrink: 0;
 }
 
 .upgrade-buy-btn {
@@ -218,4 +215,236 @@
     border-top-color: rgba(127, 140, 141, 0.4);
     border-bottom-color: rgba(127, 140, 141, 0.4);
     color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================
+   PRESTIGE PANEL - RESPONSIVE DESIGN
+   Panel Settings Required: Scale With Screen Size
+   Reference: 1920x1080
+   ============================================ */
+
+/* Base Root Font Size for em calculations */
+:root {
+    font-size: 16px;
+}
+
+/* Prestige Header - Auto-adjusting */
+.prestige-header {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(41, 128, 185, 0.1);
+    margin: 0.5em 2% 0.5em 2%;
+    padding: 0.625em 2%;
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.6);
+}
+
+.prestige-title {
+    -unity-text-align: upper-center;
+    font-size: 1.5em;
+    color: rgb(52, 152, 219);
+    -unity-font-style: bold;
+    margin-bottom: 0.3em;
+}
+
+.prestige-stats-container {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.prestige-stat-item {
+    flex-direction: column;
+    align-items: center;
+}
+
+.prestige-stat-label {
+    font-size: 0.875em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.prestige-stat-value {
+    font-size: 1.25em;
+    -unity-font-style: bold;
+}
+
+.prestige-points-color {
+    color: rgb(241, 196, 15);
+}
+
+.prestige-count-color {
+    color: rgb(46, 204, 113);
+}
+
+/* Prestige Action - Flexible sizing */
+.prestige-action {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 0.3em 2%;
+    padding: 0.625em 2%;
+    background-color: rgba(192, 57, 43, 0.1);
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(231, 76, 60, 0.6);
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.prestige-action-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    padding-left: 1%;
+    min-width: 0;
+}
+
+.prestige-action-title {
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    margin-bottom: 0.2em;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.prestige-requirement {
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: normal;
+}
+
+.prestige-gain {
+    font-size: 0.875em;
+    color: rgb(241, 196, 15);
+    margin-top: 0.2em;
+    white-space: normal;
+}
+
+.prestige-action-button-container {
+    width: 30%;
+    min-width: 80px;
+    max-width: 150px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.prestige-button {
+    width: 90%;
+    height: 100%;
+    min-height: 40px;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    background-color: rgba(192, 57, 43, 0.3);
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(231, 76, 60, 0.8);
+    -unity-font-style: bold;
+}
+
+.prestige-button:hover {
+    background-color: rgba(231, 76, 60, 0.4);
+}
+
+.prestige-button:active {
+    background-color: rgba(231, 76, 60, 0.5);
+}
+
+/* Upgrades Area - Safe scrolling */
+.upgrades-area {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0.3em 2%;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ============================================
+   MEDIA QUERIES - RESOLUTION-BASED SCALING
+   Strategy: Adjust :root font-size, all em values scale automatically
+   ============================================ */
+
+/* Very Small Mobile (iPhone SE, small Android) */
+@media (max-height: 667px) {
+    :root {
+        font-size: 11px;
+    }
+
+    .prestige-header {
+        margin: 0.3em 1.5%;
+        padding: 0.4em 1.5%;
+    }
+
+    .prestige-action {
+        margin: 0.2em 1.5%;
+        padding: 0.4em 1.5%;
+    }
+
+    .upgrade-card {
+        padding: 0.4em;
+        margin-bottom: 0.3em;
+    }
+}
+
+/* Small Mobile (iPhone 8, standard small phones) */
+@media (min-height: 668px) and (max-height: 736px) {
+    :root {
+        font-size: 12px;
+    }
+
+    .prestige-header {
+        margin: 0.4em 1.5%;
+        padding: 0.5em 1.5%;
+    }
+
+    .prestige-action {
+        margin: 0.25em 1.5%;
+        padding: 0.5em 1.5%;
+    }
+
+    .upgrade-card {
+        padding: 0.5em;
+        margin-bottom: 0.4em;
+    }
+}
+
+/* Medium Mobile (iPhone 12, Pixel) */
+@media (min-height: 737px) and (max-height: 844px) {
+    :root {
+        font-size: 13px;
+    }
+
+    .upgrade-card {
+        padding: 0.55em;
+        margin-bottom: 0.45em;
+    }
+}
+
+/* Large Mobile (iPhone 12 Pro Max) */
+@media (min-height: 845px) and (max-height: 926px) {
+    :root {
+        font-size: 14px;
+    }
+}
+
+/* Tablet Portrait */
+@media (min-height: 927px) and (max-height: 1200px) {
+    :root {
+        font-size: 16px;
+    }
+}
+
+/* Tablet Landscape / Small Desktop */
+@media (min-height: 1201px) and (max-height: 1440px) {
+    :root {
+        font-size: 18px;
+    }
+}
+
+/* Desktop / Large Screen */
+@media (min-height: 1441px) {
+    :root {
+        font-size: 20px;
+    }
 }

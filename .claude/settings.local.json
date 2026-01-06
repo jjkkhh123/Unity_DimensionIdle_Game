@@ -3,7 +3,9 @@
     "allow": [
       "Bash(test:*)",
       "Bash(git checkout:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push)",
+      "Bash(cat:*)"
     ]
   }
 }
