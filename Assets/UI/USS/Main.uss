@@ -59,7 +59,6 @@
     color: rgb(255, 255, 255);
 }
 
-/* Modern Progress Bar Container */
 .progress-container {
     height: 6px;
     width: 110%;
@@ -70,7 +69,6 @@
     overflow: hidden;
 }
 
-/* Progress Bar Background */
 .progress-bar-bg {
     position: absolute;
     width: 100%;
@@ -79,7 +77,6 @@
     border-radius: 3px;
 }
 
-/* Progress Bar - Owned (Green) */
 .progress-bar-owned {
     position: absolute;
     height: 100%;
@@ -89,7 +86,6 @@
     transition: width 0.2s ease-out;
 }
 
-/* Progress Bar - Affordable (Yellow-Green) */
 .progress-bar-affordable {
     position: absolute;
     height: 100%;
@@ -99,7 +95,6 @@
     transition: width 0.2s ease-out;
 }
 
-/* Prestige Upgrade Card - 해상도 반응형 */
 .upgrade-card {
     background-color: rgba(44, 62, 80, 0.8);
     border-radius: 10px;
@@ -115,14 +110,14 @@
 
 .upgrade-card:hover {
     background-color: rgba(52, 73, 94, 0.9);
-    border-color: rgba(52, 152, 219, 1.0);
+    border-color: rgb(52, 152, 219);
 }
 
 .upgrade-header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .upgrade-name {
@@ -144,7 +139,7 @@
 .upgrade-description {
     font-size: 8px;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 6px;
+    margin-bottom: 0;
     white-space: normal;
     overflow: hidden;
 }
@@ -153,7 +148,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .upgrade-effect {
@@ -167,7 +162,7 @@
 .upgrade-cost {
     font-size: 8px;
     color: rgb(255, 255, 255);
-    margin-right: 7px;
+    margin-right: 0;
     flex-shrink: 0;
 }
 
@@ -186,7 +181,7 @@
     border-top-color: rgba(46, 204, 113, 0.6);
     border-bottom-color: rgba(46, 204, 113, 0.6);
     color: rgb(255, 255, 255);
-    font-size: 10%;
+    font-size: 6px;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 5px;
@@ -216,13 +211,6 @@
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* ============================================
-   PRESTIGE PANEL - RESPONSIVE DESIGN
-   Panel Settings Required: Scale With Screen Size
-   Reference: 1920x1080
-   ============================================ */
-
-/* Prestige Header - Auto-adjusting */
 .prestige-header {
     flex-grow: 0;
     flex-shrink: 0;
@@ -232,14 +220,16 @@
     border-radius: 12px;
     border-width: 2px;
     border-color: rgba(52, 152, 219, 0.9);
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .prestige-title {
     -unity-text-align: upper-center;
-    font-size: 17px;
+    font-size: 12px;
     color: rgb(52, 152, 219);
     -unity-font-style: bold;
-    margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .prestige-stats-container {
@@ -248,7 +238,7 @@
 }
 
 .prestige-stat-item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -258,7 +248,7 @@
 }
 
 .prestige-stat-value {
-    font-size: 11px;
+    font-size: 9px;
     -unity-font-style: bold;
 }
 
@@ -270,7 +260,6 @@
     color: rgb(46, 204, 113);
 }
 
-/* Prestige Action - Flexible sizing */
 .prestige-action {
     flex-grow: 0;
     flex-shrink: 0;
@@ -282,6 +271,10 @@
     border-color: rgba(231, 76, 60, 0.9);
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 4px;
+    padding-top: 4px;
 }
 
 .prestige-action-text {
@@ -296,7 +289,7 @@
     font-size: 11px;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
-    margin-bottom: 3px;
+    margin-bottom: 0;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -309,9 +302,9 @@
 }
 
 .prestige-gain {
-    font-size: 10px;
+    font-size: 6px;
     color: rgb(241, 196, 15);
-    margin-top: 3px;
+    margin-top: 0;
     white-space: normal;
 }
 
@@ -333,7 +326,7 @@
     background-color: rgba(192, 57, 43, 0.8);
     border-radius: 12px;
     border-width: 2px;
-    border-color: rgba(231, 76, 60, 1.0);
+    border-color: rgb(231, 76, 60);
     -unity-font-style: bold;
     -unity-text-align: middle-center;
 }
@@ -343,10 +336,9 @@
 }
 
 .prestige-button:active {
-    background-color: rgba(231, 76, 60, 1.0);
+    background-color: rgb(231, 76, 60);
 }
 
-/* Upgrades Area - Safe scrolling */
 .upgrades-area {
     flex-grow: 1;
     flex-shrink: 1;
@@ -354,8 +346,3 @@
     overflow: hidden;
     min-height: 0;
 }
-
-/* ============================================
-   해상도 기반 스케일링은 UIScaleManager.cs에서 처리
-   CSS 변수를 통해 동적으로 적용됨
-   ============================================ */

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3"/>
+    <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3#Main"/>
     <ui:VisualElement name="root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none; padding-bottom: 7%;">
         <ui:VisualElement name="resource" style="flex-grow: 0; height: 15%; margin-top: 0%; padding-top: 5%; padding-bottom: 5%;">
             <ui:Label text="antimatter" name="Antimatter" style="-unity-text-align: upper-center; font-size: 15%; color: rgb(255, 255, 255); margin-top: 4px; margin-bottom: 4px; margin-left: 2px; margin-right: 4px;"/>
@@ -211,8 +211,10 @@
         <ui:VisualElement name="prestige-action" class="prestige-action">
             <ui:VisualElement class="prestige-action-text">
                 <ui:Label text="Reset and gain Prestige Points" class="prestige-action-title"/>
-                <ui:Label text="Requirement: 1.00e10 antimatter" name="PrestigeRequirement" class="prestige-requirement"/>
-                <ui:Label text="You will gain: 0 PP" name="PrestigeGainPreview" class="prestige-gain"/>
+                <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                    <ui:Label text="Requirement: 1.00e10 antimatter" name="PrestigeRequirement" class="prestige-requirement"/>
+                    <ui:Label text="You will gain: 0 PP" name="PrestigeGainPreview" class="prestige-gain"/>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="prestige-action-button-container">
                 <ui:Button text="PRESTIGE" name="PrestigeBtn" class="prestige-button"/>
