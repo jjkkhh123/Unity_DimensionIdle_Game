@@ -1,8 +1,9 @@
 :root {
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(128, 128, 128);
     width: 100%;
     height: 100%;
     color: rgb(255, 255, 255);
+    font-size: 14px;
 }
 
 .dimensions-buy-btn {
@@ -106,9 +107,9 @@
     border-radius: 10px;
     border-width: 2px;
     border-color: rgba(52, 152, 219, 0.4);
-    padding: 0.625em;
-    margin-bottom: 0.5em;
-    width: 49%;
+    padding: 0.5em;
+    margin-bottom: 0.4em;
+    width: 48%;
     flex-shrink: 0;
     min-width: 0;
     transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
@@ -222,11 +223,6 @@
    Panel Settings Required: Scale With Screen Size
    Reference: 1920x1080
    ============================================ */
-
-/* Base Root Font Size for em calculations */
-:root {
-    font-size: 16px;
-}
 
 /* Prestige Header - Auto-adjusting */
 .prestige-header {
@@ -368,7 +364,7 @@
 /* Very Small Mobile (iPhone SE, small Android) */
 @media (max-height: 667px) {
     :root {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .prestige-header {
@@ -382,7 +378,7 @@
     }
 
     .upgrade-card {
-        padding: 0.4em;
+        padding: 0.3em;
         margin-bottom: 0.3em;
     }
 }
@@ -390,7 +386,7 @@
 /* Small Mobile (iPhone 8, standard small phones) */
 @media (min-height: 668px) and (max-height: 736px) {
     :root {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .prestige-header {
@@ -404,7 +400,7 @@
     }
 
     .upgrade-card {
-        padding: 0.5em;
+        padding: 0.4em;
         margin-bottom: 0.4em;
     }
 }
@@ -412,39 +408,39 @@
 /* Medium Mobile (iPhone 12, Pixel) */
 @media (min-height: 737px) and (max-height: 844px) {
     :root {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .upgrade-card {
-        padding: 0.55em;
-        margin-bottom: 0.45em;
+        padding: 0.45em;
+        margin-bottom: 0.4em;
     }
 }
 
 /* Large Mobile (iPhone 12 Pro Max) */
 @media (min-height: 845px) and (max-height: 926px) {
     :root {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
 
 /* Tablet Portrait */
 @media (min-height: 927px) and (max-height: 1200px) {
     :root {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
 /* Tablet Landscape / Small Desktop */
 @media (min-height: 1201px) and (max-height: 1440px) {
     :root {
-        font-size: 18px;
+        font-size: 16px;
     }
 }
 
 /* Desktop / Large Screen */
 @media (min-height: 1441px) {
     :root {
-        font-size: 20px;
+        font-size: 18px;
     }
 }
