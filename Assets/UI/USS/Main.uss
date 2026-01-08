@@ -346,3 +346,31 @@
     overflow: hidden;
     min-height: 0;
 }
+
+.dimension-panel-odd {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    transition: background-color 0.2s ease-out;
+}
+
+.dimension-panel-odd:hover {
+    background-color: rgba(41, 128, 185, 0.15);
+}
+
+.dimension-panel-even {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    transition: background-color 0.2s ease-out;
+}
+
+.dimension-panel-even:hover {
+    background-color: rgba(46, 204, 113, 0.12);
+}
