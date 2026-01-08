@@ -223,9 +223,9 @@
                 <ui:Button text="PRESTIGE" name="PrestigeBtn" class="prestige-button"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 75%; display: flex;">
-            <ui:VisualElement name="upgrades-container" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-content: flex-start; height: auto;">
-                <ui:VisualElement name="TickspeedUpgrade" class="upgrade-card">
+        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 75%; display: flex; flex-grow: 0;">
+            <ui:VisualElement name="upgrades-container" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-content: flex-start; height: 100%;">
+                <ui:VisualElement name="TickspeedUpgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Tickspeed Power" name="TickspeedUpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="TickspeedUpgradeLevel" class="upgrade-level"/>
@@ -239,7 +239,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="BulkBonusUpgrade" class="upgrade-card">
+                <ui:VisualElement name="BulkBonusUpgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Bulk Purchase Bonus" name="BulkBonusUpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="BulkBonusUpgradeLevel" class="upgrade-level"/>
@@ -253,7 +253,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim1Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim1Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 1 Boost" name="Dim1UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim1UpgradeLevel" class="upgrade-level"/>
@@ -267,7 +267,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim2Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim2Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 2 Boost" name="Dim2UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim2UpgradeLevel" class="upgrade-level"/>
@@ -281,7 +281,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim3Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim3Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 3 Boost" name="Dim3UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim3UpgradeLevel" class="upgrade-level"/>
@@ -295,7 +295,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim4Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim4Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 4 Boost" name="Dim4UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim4UpgradeLevel" class="upgrade-level"/>
@@ -309,7 +309,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim5Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim5Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 5 Boost" name="Dim5UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim5UpgradeLevel" class="upgrade-level"/>
@@ -323,7 +323,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim6Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim6Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 6 Boost" name="Dim6UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim6UpgradeLevel" class="upgrade-level"/>
@@ -337,7 +337,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim7Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim7Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 7 Boost" name="Dim7UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim7UpgradeLevel" class="upgrade-level"/>
@@ -351,7 +351,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim8Upgrade" class="upgrade-card">
+                <ui:VisualElement name="Dim8Upgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
                         <ui:Label text="Dimension 8 Boost" name="Dim8UpgradeName" class="upgrade-name"/>
                         <ui:Label text="Level: 0" name="Dim8UpgradeLevel" class="upgrade-level"/>
