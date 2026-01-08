@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3#Main"/>
-    <ui:VisualElement name="root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none; padding-bottom: 7%;">
+    <ui:VisualElement name="root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: flex; padding-bottom: 7%;">
         <ui:VisualElement name="resource" style="flex-grow: 0; height: 15%; margin-top: 0%; padding-top: 5%; padding-bottom: 5%;">
             <ui:Label text="antimatter" name="Antimatter" style="-unity-text-align: upper-center; font-size: 15%; color: rgb(255, 255, 255); margin-top: 4px; margin-bottom: 4px; margin-left: 2px; margin-right: 4px;"/>
             <ui:Label text="100" name="AntimatterAmount" style="-unity-text-align: upper-center; font-size: 15%; color: rgb(255, 255, 255);"/>
@@ -194,7 +194,7 @@
             <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); font-size: 10%; margin-left: 2px; margin-right: 2px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: flex; padding-bottom: 7%;">
+    <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none; padding-bottom: 7%;">
         <ui:VisualElement name="prestige-header" class="prestige-header">
             <ui:Label text="Prestige Shop" class="prestige-title" style="font-size: initial;"/>
             <ui:VisualElement class="prestige-stats-container">
