@@ -340,19 +340,39 @@ public class DimensionsPanelController : MonoBehaviour
                     ui.multiplier.text = $"x{totalMultiplier.ToDouble():F2}";
                 }
 
-                // Update production per second
+                // Update production per second (growth rate for all dimensions)
                 if (ui.perSec != null)
                 {
-                    BigDouble production = dim.GetProduction();
-
-                    // Apply tickspeed multiplier
-                    if (TickSpeedManager.Instance != null)
+                    // Next dimension (i+1) produces current dimension (i)
+                    if (i + 1 < GameManager.Instance.dimensions.Count)
                     {
-                        double tickMultiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
-                        production = production * new BigDouble(tickMultiplier);
-                    }
+                        Dimension nextDim = GameManager.Instance.dimensions[i + 1];
 
-                    ui.perSec.text = $"(+{production}/s)";
+                        if (nextDim.unlocked && dim.amount > BigDouble.Zero)
+                        {
+                            BigDouble nextProduction = nextDim.GetProduction();
+
+                            // Apply tickspeed multiplier
+                            if (TickSpeedManager.Instance != null)
+                            {
+                                double tickMultiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
+                                nextProduction = nextProduction * new BigDouble(tickMultiplier);
+                            }
+
+                            // Growth rate = (production / current amount) * 100
+                            BigDouble growthRate = (nextProduction / dim.amount) * new BigDouble(100);
+                            ui.perSec.text = $"(+{growthRate}%/s)";
+                        }
+                        else
+                        {
+                            ui.perSec.text = "(+0%/s)";
+                        }
+                    }
+                    else
+                    {
+                        // Dimension 8 has no next dimension
+                        ui.perSec.text = "(+0%/s)";
+                    }
                 }
 
                 // Update buy button based on current buy mode

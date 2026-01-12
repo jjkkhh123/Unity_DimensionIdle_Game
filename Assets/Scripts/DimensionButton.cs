@@ -182,15 +182,38 @@ public class DimensionButton : MonoBehaviour
     {
         if (productionText != null)
         {
-            string production = GameManager.Instance.GetDimensionProductionString(dimensionTier);
+            // 모든 차원에 대해 증가율(%) 표시
+            Dimension currentDim = GameManager.Instance.dimensions[dimensionTier - 1];
 
-            if (dimensionTier == 1)
+            // 다음 차원(dimensionTier + 1)이 현재 차원(dimensionTier)을 생산
+            if (dimensionTier < GameManager.Instance.dimensions.Count)
             {
-                productionText.text = $"Antimatter/s: {production}";
+                Dimension nextDim = GameManager.Instance.dimensions[dimensionTier]; // dimensionTier+1의 인덱스
+
+                if (nextDim.unlocked && currentDim.amount > BigDouble.Zero)
+                {
+                    BigDouble nextProduction = nextDim.GetProduction();
+
+                    // Tickspeed 적용
+                    if (TickSpeedManager.Instance != null)
+                    {
+                        double tickMultiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
+                        nextProduction = nextProduction * new BigDouble(tickMultiplier);
+                    }
+
+                    // 증가율 = (생산량 / 현재 양) * 100
+                    BigDouble growthRate = (nextProduction / currentDim.amount) * new BigDouble(100);
+                    productionText.text = $"(+{growthRate}%/s)";
+                }
+                else
+                {
+                    productionText.text = "(+0%/s)";
+                }
             }
             else
             {
-                productionText.text = $"Dim {dimensionTier - 1}/s: {production}";
+                // 8차원은 다음 차원이 없으므로 0
+                productionText.text = "(+0%/s)";
             }
         }
     }

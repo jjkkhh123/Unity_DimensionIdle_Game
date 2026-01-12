@@ -39,23 +39,23 @@
 
 .dimensions-owned-text {
     -unity-text-align: upper-center;
-    font-size: 200%;
+    font-size: 250%;
     color: rgb(255, 255, 255);
 }
 
 .dimensions-owned-persec {
     -unity-text-align: upper-center;
-    font-size: 150%;
+    font-size: 200%;
     color: rgb(255, 255, 255);
 }
 
 .dimensions-title-text {
-    font-size: 250%;
+    font-size: 300%;
     color: rgb(255, 255, 255);
 }
 
 .dimensions-multi-text {
-    font-size: 200%;
+    font-size: 250%;
     color: rgb(255, 255, 255);
 }
 
