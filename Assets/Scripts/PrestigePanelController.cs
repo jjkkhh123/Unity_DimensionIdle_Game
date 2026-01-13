@@ -7,6 +7,7 @@ public class PrestigePanelController : MonoBehaviour
     private UIDocument uiDocument;
     private VisualElement root;
     private VisualElement prestigeRoot;
+    private TabManagerUIToolkit tabManager;
 
     // Header elements
     private Label prestigePointsAmount;
@@ -38,6 +39,14 @@ public class PrestigePanelController : MonoBehaviour
         }
 
         root = uiDocument.rootVisualElement;
+
+        // Get TabManager
+        tabManager = GetComponent<TabManagerUIToolkit>();
+        if (tabManager == null)
+        {
+            Debug.LogWarning("[PrestigePanelController] TabManagerUIToolkit not found!");
+        }
+
         CacheUIElements();
         RegisterButtonCallbacks();
     }
@@ -357,24 +366,15 @@ public class PrestigePanelController : MonoBehaviour
 
     void SwitchToPanel(string panelName)
     {
-        if (panelName == "dimensions")
+        if (tabManager != null)
         {
-            if (prestigeRoot != null)
-                prestigeRoot.style.display = DisplayStyle.None;
-            if (dimensionsRoot != null)
-                dimensionsRoot.style.display = DisplayStyle.Flex;
+            // Capitalize first letter for TabManager
+            string capitalizedName = char.ToUpper(panelName[0]) + panelName.Substring(1);
+            tabManager.ShowPanel(capitalizedName);
         }
-        else if (panelName == "prestige")
+        else
         {
-            if (dimensionsRoot != null)
-                dimensionsRoot.style.display = DisplayStyle.None;
-            if (prestigeRoot != null)
-                prestigeRoot.style.display = DisplayStyle.Flex;
-        }
-        else if (panelName == "options")
-        {
-            // TODO: Implement options panel
-            Debug.Log("Options panel not yet implemented");
+            Debug.LogError("[PrestigePanelController] TabManager not found - cannot switch panels");
         }
     }
 

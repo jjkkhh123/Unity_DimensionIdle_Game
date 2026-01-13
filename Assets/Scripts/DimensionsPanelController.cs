@@ -14,6 +14,7 @@ public class DimensionsPanelController : MonoBehaviour
     private VisualElement root;
     private VisualElement dimensionsRoot;
     private VisualElement prestigeRoot;
+    private TabManagerUIToolkit tabManager;
 
     // Antimatter Display
     private Label antimatterAmount;
@@ -50,6 +51,13 @@ public class DimensionsPanelController : MonoBehaviour
         }
 
         root = uiDocument.rootVisualElement;
+
+        // Get TabManager
+        tabManager = GetComponent<TabManagerUIToolkit>();
+        if (tabManager == null)
+        {
+            Debug.LogWarning("[DimensionsPanelController] TabManagerUIToolkit not found!");
+        }
 
         // Cache panel roots
         dimensionsRoot = root.Q<VisualElement>("root");
@@ -543,23 +551,26 @@ public class DimensionsPanelController : MonoBehaviour
 
     void OnPrestigeClicked()
     {
-        if (dimensionsRoot != null && prestigeRoot != null)
+        if (tabManager != null)
         {
-            dimensionsRoot.style.display = DisplayStyle.None;
-            prestigeRoot.style.display = DisplayStyle.Flex;
-            Debug.Log("[DimensionsPanelController] Switched to Prestige panel");
+            tabManager.ShowPanel("Prestige");
         }
         else
         {
-            Debug.LogError("[DimensionsPanelController] Cannot switch panels - root elements not found");
+            Debug.LogError("[DimensionsPanelController] TabManager not found - cannot switch panels");
         }
     }
 
     void OnOptionClicked()
     {
-        // TODO: Switch to Options tab
-        // For now, you can integrate with TabManager or handle tab switching here
-        Debug.Log("Options button clicked - Tab switching not yet implemented");
+        if (tabManager != null)
+        {
+            tabManager.ShowPanel("Options");
+        }
+        else
+        {
+            Debug.LogError("[DimensionsPanelController] TabManager not found - cannot switch panels");
+        }
     }
 
     void OnDestroy()
