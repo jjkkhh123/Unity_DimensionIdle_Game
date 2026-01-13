@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/USS/Main.uss?fileID=7433441132597879392&amp;guid=a390605b6c5a3bc4089207ee16264ab8&amp;type=3#Main"/>
-    <ui:VisualElement name="root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: flex; padding-bottom: 7%;">
+    <ui:VisualElement name="root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: flex;">
         <ui:VisualElement name="resource" style="flex-grow: 0; height: 10%; margin-top: 10px; padding-top: 50px; padding-bottom: 0%;">
             <ui:Label text="antimatter" name="Antimatter" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); margin-top: 4px; margin-bottom: 4px; margin-left: 2px; margin-right: 4px; font-size: 40%;"/>
             <ui:Label text="100" name="AntimatterAmount" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 30%;"/>
@@ -37,8 +37,8 @@
                     <ui:Label text="x n" name="Dimension1Multiplier" emoji-fallback-support="true" class="dimensions-multi-text" style="color: rgb(255, 255, 255);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension1OwnedContainer" style="flex-grow: 1; width: 35%;">
-                    <ui:Label text="1" name="Dimension1Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: 20%; color: rgb(255, 255, 255);"/>
-                    <ui:Label text="( + 1/s)" name="Dimension1PerSec" class="dimensions-owned-persec" style="height: 20%; color: rgb(255, 255, 255);"/>
+                    <ui:Label text="1" name="Dimension1Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: auto; color: rgb(255, 255, 255);"/>
+                    <ui:Label text="( + 1/s)" name="Dimension1PerSec" class="dimensions-owned-persec" style="height: auto; color: rgb(255, 255, 255);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension1ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center; position: relative;">
                     <ui:VisualElement name="Dimension1ButtonWrapper" style="width: 75%; align-self: center; margin-top: 8%; margin-bottom: 8%; position: relative; flex-grow: 1; flex-direction: column;">
@@ -57,7 +57,7 @@
                     <ui:Label text="x n" name="Dimension2Multiplier" emoji-fallback-support="true" class="dimensions-multi-text"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension2OwnedContainer" style="flex-grow: 1; width: 35%;">
-                    <ui:Label text="1" name="Dimension2Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: 21px;"/>
+                    <ui:Label text="1" name="Dimension2Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: auto;"/>
                     <ui:Label text="( + 1/s)" name="Dimension2PerSec" class="dimensions-owned-persec"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension2ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center; position: relative;">
@@ -77,7 +77,7 @@
                     <ui:Label text="x n" name="Dimension3Multiplier" emoji-fallback-support="true" class="dimensions-multi-text"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension3OwnedContainer" style="flex-grow: 1; width: 35%;">
-                    <ui:Label text="1" name="Dimension3Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: 20px;"/>
+                    <ui:Label text="1" name="Dimension3Amount" emoji-fallback-support="true" class="dimensions-owned-text" style="height: auto;"/>
                     <ui:Label text="( + 1/s)" name="Dimension3PerSec" class="dimensions-owned-persec"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dimension3ButtonContainer" style="flex-grow: 1; width: 40%; justify-content: center; position: relative;">
@@ -192,14 +192,14 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 1%; position: absolute; bottom: 0; width: 80%; align-self: auto; align-items: auto; -unity-text-align: upper-left;">
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%; margin-bottom: 2px;"/>
             <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none; padding-bottom: 7%;">
-        <ui:VisualElement name="prestige-header" class="prestige-header" style="height: 10%;">
+    <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
+        <ui:VisualElement name="prestige-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
             <ui:Label text="Prestige Shop" class="prestige-title" style="font-size: 50%; color: rgb(4, 93, 153);"/>
             <ui:VisualElement class="prestige-stats-container">
                 <ui:VisualElement class="prestige-stat-item">
@@ -223,7 +223,7 @@
                 <ui:Button text="PRESTIGE" name="PrestigeBtn" class="prestige-button"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 75%; display: flex; flex-grow: 0;">
+        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 75%; display: flex; flex-grow: 0; padding-top: 3%;">
             <ui:VisualElement name="upgrades-container" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-content: flex-start; height: 100%;">
                 <ui:VisualElement name="TickspeedUpgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
@@ -367,10 +367,46 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 1%; position: absolute; bottom: 0; width: 80%;">
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
             <ui:Button text="Prestige" name="PrestigeMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
             <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="options-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
+        <ui:VisualElement name="options-header" class="options-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+            <ui:Label text="Options" class="options-title" style="font-size: 60%; color: rgb(52, 152, 219);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="options-content" style="flex-grow: 1; height: 75%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: flex-start;">
+            <ui:VisualElement name="save-load-section" class="options-section">
+                <ui:Label text="Save &amp; Load" class="options-section-title"/>
+                <ui:VisualElement class="options-button-row">
+                    <ui:Button text="EXPORT SAVE" name="ExportSaveBtn" class="options-button options-button-primary"/>
+                    <ui:Button text="IMPORT SAVE" name="ImportSaveBtn" class="options-button options-button-primary"/>
+                </ui:VisualElement>
+                <ui:Label text="Export saves to Desktop, Import loads from Desktop" class="options-description"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="game-section" class="options-section">
+                <ui:Label text="Game Actions" class="options-section-title"/>
+                <ui:VisualElement class="options-button-row">
+                    <ui:Button text="RESET GAME" name="ResetGameBtn" class="options-button options-button-danger"/>
+                    <ui:Button text="QUIT GAME" name="QuitGameBtn" class="options-button options-button-warning"/>
+                </ui:VisualElement>
+                <ui:Label text="Reset deletes all progress. Quit closes the game." class="options-description"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="help-section" class="options-section">
+                <ui:Label text="Help" class="options-section-title"/>
+                <ui:Button text="SHOW HELP" name="HelpBtn" class="options-button options-button-info" style="width: 48%;"/>
+                <ui:Label text="Display game instructions and tips" class="options-description"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="status-section" style="margin-top: 20px; padding: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 8px; min-height: 60px;">
+                <ui:Label text="" name="OptionsStatusText" class="options-status-text" style="color: rgb(241, 196, 15); font-size: 20px; -unity-text-align: upper-center; white-space: normal;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+            <ui:Button text="Option" name="OptionMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
