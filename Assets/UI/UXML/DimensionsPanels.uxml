@@ -18,7 +18,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="dimboost" class="dimboost-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
                 <ui:VisualElement style="flex-grow: 1; width: 40%;">
-                    <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20%;"/>
+                    <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20%; white-space: normal;"/>
                     <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
                     <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
                 </ui:VisualElement>
@@ -192,10 +192,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
-            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%; margin-bottom: 2px;"/>
-            <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Shop" name="ShopBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Offline" name="OfflineBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="prestige-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
@@ -367,10 +369,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
-            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Prestige" name="PrestigeMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Option" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Prestige" name="PrestigeMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Shop" name="ShopBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Offline" name="OfflineBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="options-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
@@ -403,10 +407,42 @@
                 <ui:Label text="" name="OptionsStatusText" class="options-status-text" style="color: rgb(241, 196, 15); font-size: 20px; -unity-text-align: upper-center; white-space: normal;"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 10%; margin-right: 10%; margin-top: 1%; margin-bottom: 2%; width: 80%;">
-            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
-            <ui:Button text="Option" name="OptionMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 2px; margin-right: 2px; font-size: 30%;"/>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Options" name="OptionMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Shop" name="ShopBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Offline" name="OfflineBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="shop-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
+        <ui:VisualElement name="shop-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+            <ui:Label text="Premium Shop" class="prestige-title" style="font-size: 50%; color: rgb(241, 196, 15);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
+            <ui:Label text="Coming Soon..." style="font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: middle-center;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Shop" name="ShopMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Offline" name="OfflineBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="offline-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
+        <ui:VisualElement name="offline-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+            <ui:Label text="Offline Progress" class="prestige-title" style="font-size: 50%; color: rgb(155, 89, 182);"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="offline-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
+            <ui:Label text="Coming Soon..." style="font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: middle-center;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+            <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Shop" name="ShopBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+            <ui:Button text="Offline" name="OfflineMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
