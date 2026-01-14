@@ -487,9 +487,81 @@
             <ui:Label text="Offline Progress" class="prestige-title" style="font-size: 50%; color: rgb(155, 89, 182);"/>
         </ui:VisualElement>
         <ui:VisualElement name="offline-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
-            <ui:Label text="Coming Soon..." style="font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: middle-center;"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+
+            <!-- Time Bar Section -->
+            <ui:VisualElement name="offline-time-section" style="margin-bottom: 20px;">
+                <ui:Label text="Stored Offline Time" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-bottom: 5px;"/>
+                <ui:VisualElement name="time-bar-container" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 10px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
+                    <ui:VisualElement name="time-bar-display" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
+                        <ui:Label text="Stored: 00:00:00" name="StoredTimeLabel" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
+                        <ui:Label text="Cap: 24:00:00" name="MaxTimeLabel" style="font-size: 18px; color: rgba(255, 255, 255, 0.6);"/>
+                    </ui:VisualElement>
+                    <ui:ProgressBar value="0" name="OfflineTimeProgress" style="height: 30px; margin-bottom: 5px;"/>
+                    <ui:Label text="Effective time at 50% efficiency" name="EffectiveTimeLabel" style="font-size: 14px; color: rgba(255, 255, 255, 0.5); -unity-text-align: upper-center;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Upgrades Section -->
+            <ui:VisualElement name="offline-upgrades-section" style="margin-bottom: 20px;">
+                <ui:Label text="Upgrades" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
+
+                <!-- Max Time Upgrade -->
+                <ui:VisualElement name="MaxTimeUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
+                    <ui:Label text="Max Offline Time" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
+                    <ui:Label text="24h → 30h" name="MaxTimeUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
+                            <ui:Label text="20:00:00" name="MaxTimeUpgradeCost" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
+                        </ui:VisualElement>
+                        <ui:Button text="UPGRADE" name="MaxTimeUpgradeBtn" class="shop-buy-button" style="width: 120px; height: 35px; font-size: 16px;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Efficiency Upgrade -->
+                <ui:VisualElement name="EfficiencyUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
+                    <ui:Label text="Offline Efficiency (Max 10 Levels)" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
+                    <ui:Label text="50% → 55%" name="EfficiencyUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
+                            <ui:Label text="12:00:00" name="EfficiencyUpgradeCost" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
+                        </ui:VisualElement>
+                        <ui:Button text="UPGRADE" name="EfficiencyUpgradeBtn" class="shop-buy-button" style="width: 120px; height: 35px; font-size: 16px;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Boost Controls Section -->
+            <ui:VisualElement name="offline-boost-section" style="margin-bottom: 20px;">
+                <ui:Label text="Time Boost" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
+                <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 15px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
+
+                    <!-- Multiplier Input -->
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 10px;">
+                        <ui:Label text="Multiplier:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 10px; width: 100px;"/>
+                        <ui:TextField value="10" name="MultiplierInput" style="width: 80px; height: 30px; font-size: 18px; -unity-text-align: middle-center;"/>
+                        <ui:Label text="x (1-20)" style="font-size: 16px; color: rgba(255, 255, 255, 0.6); margin-left: 10px;"/>
+                    </ui:VisualElement>
+
+                    <!-- Duration Preview -->
+                    <ui:Label text="Boost duration: -- min" name="BoostDurationPreview" style="font-size: 16px; color: rgb(52, 152, 219); margin-bottom: 10px; -unity-text-align: upper-center;"/>
+
+                    <!-- Buttons -->
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-around;">
+                        <ui:Button text="START BOOST" name="StartBoostBtn" class="shop-buy-button" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(52, 152, 219);"/>
+                        <ui:Button text="STOP BOOST" name="StopBoostBtn" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(231, 76, 60); display: none;"/>
+                    </ui:VisualElement>
+
+                    <!-- Active Status -->
+                    <ui:VisualElement name="BoostActiveStatus" style="margin-top: 15px; padding: 10px; background-color: rgba(155, 89, 182, 0.3); border-radius: 5px; display: none;">
+                        <ui:Label text="Boost x10 ACTIVE" name="BoostActiveLabel" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold; -unity-text-align: upper-center;"/>
+                        <ui:Label text="Time remaining: 00:00" name="BoostRemainingLabel" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); -unity-text-align: upper-center; margin-top: 5px;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>

@@ -68,7 +68,14 @@ public class GameManager : MonoBehaviour
             tickspeedMultiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
         }
 
-        double effectiveDeltaTime = deltaTime * tickspeedMultiplier;
+        // Offline Boost 적용
+        double offlineBoostMultiplier = 1.0;
+        if (OfflineManager.Instance != null)
+        {
+            offlineBoostMultiplier = OfflineManager.Instance.GetActiveMultiplier();
+        }
+
+        double effectiveDeltaTime = deltaTime * tickspeedMultiplier * offlineBoostMultiplier;
 
         for (int i = dimensions.Count - 1; i >= 0; i--)
         {

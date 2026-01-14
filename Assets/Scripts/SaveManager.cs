@@ -17,6 +17,11 @@ public class GameSaveData
     // Shop data
     public int premiumCurrency;
     public ShopItemSaveData[] shopItems;
+
+    // Offline data
+    public double storedOfflineTime;
+    public int maxTimeUpgradeLevel;
+    public int efficiencyUpgradeLevel;
 }
 
 [System.Serializable]
@@ -199,6 +204,14 @@ public class SaveManager : MonoBehaviour
             }
         }
 
+        // Offline 데이터 저장
+        if (OfflineManager.Instance != null)
+        {
+            saveData.storedOfflineTime = OfflineManager.Instance.storedOfflineTime;
+            saveData.maxTimeUpgradeLevel = OfflineManager.Instance.maxTimeUpgradeLevel;
+            saveData.efficiencyUpgradeLevel = OfflineManager.Instance.efficiencyUpgradeLevel;
+        }
+
         try
         {
             string json = JsonUtility.ToJson(saveData, true);
@@ -272,6 +285,45 @@ public class SaveManager : MonoBehaviour
                     }
                 }
                 ShopManager.Instance.SetItemLevels(itemLevels);
+            }
+
+            // Offline 데이터 로드
+            if (OfflineManager.Instance != null)
+            {
+                OfflineManager.Instance.maxTimeUpgradeLevel = saveData.maxTimeUpgradeLevel;
+                OfflineManager.Instance.efficiencyUpgradeLevel = saveData.efficiencyUpgradeLevel;
+
+                // Recalculate max time and efficiency based on upgrade levels
+                OfflineManager.Instance.maxOfflineTime = 86400 + (saveData.maxTimeUpgradeLevel * 21600);
+                OfflineManager.Instance.efficiencyRatio = 0.5 + (saveData.efficiencyUpgradeLevel * 0.05);
+
+                // Calculate offline time based on save time
+                OfflineManager.Instance.storedOfflineTime = saveData.storedOfflineTime;
+                double previousStored = saveData.storedOfflineTime;
+
+                if (!string.IsNullOrEmpty(saveData.saveTime))
+                {
+                    if (System.DateTime.TryParse(saveData.saveTime, out System.DateTime lastSaveTime))
+                    {
+                        System.DateTime now = System.DateTime.Now;
+                        double offlineSeconds = (now - lastSaveTime).TotalSeconds;
+
+                        if (offlineSeconds > 0)
+                        {
+                            OfflineManager.Instance.AccumulateOfflineTime(offlineSeconds);
+                            double newStored = OfflineManager.Instance.storedOfflineTime;
+                            double accumulated = newStored - previousStored;
+
+                            Debug.Log($"[SaveManager] Offline time calculated from save: {offlineSeconds / 3600:F2}h");
+
+                            // Show popup if offline for more than 1 minute
+                            if (offlineSeconds >= 60 && OfflineProgressPopup.Instance != null)
+                            {
+                                OfflineProgressPopup.Instance.ShowOfflineProgress(offlineSeconds, accumulated, newStored);
+                            }
+                        }
+                    }
+                }
             }
 
             Debug.Log($"Game loaded from {saveFilePath} (Saved: {saveData.saveTime})");
