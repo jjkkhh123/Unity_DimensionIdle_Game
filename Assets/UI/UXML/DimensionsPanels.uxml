@@ -6,7 +6,7 @@
             <ui:Label text="100" name="AntimatterAmount" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 30%;"/>
         </ui:VisualElement>
         <ui:VisualElement name="VisualElement" style="flex-grow: 0; height: 10%; flex-direction: row;">
-            <ui:VisualElement name="tickspeed" style="flex-grow: 0; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 100%; flex-direction: row;">
+            <ui:VisualElement name="tickspeed" class="tickspeed-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
                 <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: 40%;">
                     <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 20%;"/>
                     <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
@@ -16,7 +16,7 @@
                     <ui:Button text="Buy Tickspeed" name="TickspeedBuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); font-size: 21px; white-space: normal;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="dimboost" style="flex-grow: 0; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 120%; flex-direction: row;">
+            <ui:VisualElement name="dimboost" class="dimboost-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
                 <ui:VisualElement style="flex-grow: 1; width: 40%;">
                     <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20%;"/>
                     <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>

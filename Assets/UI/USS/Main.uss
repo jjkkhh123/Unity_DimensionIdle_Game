@@ -509,3 +509,38 @@
     -unity-text-align: upper-center;
     white-space: normal;
 }
+
+/* Tickspeed and DimBoost Box Styles */
+.tickspeed-box {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(44, 62, 80, 0.8);
+    margin: 7px 2% 7px 2%;
+    padding: 9px 2%;
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.9);
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.tickspeed-box:hover {
+    background-color: rgba(52, 73, 94, 0.9);
+    border-color: rgb(52, 152, 219);
+}
+
+.dimboost-box {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(44, 62, 80, 0.8);
+    margin: 7px 2% 7px 2%;
+    padding: 9px 2%;
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.9);
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.dimboost-box:hover {
+    background-color: rgba(52, 73, 94, 0.9);
+    border-color: rgb(52, 152, 219);
+}
