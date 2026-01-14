@@ -397,7 +397,7 @@
 .options-title {
     -unity-text-align: upper-center;
     font-size: 40px;
-    color: rgb(255, 255, 255);
+    color: rgb(241, 196, 15);
     -unity-font-style: bold;
     margin-bottom: 0;
 }
