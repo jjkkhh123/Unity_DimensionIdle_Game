@@ -544,3 +544,56 @@
     background-color: rgba(52, 73, 94, 0.9);
     border-color: rgb(52, 152, 219);
 }
+
+/* Shop Styles */
+.shop-item-card {
+    background-color: rgba(44, 62, 80, 0.8);
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgba(241, 196, 15, 0.6);
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.shop-item-card:hover {
+    background-color: rgba(52, 73, 94, 0.9);
+    border-color: rgb(241, 196, 15);
+}
+
+.shop-item-card--owned {
+    background-color: rgba(30, 40, 50, 0.6);
+    border-color: rgba(46, 204, 113, 0.6);
+}
+
+.shop-buy-button {
+    background-color: rgba(46, 204, 113, 0.8);
+    color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-width: 0;
+    transition: background-color 0.2s ease-out;
+}
+
+.shop-buy-button:hover {
+    background-color: rgb(46, 204, 113);
+}
+
+.shop-buy-button:active {
+    background-color: rgba(39, 174, 96, 0.9);
+}
+
+.shop-buy-button--purchased {
+    background-color: rgba(127, 140, 141, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.shop-buy-button--purchased:hover {
+    background-color: rgba(127, 140, 141, 0.5);
+}
+
+.shop-forever-label {
+    color: rgb(255, 215, 0);
+    background-color: rgba(255, 215, 0, 0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+}

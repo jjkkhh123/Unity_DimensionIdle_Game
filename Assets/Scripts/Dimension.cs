@@ -56,7 +56,14 @@ public class Dimension
             prestigeMultiplier = PrestigeManager.Instance.GetDimensionMultiplier(tier);
         }
 
-        return amount * multiplier * boughtBonus * new BigDouble(prestigeMultiplier);
+        // Shop 배수 적용
+        double shopMultiplier = 1.0;
+        if (ShopManager.Instance != null)
+        {
+            shopMultiplier = ShopManager.Instance.GetBoostMultiplier(tier);
+        }
+
+        return amount * multiplier * boughtBonus * new BigDouble(prestigeMultiplier) * new BigDouble(shopMultiplier);
     }
 
     public void Buy(int count = 1)

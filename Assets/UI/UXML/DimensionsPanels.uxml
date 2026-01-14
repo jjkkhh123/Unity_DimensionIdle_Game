@@ -418,9 +418,61 @@
     <ui:VisualElement name="shop-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
         <ui:VisualElement name="shop-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
             <ui:Label text="Premium Shop" class="prestige-title" style="font-size: 50%; color: rgb(241, 196, 15);"/>
+            <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center; margin-top: 5px;">
+                <ui:Label text="Premium Currency:" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-right: 10px;"/>
+                <ui:Label text="1000" name="PremiumCurrencyAmount" style="font-size: 24px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
-            <ui:Label text="Coming Soon..." style="font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: middle-center;"/>
+        <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: flex-start;">
+
+            <!-- Item 1: Boost Dim 1-4 -->
+            <ui:VisualElement name="ShopItem1" class="shop-item-card" style="margin-bottom: 15px;">
+                <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
+                    <ui:Label text="2x Production: Dimensions 1-4" name="ShopItem1Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                </ui:VisualElement>
+                <ui:Label text="Permanent 2x multiplier for dimensions 1-4 (stacks with prestige &amp; DimBoost)" name="ShopItem1Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
+                        <ui:Label text="100" name="ShopItem1Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    </ui:VisualElement>
+                    <ui:Button text="BUY" name="ShopItem1BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Item 2: Boost Dim 5-8 -->
+            <ui:VisualElement name="ShopItem2" class="shop-item-card" style="margin-bottom: 15px;">
+                <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
+                    <ui:Label text="2x Production: Dimensions 5-8" name="ShopItem2Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                </ui:VisualElement>
+                <ui:Label text="Permanent 2x multiplier for dimensions 5-8 (stacks with prestige &amp; DimBoost)" name="ShopItem2Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
+                        <ui:Label text="200" name="ShopItem2Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    </ui:VisualElement>
+                    <ui:Button text="BUY" name="ShopItem2BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Item 3: Boost All Dimensions -->
+            <ui:VisualElement name="ShopItem3" class="shop-item-card" style="margin-bottom: 15px;">
+                <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
+                    <ui:Label text="2x Production: All Dimensions" name="ShopItem3Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                </ui:VisualElement>
+                <ui:Label text="Permanent 2x multiplier for ALL dimensions 1-8 (stacks with prestige &amp; DimBoost)" name="ShopItem3Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
+                        <ui:Label text="500" name="ShopItem3Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                    </ui:VisualElement>
+                    <ui:Button text="BUY" name="ShopItem3BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
         </ui:VisualElement>
         <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>

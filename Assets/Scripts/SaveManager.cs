@@ -13,6 +13,23 @@ public class GameSaveData
     public int tickspeedLevel;
     public PrestigeUpgradeSaveData[] prestigeUpgrades;
     public string saveTime;
+
+    // Shop data
+    public int premiumCurrency;
+    public ShopItemSaveData[] shopItems;
+}
+
+[System.Serializable]
+public class ShopItemSaveData
+{
+    public string itemId;
+    public int level;
+
+    public ShopItemSaveData(string id, int itemLevel)
+    {
+        itemId = id;
+        level = itemLevel;
+    }
 }
 
 [System.Serializable]
@@ -167,6 +184,21 @@ public class SaveManager : MonoBehaviour
             }
         }
 
+        // Shop 데이터 저장
+        if (ShopManager.Instance != null)
+        {
+            saveData.premiumCurrency = ShopManager.Instance.premiumCurrency;
+
+            var itemLevels = ShopManager.Instance.GetItemLevels();
+            saveData.shopItems = new ShopItemSaveData[itemLevels.Count];
+            int index = 0;
+            foreach (var kvp in itemLevels)
+            {
+                saveData.shopItems[index] = new ShopItemSaveData(kvp.Key.ToString(), kvp.Value);
+                index++;
+            }
+        }
+
         try
         {
             string json = JsonUtility.ToJson(saveData, true);
@@ -224,6 +256,22 @@ public class SaveManager : MonoBehaviour
                         PrestigeManager.Instance.upgrades[upgradeSave.id].level = upgradeSave.level;
                     }
                 }
+            }
+
+            // Shop 데이터 로드
+            if (ShopManager.Instance != null && saveData.shopItems != null)
+            {
+                ShopManager.Instance.premiumCurrency = saveData.premiumCurrency;
+
+                var itemLevels = new System.Collections.Generic.Dictionary<ShopManager.ShopItem, int>();
+                foreach (var itemSave in saveData.shopItems)
+                {
+                    if (System.Enum.TryParse<ShopManager.ShopItem>(itemSave.itemId, out var item))
+                    {
+                        itemLevels[item] = itemSave.level;
+                    }
+                }
+                ShopManager.Instance.SetItemLevels(itemLevels);
             }
 
             Debug.Log($"Game loaded from {saveFilePath} (Saved: {saveData.saveTime})");

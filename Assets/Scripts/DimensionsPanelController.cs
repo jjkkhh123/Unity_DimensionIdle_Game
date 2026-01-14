@@ -338,13 +338,30 @@ public class DimensionsPanelController : MonoBehaviour
                 // Update multiplier
                 if (ui.multiplier != null)
                 {
+                    // Prestige multiplier
                     double prestigeMultiplier = 1.0;
                     if (PrestigeManager.Instance != null)
                     {
                         prestigeMultiplier = PrestigeManager.Instance.GetDimensionMultiplier(dim.tier);
                     }
 
-                    BigDouble totalMultiplier = new BigDouble(prestigeMultiplier) * dim.multiplier;
+                    // Bulk multiplier (10개 구매마다)
+                    double bulkMultiplier = 2.0;
+                    if (PrestigeManager.Instance != null)
+                    {
+                        bulkMultiplier += PrestigeManager.Instance.GetBulkBonusIncrease();
+                    }
+                    int tier10Count = dim.bought / 10;
+                    BigDouble boughtBonus = BigDouble.Pow(new BigDouble(bulkMultiplier), tier10Count);
+
+                    // Shop multiplier
+                    double shopMultiplier = 1.0;
+                    if (ShopManager.Instance != null)
+                    {
+                        shopMultiplier = ShopManager.Instance.GetBoostMultiplier(dim.tier);
+                    }
+
+                    BigDouble totalMultiplier = new BigDouble(prestigeMultiplier) * dim.multiplier * boughtBonus * new BigDouble(shopMultiplier);
                     ui.multiplier.text = $"x{totalMultiplier.ToDouble():F2}";
                 }
 
