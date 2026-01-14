@@ -247,4 +247,70 @@ public class SaveManager : MonoBehaviour
     {
         return File.Exists(saveFilePath);
     }
+
+    // Export save as Base64 encoded string
+    public string ExportSaveToString()
+    {
+        SaveGame(); // Save current state first
+
+        if (!File.Exists(saveFilePath))
+        {
+            Debug.LogWarning("No save file to export");
+            return null;
+        }
+
+        try
+        {
+            string json = File.ReadAllText(saveFilePath);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            string base64 = Convert.ToBase64String(bytes);
+            Debug.Log("Save exported to string successfully");
+            return base64;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to export save: {e.Message}");
+            return null;
+        }
+    }
+
+    // Import save from Base64 encoded string
+    public bool ImportSaveFromString(string saveString)
+    {
+        if (string.IsNullOrEmpty(saveString))
+        {
+            Debug.LogWarning("Empty save string");
+            return false;
+        }
+
+        try
+        {
+            // Decode Base64 to JSON
+            byte[] bytes = Convert.FromBase64String(saveString.Trim());
+            string json = System.Text.Encoding.UTF8.GetString(bytes);
+
+            // Validate by attempting to parse
+            GameSaveData testData = JsonUtility.FromJson<GameSaveData>(json);
+            if (testData == null)
+            {
+                Debug.LogError("Invalid save data format");
+                return false;
+            }
+
+            // Save to file
+            File.WriteAllText(saveFilePath, json);
+            Debug.Log("Save imported successfully");
+            return true;
+        }
+        catch (FormatException)
+        {
+            Debug.LogError("Invalid Base64 format");
+            return false;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to import save: {e.Message}");
+            return false;
+        }
+    }
 }

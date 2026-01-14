@@ -191,35 +191,22 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         Debug.Log("[ExportSave] Function called");
         if (SaveManager.Instance != null)
         {
-            Debug.Log("[ExportSave] SaveManager exists, calling SaveGame");
-            SaveManager.Instance.SaveGame();
+            string saveString = SaveManager.Instance.ExportSaveToString();
 
-            string saveFilePath = Path.Combine(Application.persistentDataPath, "antimatter_save.json");
-            string desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-            string exportPath = Path.Combine(desktopPath, "antimatter_save_export.json");
-
-            Debug.Log($"[ExportSave] Save file path: {saveFilePath}");
-            Debug.Log($"[ExportSave] Export path: {exportPath}");
-            Debug.Log($"[ExportSave] File exists: {File.Exists(saveFilePath)}");
-
-            if (File.Exists(saveFilePath))
+            if (!string.IsNullOrEmpty(saveString))
             {
-                try
-                {
-                    File.Copy(saveFilePath, exportPath, true);
-                    ShowStatus($"Exported to Desktop!\n{exportPath}");
-                    Debug.Log($"[ExportSave] SUCCESS: Save exported to: {exportPath}");
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError($"[ExportSave] ERROR copying file: {e.Message}");
-                    ShowStatus($"Export failed: {e.Message}");
-                }
+                // Copy to clipboard
+                GUIUtility.systemCopyBuffer = saveString;
+
+                // Show popup with save string
+                ShowExportPopup(saveString);
+
+                Debug.Log("[ExportSave] Save exported successfully");
             }
             else
             {
-                ShowStatus("No save file found!");
-                Debug.LogWarning("[ExportSave] No save file found");
+                ShowStatus("Export failed! No save data.");
+                Debug.LogError("[ExportSave] Failed to export save string");
             }
         }
         else
@@ -230,71 +217,8 @@ public class OptionsManagerUIToolkit : MonoBehaviour
 
     void ImportSave()
     {
-        Debug.Log("[ImportSave] Starting import coroutine");
-        StartCoroutine(ImportSaveWithConfirmation());
-    }
-
-    IEnumerator ImportSaveWithConfirmation()
-    {
-        Debug.Log("[ImportSave] Coroutine started");
-        bool? confirmed = null;
-        Debug.Log("[ImportSave] Showing confirmation dialog");
-        ShowConfirmDialog("Import Save?", "This will load the save file from Desktop and restart the game. Continue?", (result) => {
-            Debug.Log($"[ImportSave] Callback invoked with result: {result}");
-            confirmed = result;
-        });
-
-        Debug.Log("[ImportSave] Waiting for user confirmation...");
-        yield return new WaitUntil(() => confirmed.HasValue);
-
-        Debug.Log($"[ImportSave] Confirmation received: {confirmed}");
-
-        if (confirmed == false)
-        {
-            ShowStatus("Import cancelled.");
-            Debug.Log("[ImportSave] User cancelled import");
-            yield break;
-        }
-
-        string desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-        string importPath = Path.Combine(desktopPath, "antimatter_save_export.json");
-        string saveFilePath = Path.Combine(Application.persistentDataPath, "antimatter_save.json");
-
-        Debug.Log($"[ImportSave] Import path: {importPath}");
-        Debug.Log($"[ImportSave] Save path: {saveFilePath}");
-        Debug.Log($"[ImportSave] File exists: {File.Exists(importPath)}");
-
-        if (File.Exists(importPath))
-        {
-            bool copySuccess = false;
-            try
-            {
-                File.Copy(importPath, saveFilePath, true);
-                Debug.Log("[ImportSave] File copied successfully!");
-                copySuccess = true;
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"[ImportSave] ERROR: {e.Message}");
-                ShowStatus($"Import failed: {e.Message}");
-            }
-
-            if (copySuccess)
-            {
-                ShowStatus("Import successful! Reloading...");
-                Debug.Log("[ImportSave] Waiting 1 second before reload...");
-
-                yield return new WaitForSeconds(1f);
-
-                Debug.Log("[ImportSave] Calling LoadScene...");
-                UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
-            }
-        }
-        else
-        {
-            ShowStatus($"No export file found on Desktop!\nLooking for: antimatter_save_export.json");
-            Debug.LogWarning("[ImportSave] Export file not found on desktop");
-        }
+        Debug.Log("[ImportSave] Opening import dialog");
+        ShowImportPopup();
     }
 
     void ResetGame()
@@ -512,5 +436,270 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         root.Add(overlay);
 
         Debug.Log("[ShowConfirmDialog] Dialog created successfully");
+    }
+
+    void ShowExportPopup(string saveString)
+    {
+        Debug.Log("[ShowExportPopup] Creating export popup");
+
+        // Create overlay
+        var overlay = new VisualElement();
+        overlay.name = "export-popup-overlay";
+        overlay.style.position = Position.Absolute;
+        overlay.style.left = 0;
+        overlay.style.top = 0;
+        overlay.style.right = 0;
+        overlay.style.bottom = 0;
+        overlay.style.backgroundColor = new Color(0, 0, 0, 0.8f);
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+
+        // Dialog panel
+        var panel = new VisualElement();
+        panel.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+        panel.style.borderTopLeftRadius = 12;
+        panel.style.borderTopRightRadius = 12;
+        panel.style.borderBottomLeftRadius = 12;
+        panel.style.borderBottomRightRadius = 12;
+        panel.style.paddingTop = 20;
+        panel.style.paddingBottom = 20;
+        panel.style.paddingLeft = 30;
+        panel.style.paddingRight = 30;
+        panel.style.width = new Length(80, LengthUnit.Percent);
+        panel.style.maxWidth = 900;
+        panel.style.maxHeight = new Length(80, LengthUnit.Percent);
+
+        // Title
+        var titleLabel = new Label("Save Exported!");
+        titleLabel.style.fontSize = 32;
+        titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        titleLabel.style.color = Color.white;
+        titleLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        titleLabel.style.marginBottom = 10;
+        panel.Add(titleLabel);
+
+        // Info message
+        var infoLabel = new Label("Save string copied to clipboard! You can also manually copy it below:");
+        infoLabel.style.fontSize = 18;
+        infoLabel.style.color = new Color(0.2f, 0.8f, 0.2f, 1f);
+        infoLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        infoLabel.style.whiteSpace = WhiteSpace.Normal;
+        infoLabel.style.marginBottom = 15;
+        panel.Add(infoLabel);
+
+        // Text field with save string
+        var textField = new TextField();
+        textField.isReadOnly = true;
+        textField.multiline = true;
+        textField.value = saveString;
+        textField.style.height = 200;
+        textField.style.marginBottom = 20;
+        textField.style.backgroundColor = new Color(0.15f, 0.15f, 0.15f, 1f);
+        textField.style.color = Color.white;
+        textField.style.fontSize = 14;
+        textField.style.whiteSpace = WhiteSpace.Normal;
+        textField.style.unityTextAlign = TextAnchor.UpperLeft;
+        panel.Add(textField);
+
+        // Button container
+        var buttonContainer = new VisualElement();
+        buttonContainer.style.flexDirection = FlexDirection.Row;
+        buttonContainer.style.justifyContent = Justify.Center;
+        panel.Add(buttonContainer);
+
+        // Copy button
+        var copyBtn = new Button(() => {
+            GUIUtility.systemCopyBuffer = saveString;
+            ShowStatus("Copied to clipboard!");
+            Debug.Log("[ShowExportPopup] Copied to clipboard");
+        });
+        copyBtn.text = "COPY";
+        copyBtn.style.width = 120;
+        copyBtn.style.height = 40;
+        copyBtn.style.fontSize = 20;
+        copyBtn.style.marginRight = 10;
+        copyBtn.style.backgroundColor = new Color(0.2f, 0.6f, 0.86f, 1f);
+        copyBtn.style.color = Color.white;
+        copyBtn.style.borderTopLeftRadius = 8;
+        copyBtn.style.borderTopRightRadius = 8;
+        copyBtn.style.borderBottomLeftRadius = 8;
+        copyBtn.style.borderBottomRightRadius = 8;
+        buttonContainer.Add(copyBtn);
+
+        // Close button
+        var closeBtn = new Button(() => {
+            Debug.Log("[ShowExportPopup] Close button clicked");
+            root.Remove(overlay);
+        });
+        closeBtn.text = "CLOSE";
+        closeBtn.style.width = 120;
+        closeBtn.style.height = 40;
+        closeBtn.style.fontSize = 20;
+        closeBtn.style.backgroundColor = new Color(0.3f, 0.7f, 0.3f, 1f);
+        closeBtn.style.color = Color.white;
+        closeBtn.style.borderTopLeftRadius = 8;
+        closeBtn.style.borderTopRightRadius = 8;
+        closeBtn.style.borderBottomLeftRadius = 8;
+        closeBtn.style.borderBottomRightRadius = 8;
+        buttonContainer.Add(closeBtn);
+
+        overlay.Add(panel);
+        root.Add(overlay);
+
+        Debug.Log("[ShowExportPopup] Export popup created successfully");
+    }
+
+    void ShowImportPopup()
+    {
+        Debug.Log("[ShowImportPopup] Creating import popup");
+
+        // Create overlay
+        var overlay = new VisualElement();
+        overlay.name = "import-popup-overlay";
+        overlay.style.position = Position.Absolute;
+        overlay.style.left = 0;
+        overlay.style.top = 0;
+        overlay.style.right = 0;
+        overlay.style.bottom = 0;
+        overlay.style.backgroundColor = new Color(0, 0, 0, 0.8f);
+        overlay.style.alignItems = Align.Center;
+        overlay.style.justifyContent = Justify.Center;
+
+        // Dialog panel
+        var panel = new VisualElement();
+        panel.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+        panel.style.borderTopLeftRadius = 12;
+        panel.style.borderTopRightRadius = 12;
+        panel.style.borderBottomLeftRadius = 12;
+        panel.style.borderBottomRightRadius = 12;
+        panel.style.paddingTop = 20;
+        panel.style.paddingBottom = 20;
+        panel.style.paddingLeft = 30;
+        panel.style.paddingRight = 30;
+        panel.style.width = new Length(80, LengthUnit.Percent);
+        panel.style.maxWidth = 900;
+        panel.style.maxHeight = new Length(80, LengthUnit.Percent);
+
+        // Title
+        var titleLabel = new Label("Import Save");
+        titleLabel.style.fontSize = 32;
+        titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        titleLabel.style.color = Color.white;
+        titleLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        titleLabel.style.marginBottom = 10;
+        panel.Add(titleLabel);
+
+        // Info message
+        var infoLabel = new Label("Paste your save string below:");
+        infoLabel.style.fontSize = 18;
+        infoLabel.style.color = new Color(1f, 1f, 1f, 0.8f);
+        infoLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        infoLabel.style.whiteSpace = WhiteSpace.Normal;
+        infoLabel.style.marginBottom = 15;
+        panel.Add(infoLabel);
+
+        // Text field for input
+        var textField = new TextField();
+        textField.multiline = true;
+        textField.value = "";
+        textField.style.height = 200;
+        textField.style.marginBottom = 20;
+        textField.style.backgroundColor = new Color(0.15f, 0.15f, 0.15f, 1f);
+        textField.style.color = Color.white;
+        textField.style.fontSize = 14;
+        textField.style.whiteSpace = WhiteSpace.Normal;
+        textField.style.unityTextAlign = TextAnchor.UpperLeft;
+        panel.Add(textField);
+
+        // Warning message
+        var warningLabel = new Label("⚠ This will overwrite your current save!");
+        warningLabel.style.fontSize = 16;
+        warningLabel.style.color = new Color(1f, 0.5f, 0f, 1f);
+        warningLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+        warningLabel.style.marginBottom = 15;
+        panel.Add(warningLabel);
+
+        // Button container
+        var buttonContainer = new VisualElement();
+        buttonContainer.style.flexDirection = FlexDirection.Row;
+        buttonContainer.style.justifyContent = Justify.Center;
+        panel.Add(buttonContainer);
+
+        // Import button
+        var importBtn = new Button(() => {
+            Debug.Log("[ShowImportPopup] Import button clicked");
+            string saveString = textField.value;
+
+            if (string.IsNullOrEmpty(saveString))
+            {
+                ShowStatus("Please paste a save string!");
+                return;
+            }
+
+            if (SaveManager.Instance != null)
+            {
+                bool success = SaveManager.Instance.ImportSaveFromString(saveString);
+
+                if (success)
+                {
+                    root.Remove(overlay);
+                    ShowStatus("Import successful! Reloading...");
+                    Debug.Log("[ShowImportPopup] Import successful, reloading scene");
+                    StartCoroutine(ReloadSceneAfterDelay());
+                }
+                else
+                {
+                    ShowStatus("Import failed! Invalid save string.");
+                    Debug.LogError("[ShowImportPopup] Import failed");
+                }
+            }
+            else
+            {
+                ShowStatus("SaveManager not found!");
+                Debug.LogError("[ShowImportPopup] SaveManager.Instance is null");
+            }
+        });
+        importBtn.text = "IMPORT";
+        importBtn.style.width = 120;
+        importBtn.style.height = 40;
+        importBtn.style.fontSize = 20;
+        importBtn.style.marginRight = 10;
+        importBtn.style.backgroundColor = new Color(0.2f, 0.6f, 0.86f, 1f);
+        importBtn.style.color = Color.white;
+        importBtn.style.borderTopLeftRadius = 8;
+        importBtn.style.borderTopRightRadius = 8;
+        importBtn.style.borderBottomLeftRadius = 8;
+        importBtn.style.borderBottomRightRadius = 8;
+        buttonContainer.Add(importBtn);
+
+        // Cancel button
+        var cancelBtn = new Button(() => {
+            Debug.Log("[ShowImportPopup] Cancel button clicked");
+            root.Remove(overlay);
+            ShowStatus("Import cancelled.");
+        });
+        cancelBtn.text = "CANCEL";
+        cancelBtn.style.width = 120;
+        cancelBtn.style.height = 40;
+        cancelBtn.style.fontSize = 20;
+        cancelBtn.style.backgroundColor = new Color(0.7f, 0.3f, 0.3f, 1f);
+        cancelBtn.style.color = Color.white;
+        cancelBtn.style.borderTopLeftRadius = 8;
+        cancelBtn.style.borderTopRightRadius = 8;
+        cancelBtn.style.borderBottomLeftRadius = 8;
+        cancelBtn.style.borderBottomRightRadius = 8;
+        buttonContainer.Add(cancelBtn);
+
+        overlay.Add(panel);
+        root.Add(overlay);
+
+        Debug.Log("[ShowImportPopup] Import popup created successfully");
+    }
+
+    IEnumerator ReloadSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("[ReloadSceneAfterDelay] Reloading scene...");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 }
