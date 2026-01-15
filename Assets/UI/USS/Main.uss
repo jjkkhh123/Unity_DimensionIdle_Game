@@ -19,7 +19,7 @@
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    font-size: 150%;
+    font-size: 180%;
     color: rgb(255, 255, 255);
     background-color: rgba(41, 128, 185, 0.15);
     transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
@@ -131,14 +131,14 @@
 }
 
 .upgrade-level {
-    font-size: 800%;
+    font-size: 900%;
     color: rgb(46, 204, 113);
     -unity-font-style: bold;
     flex-shrink: 0;
 }
 
 .upgrade-description {
-    font-size: 200%;
+    font-size: 220%;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 0;
     white-space: normal;
@@ -154,7 +154,7 @@
 }
 
 .upgrade-effect {
-    font-size: 15%;
+    font-size: 20%;
     color: rgb(241, 196, 15);
     -unity-font-style: bold;
     flex-shrink: 1;
@@ -162,7 +162,7 @@
 }
 
 .upgrade-cost {
-    font-size: 14%;
+    font-size: 18%;
     color: rgb(255, 255, 255);
     margin-right: 0;
     flex-shrink: 0;
@@ -183,7 +183,7 @@
     border-top-color: rgba(46, 204, 113, 0.6);
     border-bottom-color: rgba(46, 204, 113, 0.6);
     color: rgb(255, 255, 255);
-    font-size: 13%;
+    font-size: 18%;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 5px;
@@ -382,7 +382,6 @@
     background-color: rgba(46, 204, 113, 0.12);
 }
 
-/* Options Styles */
 .options-header {
     flex-grow: 0;
     flex-shrink: 0;
@@ -412,7 +411,7 @@
 }
 
 .options-section-title {
-    font-size: 28px;
+    font-size: 300%;
     color: rgb(52, 152, 219);
     -unity-font-style: bold;
     margin-bottom: 10px;
@@ -429,7 +428,7 @@
     flex-grow: 1;
     width: 48%;
     height: 50px;
-    font-size: 20px;
+    font-size: 200%;
     color: rgb(255, 255, 255);
     border-radius: 10px;
     border-width: 2px;
@@ -496,7 +495,7 @@
 }
 
 .options-description {
-    font-size: 16px;
+    font-size: 200%;
     color: rgba(255, 255, 255, 0.6);
     margin-top: 5px;
     -unity-text-align: upper-left;
@@ -510,7 +509,6 @@
     white-space: normal;
 }
 
-/* Tickspeed and DimBoost Box Styles */
 .tickspeed-box {
     flex-grow: 0;
     flex-shrink: 0;
@@ -545,7 +543,6 @@
     border-color: rgb(52, 152, 219);
 }
 
-/* Shop Styles */
 .shop-item-card {
     background-color: rgba(44, 62, 80, 0.8);
     border-radius: 10px;
@@ -572,6 +569,7 @@
     border-radius: 6px;
     border-width: 0;
     transition: background-color 0.2s ease-out;
+    font-size: 100%;
 }
 
 .shop-buy-button:hover {
@@ -596,4 +594,5 @@
     background-color: rgba(255, 215, 0, 0.2);
     border-radius: 4px;
     padding: 2px 8px;
+    font-size: 200%;
 }

@@ -8,9 +8,9 @@
         <ui:VisualElement name="VisualElement" style="flex-grow: 0; height: 10%; flex-direction: row;">
             <ui:VisualElement name="tickspeed" class="tickspeed-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
                 <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: 40%;">
-                    <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 20%;"/>
-                    <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
-                    <ui:Label text="Cost: 100" name="TickspeedCost" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 18%;"/>
+                    <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 30%;"/>
+                    <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
+                    <ui:Label text="Cost: 100" name="TickspeedCost" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 25%;"/>
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1;">
                     <ui:Button text="Buy Tickspeed" name="TickspeedBuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); font-size: 21px; white-space: normal;"/>
@@ -18,9 +18,9 @@
             </ui:VisualElement>
             <ui:VisualElement name="dimboost" class="dimboost-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
                 <ui:VisualElement style="flex-grow: 1; width: 40%;">
-                    <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20%; white-space: normal;"/>
-                    <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
-                    <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 18%;"/>
+                    <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 30%; white-space: normal;"/>
+                    <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
+                    <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1;">
                     <ui:Button text="Dimension Boost" name="DimBoostBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); white-space: normal;"/>
@@ -233,7 +233,7 @@
                         <ui:Label text="Level: 0" name="TickspeedUpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Increases tickspeed multiplier by 0.01 per upgrade" name="TickspeedUpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement name="VisualElement" class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: +0.00 tickspeed" name="TickspeedUpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 1 PP" name="TickspeedUpgradeCost" class="upgrade-cost"/>
@@ -247,7 +247,7 @@
                         <ui:Label text="Level: 0" name="BulkBonusUpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Increases the x10 purchase bonus by 0.05 per upgrade (base: 2.00x)" name="BulkBonusUpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: 2.00x &#8594; 2.00x" name="BulkBonusUpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 2 PP" name="BulkBonusUpgradeCost" class="upgrade-cost"/>
@@ -261,7 +261,7 @@
                         <ui:Label text="Level: 0" name="Dim1UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 1 production by 2x per upgrade" name="Dim1UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim1UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 1 PP" name="Dim1UpgradeCost" class="upgrade-cost"/>
@@ -275,7 +275,7 @@
                         <ui:Label text="Level: 0" name="Dim2UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 2 production by 2x per upgrade" name="Dim2UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim2UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 2 PP" name="Dim2UpgradeCost" class="upgrade-cost"/>
@@ -289,7 +289,7 @@
                         <ui:Label text="Level: 0" name="Dim3UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 3 production by 2x per upgrade" name="Dim3UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim3UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 3 PP" name="Dim3UpgradeCost" class="upgrade-cost"/>
@@ -303,7 +303,7 @@
                         <ui:Label text="Level: 0" name="Dim4UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 4 production by 2x per upgrade" name="Dim4UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim4UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 5 PP" name="Dim4UpgradeCost" class="upgrade-cost"/>
@@ -317,7 +317,7 @@
                         <ui:Label text="Level: 0" name="Dim5UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 5 production by 2x per upgrade" name="Dim5UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim5UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 7 PP" name="Dim5UpgradeCost" class="upgrade-cost"/>
@@ -331,7 +331,7 @@
                         <ui:Label text="Level: 0" name="Dim6UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 6 production by 2x per upgrade" name="Dim6UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim6UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 8 PP" name="Dim6UpgradeCost" class="upgrade-cost"/>
@@ -345,7 +345,7 @@
                         <ui:Label text="Level: 0" name="Dim7UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 7 production by 2x per upgrade" name="Dim7UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim7UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 9 PP" name="Dim7UpgradeCost" class="upgrade-cost"/>
@@ -359,7 +359,7 @@
                         <ui:Label text="Level: 0" name="Dim8UpgradeLevel" class="upgrade-level"/>
                     </ui:VisualElement>
                     <ui:Label text="Multiplies Dimension 8 production by 2x per upgrade" name="Dim8UpgradeDesc" class="upgrade-description"/>
-                    <ui:VisualElement class="upgrade-footer">
+                    <ui:VisualElement class="upgrade-footer" style="flex-direction: column;">
                         <ui:Label text="Effect: x1.00" name="Dim8UpgradeEffect" class="upgrade-effect"/>
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost: 10 PP" name="Dim8UpgradeCost" class="upgrade-cost"/>
@@ -378,10 +378,10 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="options-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
-        <ui:VisualElement name="options-header" class="options-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+        <ui:VisualElement name="options-header" class="options-header" style="height: 10%; padding-bottom: 10px; margin-top: 10%;">
             <ui:Label text="Options" class="options-title" style="font-size: 60%;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="options-content" style="flex-grow: 1; height: 75%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: flex-start;">
+        <ui:VisualElement name="options-content" style="flex-grow: 1; height: 75%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: center;">
             <ui:VisualElement name="save-load-section" class="options-section">
                 <ui:Label text="Save &amp; Load" class="options-section-title"/>
                 <ui:VisualElement class="options-button-row">
@@ -416,16 +416,14 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="shop-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
-        <ui:VisualElement name="shop-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+        <ui:VisualElement name="shop-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 10%;">
             <ui:Label text="Premium Shop" class="prestige-title" style="font-size: 50%; color: rgb(241, 196, 15);"/>
             <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center; margin-top: 5px;">
                 <ui:Label text="Premium Currency:" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-right: 10px;"/>
                 <ui:Label text="1000" name="PremiumCurrencyAmount" style="font-size: 24px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: flex-start;">
-
-            <!-- Item 1: Boost Dim 1-4 -->
+        <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: center;">
             <ui:VisualElement name="ShopItem1" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
                     <ui:Label text="2x Production: Dimensions 1-4" name="ShopItem1Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
@@ -440,8 +438,6 @@
                     <ui:Button text="BUY" name="ShopItem1BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-            <!-- Item 2: Boost Dim 5-8 -->
             <ui:VisualElement name="ShopItem2" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
                     <ui:Label text="2x Production: Dimensions 5-8" name="ShopItem2Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
@@ -456,8 +452,6 @@
                     <ui:Button text="BUY" name="ShopItem2BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-            <!-- Item 3: Boost All Dimensions -->
             <ui:VisualElement name="ShopItem3" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
                     <ui:Label text="2x Production: All Dimensions" name="ShopItem3Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
@@ -472,7 +466,6 @@
                     <ui:Button text="BUY" name="ShopItem3BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
         </ui:VisualElement>
         <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
@@ -487,8 +480,6 @@
             <ui:Label text="Offline Progress" class="prestige-title" style="font-size: 50%; color: rgb(155, 89, 182);"/>
         </ui:VisualElement>
         <ui:VisualElement name="offline-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
-
-            <!-- Time Bar Section -->
             <ui:VisualElement name="offline-time-section" style="margin-bottom: 20px;">
                 <ui:Label text="Stored Offline Time" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-bottom: 5px;"/>
                 <ui:VisualElement name="time-bar-container" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 10px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
@@ -500,15 +491,11 @@
                     <ui:Label text="Effective time at 50% efficiency" name="EffectiveTimeLabel" style="font-size: 14px; color: rgba(255, 255, 255, 0.5); -unity-text-align: upper-center;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-            <!-- Upgrades Section -->
             <ui:VisualElement name="offline-upgrades-section" style="margin-bottom: 20px;">
                 <ui:Label text="Upgrades" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
-
-                <!-- Max Time Upgrade -->
                 <ui:VisualElement name="MaxTimeUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
                     <ui:Label text="Max Offline Time" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
-                    <ui:Label text="24h → 30h" name="MaxTimeUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:Label text="24h &#8594; 30h" name="MaxTimeUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
@@ -517,11 +504,9 @@
                         <ui:Button text="UPGRADE" name="MaxTimeUpgradeBtn" class="shop-buy-button" style="width: 120px; height: 35px; font-size: 16px;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
-
-                <!-- Efficiency Upgrade -->
                 <ui:VisualElement name="EfficiencyUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
                     <ui:Label text="Offline Efficiency (Max 10 Levels)" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
-                    <ui:Label text="50% → 55%" name="EfficiencyUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:Label text="50% &#8594; 55%" name="EfficiencyUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
                             <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
@@ -531,37 +516,27 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-            <!-- Boost Controls Section -->
             <ui:VisualElement name="offline-boost-section" style="margin-bottom: 20px;">
                 <ui:Label text="Time Boost" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
                 <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 15px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
-
-                    <!-- Multiplier Input -->
                     <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 10px;">
                         <ui:Label text="Multiplier:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 10px; width: 100px;"/>
                         <ui:TextField value="10" name="MultiplierInput" style="width: 80px; height: 30px; font-size: 18px; -unity-text-align: middle-center;"/>
                         <ui:Label text="x (1-20)" style="font-size: 16px; color: rgba(255, 255, 255, 0.6); margin-left: 10px;"/>
                     </ui:VisualElement>
-
-                    <!-- Duration Preview -->
                     <ui:Label text="Boost duration: -- min" name="BoostDurationPreview" style="font-size: 16px; color: rgb(52, 152, 219); margin-bottom: 10px; -unity-text-align: upper-center;"/>
-
-                    <!-- Buttons -->
                     <ui:VisualElement style="flex-direction: row; justify-content: space-around;">
                         <ui:Button text="START BOOST" name="StartBoostBtn" class="shop-buy-button" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(52, 152, 219);"/>
                         <ui:Button text="STOP BOOST" name="StopBoostBtn" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(231, 76, 60); display: none;"/>
                     </ui:VisualElement>
-
-                    <!-- Active Status -->
                     <ui:VisualElement name="BoostActiveStatus" style="margin-top: 15px; padding: 10px; background-color: rgba(155, 89, 182, 0.3); border-radius: 5px; display: none;">
                         <ui:Label text="Boost x10 ACTIVE" name="BoostActiveLabel" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold; -unity-text-align: upper-center;"/>
                         <ui:Label text="Time remaining: 00:00" name="BoostRemainingLabel" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); -unity-text-align: upper-center; margin-top: 5px;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-        </ui:VisualElement>        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
+        </ui:VisualElement>
+        <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Prestige" name="PrestigeBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
