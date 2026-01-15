@@ -7,28 +7,28 @@
         </ui:VisualElement>
         <ui:VisualElement name="VisualElement" style="flex-grow: 0; height: 10%; flex-direction: row;">
             <ui:VisualElement name="tickspeed" class="tickspeed-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
-                <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: 40%;">
+                <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: 60%;">
                     <ui:Label text="Tickspeed" name="TickspeedTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 30%;"/>
                     <ui:Label text="x1.00" name="TickspeedMultiplier" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
                     <ui:Label text="Cost: 100" name="TickspeedCost" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 25%;"/>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Button text="Buy Tickspeed" name="TickspeedBuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); font-size: 21px; white-space: normal;"/>
+                <ui:VisualElement style="flex-grow: 1; align-self: auto; justify-content: flex-start; align-content: auto; flex-direction: row;">
+                    <ui:Button text="Buy Tickspeed" name="TickspeedBuyBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); font-size: 21px; white-space: normal; height: 80%; flex-shrink: 0;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="dimboost" class="dimboost-box" style="flex-grow: 0; flex-direction: row; width: 45%;">
-                <ui:VisualElement style="flex-grow: 1; width: 40%;">
+                <ui:VisualElement style="flex-grow: 1; width: 60%;">
                     <ui:Label text="Requirement: 20" name="DimBoostRequirement" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 30%; white-space: normal;"/>
                     <ui:Label text="Dimension Boost" name="DimBoostTitle" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
                     <ui:Label text="0 Boosts" name="DimBoostCount" style="-unity-text-align: upper-center; margin-bottom: 2px; color: rgb(255, 255, 255); font-size: 25%;"/>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Button text="Dimension Boost" name="DimBoostBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); white-space: normal;"/>
+                <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                    <ui:Button text="Dimension Boost" name="DimBoostBtn" class="dimensions-buy-btn" style="flex-grow: 1; width: 60%; align-self: center; color: rgb(255, 255, 255); white-space: normal; height: 80%;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="buymode-container" style="flex-grow: 0; height: 3%; margin-left: 10%; margin-right: 10%; margin-top: 5px; margin-bottom: 5px; position: absolute; top: 5%; align-self: auto; font-size: 5%; background-size: 100% 100%; width: 10%;">
-            <ui:Button text="Buy 1" name="ChangeBuyModeBtn" class="dimensions-buy-btn" style="flex-grow: 1; color: rgb(255, 255, 255); position: absolute; top: auto; left: auto; bottom: auto; flex-shrink: 0; width: 100%; height: 50%; align-items: stretch; margin-left: 4px; font-size: 25%;"/>
+            <ui:Button text="Buy 1" name="ChangeBuyModeBtn" class="dimensions-buy-btn" style="flex-grow: 1; color: rgb(255, 255, 255); position: absolute; top: auto; left: auto; bottom: auto; flex-shrink: 0; width: 150%; height: 100%; align-items: stretch; margin-left: 4px; font-size: 25%;"/>
         </ui:VisualElement>
         <ui:VisualElement name="dimensions" style="flex-grow: 0; height: 75%; padding-bottom: 2%;">
             <ui:VisualElement name="Dimension1Panel" class="dimension-panel-odd" style="flex-grow: 1; flex-direction: row;">
@@ -405,17 +405,13 @@
                     <ui:Button text="TUTORIAL" name="TutorialBtn" class="options-button options-button-info"/>
                 </ui:VisualElement>
                 <ui:Label text="View game help or replay the tutorial" class="options-description"/>
-
-                <!-- Help Menu (인라인 펼침 메뉴) -->
                 <ui:VisualElement name="help-menu-container" style="display: none; margin-top: 15px;">
-                    <ui:Button text="▶ Dimensions" name="HelpMenu_Dimensions" class="help-menu-btn"/>
-                    <ui:Button text="▶ Dimension Enhance" name="HelpMenu_DimEnhance" class="help-menu-btn"/>
-                    <ui:Button text="▶ Tickspeed" name="HelpMenu_Tickspeed" class="help-menu-btn"/>
-                    <ui:Button text="▶ Prestige" name="HelpMenu_Prestige" class="help-menu-btn"/>
-                    <ui:Button text="▶ Shop" name="HelpMenu_Shop" class="help-menu-btn"/>
-                    <ui:Button text="▶ Offline Progress" name="HelpMenu_Offline" class="help-menu-btn"/>
-
-                    <!-- 선택된 항목의 내용 표시 영역 -->
+                    <ui:Button text="&#9654; Dimensions" name="HelpMenu_Dimensions" class="help-menu-btn"/>
+                    <ui:Button text="&#9654; Dimension Enhance" name="HelpMenu_DimEnhance" class="help-menu-btn"/>
+                    <ui:Button text="&#9654; Tickspeed" name="HelpMenu_Tickspeed" class="help-menu-btn"/>
+                    <ui:Button text="&#9654; Prestige" name="HelpMenu_Prestige" class="help-menu-btn"/>
+                    <ui:Button text="&#9654; Shop" name="HelpMenu_Shop" class="help-menu-btn"/>
+                    <ui:Button text="&#9654; Offline Progress" name="HelpMenu_Offline" class="help-menu-btn"/>
                     <ui:VisualElement name="help-content-display" style="display: none; margin-top: 10px;">
                         <ui:Label name="HelpContentTitle" class="help-content-title"/>
                         <ui:Label name="HelpContentDesc" class="help-content-desc"/>
@@ -540,7 +536,7 @@
                 <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 15px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
                     <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 10px;">
                         <ui:Label text="Multiplier:" class="offline-input-label" style="margin-right: 10%;"/>
-                        <ui:TextField value="10" name="MultiplierInput" style="width: 80px; height: 30px; font-size: 18px; -unity-text-align: middle-center;"/>
+                        <ui:TextField value="10" name="MultiplierInput" style="width: 20%; height: 60px; font-size: 60%; -unity-text-align: middle-center; color: rgb(0, 0, 0);"/>
                         <ui:Label text="x (1-20)" class="offline-input-hint"/>
                     </ui:VisualElement>
                     <ui:Label text="Boost duration: -- min" name="BoostDurationPreview" class="offline-boost-preview"/>
@@ -563,8 +559,6 @@
             <ui:Button text="Offline" name="OfflineMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-
-    <!-- Tutorial Popup Overlay -->
     <ui:VisualElement name="tutorial-overlay" class="popup-overlay" style="display: none;">
         <ui:VisualElement name="tutorial-popup" class="popup-container">
             <ui:Label text="1 / 5" name="TutorialPageIndicator" class="popup-page-indicator"/>
