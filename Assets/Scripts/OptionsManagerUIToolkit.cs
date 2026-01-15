@@ -15,6 +15,7 @@ public class OptionsManagerUIToolkit : MonoBehaviour
     private Button resetGameBtn;
     private Button quitGameBtn;
     private Button helpBtn;
+    private Button tutorialBtn;
     private Label statusText;
 
     // Help panel (will be created dynamically)
@@ -44,6 +45,7 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         resetGameBtn = root.Q<Button>("ResetGameBtn");
         quitGameBtn = root.Q<Button>("QuitGameBtn");
         helpBtn = root.Q<Button>("HelpBtn");
+        tutorialBtn = root.Q<Button>("TutorialBtn");
         statusText = root.Q<Label>("OptionsStatusText");
 
         if (optionsRoot == null) Debug.LogError("[OptionsManagerUIToolkit] options-root not found!");
@@ -52,6 +54,7 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         if (resetGameBtn == null) Debug.LogError("[OptionsManagerUIToolkit] ResetGameBtn not found!");
         if (quitGameBtn == null) Debug.LogError("[OptionsManagerUIToolkit] QuitGameBtn not found!");
         if (helpBtn == null) Debug.LogError("[OptionsManagerUIToolkit] HelpBtn not found!");
+        if (tutorialBtn == null) Debug.LogError("[OptionsManagerUIToolkit] TutorialBtn not found!");
         if (statusText == null) Debug.LogError("[OptionsManagerUIToolkit] OptionsStatusText not found!");
     }
 
@@ -71,6 +74,21 @@ public class OptionsManagerUIToolkit : MonoBehaviour
 
         if (helpBtn != null)
             helpBtn.clicked += ToggleHelp;
+
+        if (tutorialBtn != null)
+            tutorialBtn.clicked += ShowTutorial;
+    }
+
+    void ShowTutorial()
+    {
+        if (TutorialPopup.Instance != null)
+        {
+            TutorialPopup.Instance.ShowTutorial();
+        }
+        else
+        {
+            Debug.LogWarning("[OptionsManagerUIToolkit] TutorialPopup.Instance is null!");
+        }
     }
 
     void ToggleHelp()

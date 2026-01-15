@@ -749,3 +749,124 @@
 .offline-start-button:hover {
     background-color: rgb(41, 128, 185);
 }
+
+/* Popup Styles */
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-container {
+    background-color: rgb(44, 62, 80);
+    border-radius: 20px;
+    padding: 50px 60px 40px 60px;
+    width: 90%;
+    max-width: 1600px;
+    border-width: 3px;
+    border-color: rgb(52, 152, 219);
+}
+
+.popup-page-indicator {
+    font-size: 400%;
+    color: rgba(255, 255, 255, 0.5);
+    -unity-text-align: middle-center;
+    margin-bottom: 15px;
+}
+
+.popup-title {
+    font-size: 700%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 40px;
+    white-space: normal;
+}
+
+.popup-content {
+    margin-bottom: 30px;
+}
+
+.popup-content-line {
+    font-size: 500%;
+    color: rgba(255, 255, 255, 0.9);
+    -unity-text-align: middle-center;
+    margin-bottom: 25px;
+    white-space: normal;
+}
+
+.popup-button-container {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.popup-btn {
+    width: 30%;
+    height: 70px;
+    font-size: 350%;
+    -unity-font-style: bold;
+    border-radius: 12px;
+    border-width: 0;
+    color: rgb(255, 255, 255);
+    transition: background-color 0.2s ease-out;
+}
+
+.popup-btn-primary {
+    background-color: rgb(52, 152, 219);
+}
+
+.popup-btn-primary:hover {
+    background-color: rgb(41, 128, 185);
+}
+
+.popup-btn-secondary {
+    background-color: rgba(100, 100, 100, 0.8);
+}
+
+.popup-btn-secondary:hover {
+    background-color: rgba(120, 120, 120, 0.9);
+}
+
+.popup-btn-skip {
+    width: 25%;
+    background-color: rgba(80, 80, 80, 0.6);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 300%;
+}
+
+.popup-btn-skip:hover {
+    background-color: rgba(100, 100, 100, 0.7);
+}
+
+.popup-btn-success {
+    background-color: rgb(46, 204, 113);
+}
+
+.popup-btn-success:hover {
+    background-color: rgb(39, 174, 96);
+}
+
+.popup-dots-container {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.popup-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.popup-dot-active {
+    background-color: rgb(52, 152, 219);
+}

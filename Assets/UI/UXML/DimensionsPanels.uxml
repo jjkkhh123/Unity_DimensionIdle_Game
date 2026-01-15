@@ -400,8 +400,11 @@
             </ui:VisualElement>
             <ui:VisualElement name="help-section" class="options-section">
                 <ui:Label text="Help" class="options-section-title"/>
-                <ui:Button text="SHOW HELP" name="HelpBtn" class="options-button options-button-info" style="width: 48%;"/>
-                <ui:Label text="Display game instructions and tips" class="options-description"/>
+                <ui:VisualElement class="options-button-row">
+                    <ui:Button text="SHOW HELP" name="HelpBtn" class="options-button options-button-info"/>
+                    <ui:Button text="TUTORIAL" name="TutorialBtn" class="options-button options-button-info"/>
+                </ui:VisualElement>
+                <ui:Label text="View game help or replay the tutorial" class="options-description"/>
             </ui:VisualElement>
             <ui:VisualElement name="status-section" style="margin-top: 20px; padding: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 8px; min-height: 60px;">
                 <ui:Label text="" name="OptionsStatusText" class="options-status-text" style="color: rgb(241, 196, 15); font-size: 20px; -unity-text-align: upper-center; white-space: normal;"/>
@@ -542,6 +545,29 @@
             <ui:Button text="Options" name="OptionBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Shop" name="ShopBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
             <ui:Button text="Offline" name="OfflineMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="tutorial-overlay" class="popup-overlay" style="display: none;">
+        <ui:VisualElement name="tutorial-popup" class="popup-container">
+            <ui:Label text="1 / 5" name="TutorialPageIndicator" class="popup-page-indicator"/>
+            <ui:Label text="Welcome to Antimatter Dimensions!" name="TutorialTitle" class="popup-title"/>
+            <ui:VisualElement name="TutorialContent" class="popup-content">
+                <ui:Label text="Your goal is to produce Antimatter until you reach Infinity (1.79e308)." name="TutorialLine1" class="popup-content-line"/>
+                <ui:Label text="Click on dimensions to buy them and start producing antimatter!" name="TutorialLine2" class="popup-content-line"/>
+                <ui:Label text="" name="TutorialLine3" class="popup-content-line"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="popup-button-container">
+                <ui:Button text="&lt; BACK" name="TutorialBackBtn" class="popup-btn popup-btn-secondary"/>
+                <ui:Button text="SKIP" name="TutorialSkipBtn" class="popup-btn popup-btn-skip"/>
+                <ui:Button text="NEXT &gt;" name="TutorialNextBtn" class="popup-btn popup-btn-primary"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="TutorialDots" class="popup-dots-container">
+                <ui:VisualElement name="Dot0" class="popup-dot popup-dot-active"/>
+                <ui:VisualElement name="Dot1" class="popup-dot"/>
+                <ui:VisualElement name="Dot2" class="popup-dot"/>
+                <ui:VisualElement name="Dot3" class="popup-dot"/>
+                <ui:VisualElement name="Dot4" class="popup-dot"/>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
