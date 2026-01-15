@@ -18,9 +18,24 @@ public class OptionsManagerUIToolkit : MonoBehaviour
     private Button tutorialBtn;
     private Label statusText;
 
-    // Help panel (will be created dynamically)
-    private VisualElement helpPanel;
-    private bool isHelpVisible = false;
+    // Help inline menu
+    private VisualElement helpMenuContainer;
+    private VisualElement helpContentDisplay;
+    private Label helpContentTitle;
+    private Label helpContentDesc;
+    private Button[] helpMenuButtons;
+    private string currentHelpTopic = "";
+
+    // Help content data
+    private readonly (string title, string desc)[] helpTopics = new (string, string)[]
+    {
+        ("Dimensions", "Purchase dimensions to produce antimatter. Each dimension produces the one below it. Dimension 1 produces antimatter directly."),
+        ("Dimension Enhance", "Reset your progress but unlock new dimensions and boost production. Requires purchasing a certain amount of your highest dimension."),
+        ("Tickspeed", "Increases the speed at which all dimensions produce. Can be upgraded multiple times for exponential growth."),
+        ("Prestige", "Reset all progress to gain Prestige Points. Use these points to purchase permanent upgrades that persist through resets."),
+        ("Shop", "Purchase permanent upgrades using Prestige Points. Higher level upgrades provide stronger bonuses but cost more."),
+        ("Offline Progress", "Earn antimatter while offline. Use boost to multiply offline earnings temporarily.")
+    };
 
     void Start()
     {
@@ -48,6 +63,23 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         tutorialBtn = root.Q<Button>("TutorialBtn");
         statusText = root.Q<Label>("OptionsStatusText");
 
+        // Help inline menu elements
+        helpMenuContainer = root.Q<VisualElement>("help-menu-container");
+        helpContentDisplay = root.Q<VisualElement>("help-content-display");
+        helpContentTitle = root.Q<Label>("HelpContentTitle");
+        helpContentDesc = root.Q<Label>("HelpContentDesc");
+
+        // Cache help menu buttons
+        helpMenuButtons = new Button[]
+        {
+            root.Q<Button>("HelpMenu_Dimensions"),
+            root.Q<Button>("HelpMenu_DimEnhance"),
+            root.Q<Button>("HelpMenu_Tickspeed"),
+            root.Q<Button>("HelpMenu_Prestige"),
+            root.Q<Button>("HelpMenu_Shop"),
+            root.Q<Button>("HelpMenu_Offline")
+        };
+
         if (optionsRoot == null) Debug.LogError("[OptionsManagerUIToolkit] options-root not found!");
         if (exportSaveBtn == null) Debug.LogError("[OptionsManagerUIToolkit] ExportSaveBtn not found!");
         if (importSaveBtn == null) Debug.LogError("[OptionsManagerUIToolkit] ImportSaveBtn not found!");
@@ -56,6 +88,7 @@ public class OptionsManagerUIToolkit : MonoBehaviour
         if (helpBtn == null) Debug.LogError("[OptionsManagerUIToolkit] HelpBtn not found!");
         if (tutorialBtn == null) Debug.LogError("[OptionsManagerUIToolkit] TutorialBtn not found!");
         if (statusText == null) Debug.LogError("[OptionsManagerUIToolkit] OptionsStatusText not found!");
+        if (helpMenuContainer == null) Debug.LogError("[OptionsManagerUIToolkit] help-menu-container not found!");
     }
 
     void RegisterCallbacks()
@@ -77,6 +110,16 @@ public class OptionsManagerUIToolkit : MonoBehaviour
 
         if (tutorialBtn != null)
             tutorialBtn.clicked += ShowTutorial;
+
+        // Register help menu button callbacks
+        for (int i = 0; i < helpMenuButtons.Length; i++)
+        {
+            if (helpMenuButtons[i] != null)
+            {
+                int index = i; // Capture for closure
+                helpMenuButtons[i].clicked += () => ShowHelpTopic(index);
+            }
+        }
     }
 
     void ShowTutorial()
@@ -93,115 +136,97 @@ public class OptionsManagerUIToolkit : MonoBehaviour
 
     void ToggleHelp()
     {
-        isHelpVisible = !isHelpVisible;
+        if (helpMenuContainer == null) return;
 
-        if (isHelpVisible)
+        bool isVisible = helpMenuContainer.style.display == DisplayStyle.Flex;
+
+        if (isVisible)
         {
-            if (helpPanel == null)
-            {
-                CreateHelpPanel();
-            }
-            helpPanel.style.display = DisplayStyle.Flex;
-            if (helpBtn != null)
-                helpBtn.text = "HIDE HELP";
+            HideHelpMenu();
         }
         else
         {
-            if (helpPanel != null)
-                helpPanel.style.display = DisplayStyle.None;
+            ShowHelpMenu();
+        }
+    }
+
+    void ShowHelpMenu()
+    {
+        if (helpMenuContainer != null)
+        {
+            helpMenuContainer.style.display = DisplayStyle.Flex;
+            if (helpBtn != null)
+                helpBtn.text = "HIDE HELP";
+
+            // Reset content display
+            if (helpContentDisplay != null)
+                helpContentDisplay.style.display = DisplayStyle.None;
+
+            // Reset button states
+            ClearActiveButtons();
+            currentHelpTopic = "";
+        }
+    }
+
+    void HideHelpMenu()
+    {
+        if (helpMenuContainer != null)
+        {
+            helpMenuContainer.style.display = DisplayStyle.None;
             if (helpBtn != null)
                 helpBtn.text = "SHOW HELP";
         }
     }
 
-    void CreateHelpPanel()
+    void ShowHelpTopic(int index)
     {
-        helpPanel = new VisualElement();
-        helpPanel.name = "help-panel";
-        helpPanel.style.position = Position.Absolute;
-        helpPanel.style.left = 0;
-        helpPanel.style.top = 0;
-        helpPanel.style.right = 0;
-        helpPanel.style.bottom = 0;
-        helpPanel.style.backgroundColor = new Color(0, 0, 0, 0.8f);
-        helpPanel.style.alignItems = Align.Center;
-        helpPanel.style.justifyContent = Justify.Center;
+        if (index < 0 || index >= helpTopics.Length) return;
 
-        // Content container
-        var content = new VisualElement();
-        content.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1f);
-        content.style.borderTopLeftRadius = 12;
-        content.style.borderTopRightRadius = 12;
-        content.style.borderBottomLeftRadius = 12;
-        content.style.borderBottomRightRadius = 12;
-        content.style.paddingTop = 20;
-        content.style.paddingBottom = 20;
-        content.style.paddingLeft = 20;
-        content.style.paddingRight = 20;
-        content.style.width = new Length(80, LengthUnit.Percent);
-        content.style.maxWidth = 800;
+        var topic = helpTopics[index];
 
-        // Title
-        var title = new Label("Game Help");
-        title.style.fontSize = 32;
-        title.style.unityFontStyleAndWeight = FontStyle.Bold;
-        title.style.color = Color.white;
-        title.style.unityTextAlign = TextAnchor.MiddleCenter;
-        title.style.marginBottom = 20;
-        content.Add(title);
+        // Toggle: if clicking same topic, hide it
+        if (currentHelpTopic == topic.title)
+        {
+            if (helpContentDisplay != null)
+                helpContentDisplay.style.display = DisplayStyle.None;
+            ClearActiveButtons();
+            currentHelpTopic = "";
+            return;
+        }
 
-        // Help sections
-        AddHelpSection(content, "Dimensions", "Purchase dimensions to produce antimatter. Each dimension produces the one below it. Dimension 1 produces antimatter directly.");
-        AddHelpSection(content, "Dimension Enhance", "Reset your progress but unlock new dimensions and boost production. Requires purchasing a certain amount of your highest dimension.");
-        AddHelpSection(content, "Tickspeed", "Increases the speed at which all dimensions produce. Can be upgraded multiple times for exponential growth.");
-        AddHelpSection(content, "Prestige", "Reset all progress to gain Prestige Points. Use these points to purchase permanent upgrades that persist through resets.");
+        // Show content
+        if (helpContentTitle != null)
+            helpContentTitle.text = topic.title;
 
-        // Close button
-        var closeBtn = new Button(() => ToggleHelp());
-        closeBtn.text = "CLOSE";
-        closeBtn.style.marginTop = 20;
-        closeBtn.style.height = 50;
-        closeBtn.style.fontSize = 20;
-        closeBtn.style.backgroundColor = new Color(0.3f, 0.7f, 0.3f, 1f);
-        closeBtn.style.color = Color.white;
-        closeBtn.style.borderTopLeftRadius = 10;
-        closeBtn.style.borderTopRightRadius = 10;
-        closeBtn.style.borderBottomLeftRadius = 10;
-        closeBtn.style.borderBottomRightRadius = 10;
-        content.Add(closeBtn);
+        if (helpContentDesc != null)
+            helpContentDesc.text = topic.desc;
 
-        helpPanel.Add(content);
-        root.Add(helpPanel);
+        if (helpContentDisplay != null)
+            helpContentDisplay.style.display = DisplayStyle.Flex;
+
+        // Update button states
+        ClearActiveButtons();
+        if (helpMenuButtons[index] != null)
+        {
+            helpMenuButtons[index].AddToClassList("help-menu-btn-active");
+            helpMenuButtons[index].text = "▼ " + topic.title;
+        }
+
+        currentHelpTopic = topic.title;
     }
 
-    void AddHelpSection(VisualElement parent, string title, string description)
+    void ClearActiveButtons()
     {
-        var section = new VisualElement();
-        section.style.marginBottom = 15;
-        section.style.paddingTop = 10;
-        section.style.paddingBottom = 10;
-        section.style.paddingLeft = 10;
-        section.style.paddingRight = 10;
-        section.style.backgroundColor = new Color(0.15f, 0.15f, 0.15f, 0.5f);
-        section.style.borderTopLeftRadius = 8;
-        section.style.borderTopRightRadius = 8;
-        section.style.borderBottomLeftRadius = 8;
-        section.style.borderBottomRightRadius = 8;
+        string[] topics = { "Dimensions", "Dimension Enhance", "Tickspeed", "Prestige", "Shop", "Offline Progress" };
 
-        var titleLabel = new Label(title);
-        titleLabel.style.fontSize = 24;
-        titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
-        titleLabel.style.color = new Color(0.2f, 0.6f, 0.86f, 1f);
-        titleLabel.style.marginBottom = 5;
-        section.Add(titleLabel);
-
-        var descLabel = new Label(description);
-        descLabel.style.fontSize = 16;
-        descLabel.style.color = new Color(1f, 1f, 1f, 0.8f);
-        descLabel.style.whiteSpace = WhiteSpace.Normal;
-        section.Add(descLabel);
-
-        parent.Add(section);
+        for (int i = 0; i < helpMenuButtons.Length; i++)
+        {
+            if (helpMenuButtons[i] != null)
+            {
+                helpMenuButtons[i].RemoveFromClassList("help-menu-btn-active");
+                helpMenuButtons[i].text = "▶ " + topics[i];
+            }
+        }
     }
 
     void ExportSave()

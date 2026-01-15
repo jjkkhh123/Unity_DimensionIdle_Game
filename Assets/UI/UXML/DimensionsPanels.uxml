@@ -405,6 +405,22 @@
                     <ui:Button text="TUTORIAL" name="TutorialBtn" class="options-button options-button-info"/>
                 </ui:VisualElement>
                 <ui:Label text="View game help or replay the tutorial" class="options-description"/>
+
+                <!-- Help Menu (인라인 펼침 메뉴) -->
+                <ui:VisualElement name="help-menu-container" style="display: none; margin-top: 15px;">
+                    <ui:Button text="▶ Dimensions" name="HelpMenu_Dimensions" class="help-menu-btn"/>
+                    <ui:Button text="▶ Dimension Enhance" name="HelpMenu_DimEnhance" class="help-menu-btn"/>
+                    <ui:Button text="▶ Tickspeed" name="HelpMenu_Tickspeed" class="help-menu-btn"/>
+                    <ui:Button text="▶ Prestige" name="HelpMenu_Prestige" class="help-menu-btn"/>
+                    <ui:Button text="▶ Shop" name="HelpMenu_Shop" class="help-menu-btn"/>
+                    <ui:Button text="▶ Offline Progress" name="HelpMenu_Offline" class="help-menu-btn"/>
+
+                    <!-- 선택된 항목의 내용 표시 영역 -->
+                    <ui:VisualElement name="help-content-display" style="display: none; margin-top: 10px;">
+                        <ui:Label name="HelpContentTitle" class="help-content-title"/>
+                        <ui:Label name="HelpContentDesc" class="help-content-desc"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="status-section" style="margin-top: 20px; padding: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 8px; min-height: 60px;">
                 <ui:Label text="" name="OptionsStatusText" class="options-status-text" style="color: rgb(241, 196, 15); font-size: 20px; -unity-text-align: upper-center; white-space: normal;"/>
@@ -547,6 +563,8 @@
             <ui:Button text="Offline" name="OfflineMenuBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
+
+    <!-- Tutorial Popup Overlay -->
     <ui:VisualElement name="tutorial-overlay" class="popup-overlay" style="display: none;">
         <ui:VisualElement name="tutorial-popup" class="popup-container">
             <ui:Label text="1 / 5" name="TutorialPageIndicator" class="popup-page-indicator"/>

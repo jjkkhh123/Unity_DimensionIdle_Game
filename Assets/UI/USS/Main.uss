@@ -870,3 +870,43 @@
 .popup-dot-active {
     background-color: rgb(52, 152, 219);
 }
+
+/* ===== Help Inline Menu Styles ===== */
+.help-menu-btn {
+    height: 50px;
+    font-size: 280%;
+    margin-bottom: 8px;
+    background-color: rgba(52, 73, 94, 0.8);
+    color: rgb(236, 240, 241);
+    border-radius: 8px;
+    border-width: 0;
+    -unity-text-align: middle-left;
+    padding-left: 20px;
+    transition-duration: 0.2s;
+}
+
+.help-menu-btn:hover {
+    background-color: rgba(52, 152, 219, 0.6);
+}
+
+.help-menu-btn-active {
+    background-color: rgb(52, 152, 219);
+    color: white;
+}
+
+.help-content-title {
+    font-size: 350%;
+    -unity-font-style: bold;
+    color: rgb(241, 196, 15);
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.help-content-desc {
+    font-size: 280%;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: normal;
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
