@@ -569,7 +569,7 @@
     border-radius: 6px;
     border-width: 0;
     transition: background-color 0.2s ease-out;
-    font-size: 100%;
+    font-size: 250%;
 }
 
 .shop-buy-button:hover {
@@ -591,8 +591,161 @@
 
 .shop-forever-label {
     color: rgb(255, 215, 0);
+    -unity-font-style: bold;
     background-color: rgba(255, 215, 0, 0.2);
     border-radius: 4px;
     padding: 2px 8px;
     font-size: 200%;
+}
+
+.shop-item-name {
+    font-size: 280%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+}
+
+.shop-item-desc {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+.shop-price-label {
+    font-size: 220%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 5px;
+}
+
+.shop-price-value {
+    font-size: 250%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+}
+
+.shop-currency-label {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 10px;
+}
+
+.shop-currency-value {
+    font-size: 250%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+}
+
+.offline-section-label {
+    font-size: 300%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+.offline-section-title {
+    font-size: 280%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+}
+
+.offline-time-value {
+    font-size: 250%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+}
+
+.offline-time-cap {
+    font-size: 220%;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.offline-hint {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.5);
+    -unity-text-align: upper-center;
+}
+
+.offline-upgrade-title {
+    font-size: 250%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+    margin-bottom: 5px;
+}
+
+.offline-upgrade-desc {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.offline-cost-label {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 5px;
+}
+
+.offline-cost-value {
+    font-size: 220%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+}
+
+.offline-input-label {
+    font-size: 220%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 10px;
+    width: 100px;
+}
+
+.offline-input-hint {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 10px;
+}
+
+.offline-boost-preview {
+    font-size: 220%;
+    color: rgb(52, 152, 219);
+    margin-bottom: 10px;
+    -unity-text-align: upper-center;
+}
+
+.offline-boost-status {
+    font-size: 220%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+}
+
+.offline-boost-remaining {
+    font-size: 200%;
+    color: rgba(255, 255, 255, 0.8);
+    -unity-text-align: upper-center;
+    margin-top: 5px;
+}
+
+.offline-stop-button {
+    background-color: rgb(231, 76, 60);
+    color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-width: 0;
+    font-size: 220%;
+    transition: background-color 0.2s ease-out;
+}
+
+.offline-stop-button:hover {
+    background-color: rgb(192, 57, 43);
+}
+
+.offline-start-button {
+    background-color: rgb(52, 152, 219);
+    color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-width: 0;
+    font-size: 220%;
+    transition: background-color 0.2s ease-out;
+}
+
+.offline-start-button:hover {
+    background-color: rgb(41, 128, 185);
 }

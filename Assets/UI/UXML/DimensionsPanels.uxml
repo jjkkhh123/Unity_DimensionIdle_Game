@@ -419,51 +419,51 @@
         <ui:VisualElement name="shop-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 10%;">
             <ui:Label text="Premium Shop" class="prestige-title" style="font-size: 50%; color: rgb(241, 196, 15);"/>
             <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center; margin-top: 5px;">
-                <ui:Label text="Premium Currency:" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-right: 10px;"/>
-                <ui:Label text="1000" name="PremiumCurrencyAmount" style="font-size: 24px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                <ui:Label text="Premium Currency:" class="shop-currency-label"/>
+                <ui:Label text="1000" name="PremiumCurrencyAmount" class="shop-currency-value"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="shop-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%; justify-content: center;">
             <ui:VisualElement name="ShopItem1" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
-                    <ui:Label text="2x Production: Dimensions 1-4" name="ShopItem1Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
-                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                    <ui:Label text="2x Production: Dimensions 1-4" name="ShopItem1Name" class="shop-item-name"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label"/>
                 </ui:VisualElement>
-                <ui:Label text="Permanent 2x multiplier for dimensions 1-4 (stacks with prestige &amp; DimBoost)" name="ShopItem1Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:Label text="Permanent 2x multiplier for dimensions 1-4 (stacks with prestige &amp; DimBoost)" name="ShopItem1Desc" class="shop-item-desc"/>
                 <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
-                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
-                        <ui:Label text="100" name="ShopItem1Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                        <ui:Label text="Price:" class="shop-price-label"/>
+                        <ui:Label text="100" name="ShopItem1Price" class="shop-price-value"/>
                     </ui:VisualElement>
-                    <ui:Button text="BUY" name="ShopItem1BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                    <ui:Button text="BUY" name="ShopItem1BuyBtn" class="shop-buy-button"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="ShopItem2" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
-                    <ui:Label text="2x Production: Dimensions 5-8" name="ShopItem2Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
-                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                    <ui:Label text="2x Production: Dimensions 5-8" name="ShopItem2Name" class="shop-item-name"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label"/>
                 </ui:VisualElement>
-                <ui:Label text="Permanent 2x multiplier for dimensions 5-8 (stacks with prestige &amp; DimBoost)" name="ShopItem2Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:Label text="Permanent 2x multiplier for dimensions 5-8 (stacks with prestige &amp; DimBoost)" name="ShopItem2Desc" class="shop-item-desc"/>
                 <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
-                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
-                        <ui:Label text="200" name="ShopItem2Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                        <ui:Label text="Price:" class="shop-price-label"/>
+                        <ui:Label text="200" name="ShopItem2Price" class="shop-price-value"/>
                     </ui:VisualElement>
-                    <ui:Button text="BUY" name="ShopItem2BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                    <ui:Button text="BUY" name="ShopItem2BuyBtn" class="shop-buy-button"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="ShopItem3" class="shop-item-card" style="margin-bottom: 15px;">
                 <ui:VisualElement class="shop-item-header" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
-                    <ui:Label text="2x Production: All Dimensions" name="ShopItem3Name" style="font-size: 22px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
-                    <ui:Label text="FOREVER" class="shop-forever-label" style="font-size: 16px; color: rgb(255, 215, 0); -unity-font-style: bold; background-color: rgba(255, 215, 0, 0.2); padding: 2px 8px; border-radius: 4px;"/>
+                    <ui:Label text="2x Production: All Dimensions" name="ShopItem3Name" class="shop-item-name"/>
+                    <ui:Label text="FOREVER" class="shop-forever-label"/>
                 </ui:VisualElement>
-                <ui:Label text="Permanent 2x multiplier for ALL dimensions 1-8 (stacks with prestige &amp; DimBoost)" name="ShopItem3Desc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); white-space: normal; margin-bottom: 10px;"/>
+                <ui:Label text="Permanent 2x multiplier for ALL dimensions 1-8 (stacks with prestige &amp; DimBoost)" name="ShopItem3Desc" class="shop-item-desc"/>
                 <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
-                        <ui:Label text="Price:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
-                        <ui:Label text="500" name="ShopItem3Price" style="font-size: 20px; color: rgb(241, 196, 15); -unity-font-style: bold;"/>
+                        <ui:Label text="Price:" class="shop-price-label"/>
+                        <ui:Label text="500" name="ShopItem3Price" class="shop-price-value"/>
                     </ui:VisualElement>
-                    <ui:Button text="BUY" name="ShopItem3BuyBtn" class="shop-buy-button" style="width: 100px; height: 35px; font-size: 18px; -unity-font-style: bold;"/>
+                    <ui:Button text="BUY" name="ShopItem3BuyBtn" class="shop-buy-button"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -476,62 +476,62 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="offline-root" style="width: 100%; height: 100%; background-color: rgb(128, 128, 128); display: none;">
-        <ui:VisualElement name="offline-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 3%;">
+        <ui:VisualElement name="offline-header" class="prestige-header" style="height: 10%; padding-bottom: 10px; margin-top: 10%;">
             <ui:Label text="Offline Progress" class="prestige-title" style="font-size: 50%; color: rgb(155, 89, 182);"/>
         </ui:VisualElement>
         <ui:VisualElement name="offline-content" style="flex-grow: 1; height: 80%; padding-left: 5%; padding-right: 5%; padding-top: 2%;">
             <ui:VisualElement name="offline-time-section" style="margin-bottom: 20px;">
-                <ui:Label text="Stored Offline Time" style="font-size: 20px; color: rgba(255, 255, 255, 0.8); margin-bottom: 5px;"/>
+                <ui:Label text="Stored Offline Time" class="offline-section-label"/>
                 <ui:VisualElement name="time-bar-container" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 10px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
                     <ui:VisualElement name="time-bar-display" style="flex-direction: row; justify-content: space-between; margin-bottom: 5px;">
-                        <ui:Label text="Stored: 00:00:00" name="StoredTimeLabel" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
-                        <ui:Label text="Cap: 24:00:00" name="MaxTimeLabel" style="font-size: 18px; color: rgba(255, 255, 255, 0.6);"/>
+                        <ui:Label text="Stored: 00:00:00" name="StoredTimeLabel" class="offline-time-value"/>
+                        <ui:Label text="Cap: 24:00:00" name="MaxTimeLabel" class="offline-time-cap"/>
                     </ui:VisualElement>
                     <ui:ProgressBar value="0" name="OfflineTimeProgress" style="height: 30px; margin-bottom: 5px;"/>
-                    <ui:Label text="Effective time at 50% efficiency" name="EffectiveTimeLabel" style="font-size: 14px; color: rgba(255, 255, 255, 0.5); -unity-text-align: upper-center;"/>
+                    <ui:Label text="Effective time at 50% efficiency" name="EffectiveTimeLabel" class="offline-hint"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="offline-upgrades-section" style="margin-bottom: 20px;">
-                <ui:Label text="Upgrades" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
+                <ui:Label text="Upgrades" class="offline-section-title"/>
                 <ui:VisualElement name="MaxTimeUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
-                    <ui:Label text="Max Offline Time" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
-                    <ui:Label text="24h &#8594; 30h" name="MaxTimeUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:Label text="Max Offline Time" class="offline-upgrade-title"/>
+                    <ui:Label text="24h &#8594; 30h" name="MaxTimeUpgradeDesc" class="offline-upgrade-desc"/>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
-                            <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
-                            <ui:Label text="20:00:00" name="MaxTimeUpgradeCost" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
+                            <ui:Label text="Cost:" class="offline-cost-label"/>
+                            <ui:Label text="20:00:00" name="MaxTimeUpgradeCost" class="offline-cost-value"/>
                         </ui:VisualElement>
-                        <ui:Button text="UPGRADE" name="MaxTimeUpgradeBtn" class="shop-buy-button" style="width: 120px; height: 35px; font-size: 16px;"/>
+                        <ui:Button text="UPGRADE" name="MaxTimeUpgradeBtn" class="shop-buy-button"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="EfficiencyUpgrade" class="shop-item-card" style="margin-bottom: 15px; border-color: rgba(155, 89, 182, 0.5);">
-                    <ui:Label text="Offline Efficiency (Max 10 Levels)" style="font-size: 20px; color: rgb(155, 89, 182); -unity-font-style: bold; margin-bottom: 5px;"/>
-                    <ui:Label text="50% &#8594; 55%" name="EfficiencyUpgradeDesc" style="font-size: 16px; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;"/>
+                    <ui:Label text="Offline Efficiency (Max 10 Levels)" class="offline-upgrade-title"/>
+                    <ui:Label text="50% &#8594; 55%" name="EfficiencyUpgradeDesc" class="offline-upgrade-desc"/>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
                         <ui:VisualElement style="flex-direction: row; align-items: center;">
-                            <ui:Label text="Cost:" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin-right: 5px;"/>
-                            <ui:Label text="12:00:00" name="EfficiencyUpgradeCost" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold;"/>
+                            <ui:Label text="Cost:" class="offline-cost-label"/>
+                            <ui:Label text="12:00:00" name="EfficiencyUpgradeCost" class="offline-cost-value"/>
                         </ui:VisualElement>
-                        <ui:Button text="UPGRADE" name="EfficiencyUpgradeBtn" class="shop-buy-button" style="width: 120px; height: 35px; font-size: 16px;"/>
+                        <ui:Button text="UPGRADE" name="EfficiencyUpgradeBtn" class="shop-buy-button"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="offline-boost-section" style="margin-bottom: 20px;">
-                <ui:Label text="Time Boost" style="font-size: 22px; color: rgb(155, 89, 182); margin-bottom: 10px; -unity-font-style: bold;"/>
+                <ui:Label text="Time Boost" class="offline-section-title"/>
                 <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 15px; border-width: 2px; border-color: rgba(155, 89, 182, 0.5);">
                     <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 10px;">
-                        <ui:Label text="Multiplier:" style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-right: 10px; width: 100px;"/>
+                        <ui:Label text="Multiplier:" class="offline-input-label" style="margin-right: 10%;"/>
                         <ui:TextField value="10" name="MultiplierInput" style="width: 80px; height: 30px; font-size: 18px; -unity-text-align: middle-center;"/>
-                        <ui:Label text="x (1-20)" style="font-size: 16px; color: rgba(255, 255, 255, 0.6); margin-left: 10px;"/>
+                        <ui:Label text="x (1-20)" class="offline-input-hint"/>
                     </ui:VisualElement>
-                    <ui:Label text="Boost duration: -- min" name="BoostDurationPreview" style="font-size: 16px; color: rgb(52, 152, 219); margin-bottom: 10px; -unity-text-align: upper-center;"/>
+                    <ui:Label text="Boost duration: -- min" name="BoostDurationPreview" class="offline-boost-preview"/>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-around;">
-                        <ui:Button text="START BOOST" name="StartBoostBtn" class="shop-buy-button" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(52, 152, 219);"/>
-                        <ui:Button text="STOP BOOST" name="StopBoostBtn" style="width: 45%; height: 40px; font-size: 18px; background-color: rgb(231, 76, 60); display: none;"/>
+                        <ui:Button text="START BOOST" name="StartBoostBtn" class="offline-start-button" style="width: 45%; height: 40px;"/>
+                        <ui:Button text="STOP BOOST" name="StopBoostBtn" class="offline-stop-button" style="width: 45%; height: 40px; display: none;"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="BoostActiveStatus" style="margin-top: 15px; padding: 10px; background-color: rgba(155, 89, 182, 0.3); border-radius: 5px; display: none;">
-                        <ui:Label text="Boost x10 ACTIVE" name="BoostActiveLabel" style="font-size: 18px; color: rgb(155, 89, 182); -unity-font-style: bold; -unity-text-align: upper-center;"/>
-                        <ui:Label text="Time remaining: 00:00" name="BoostRemainingLabel" style="font-size: 16px; color: rgba(255, 255, 255, 0.8); -unity-text-align: upper-center; margin-top: 5px;"/>
+                        <ui:Label text="Boost x10 ACTIVE" name="BoostActiveLabel" class="offline-boost-status"/>
+                        <ui:Label text="Time remaining: 00:00" name="BoostRemainingLabel" class="offline-boost-remaining"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
