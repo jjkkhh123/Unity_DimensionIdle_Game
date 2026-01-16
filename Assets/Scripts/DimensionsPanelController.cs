@@ -53,7 +53,7 @@ public class DimensionsPanelController : MonoBehaviour
         root = uiDocument.rootVisualElement;
 
         // Get TabManager
-        tabManager = GetComponent<TabManagerUIToolkit>();
+        tabManager = FindFirstObjectByType<TabManagerUIToolkit>();
         if (tabManager == null)
         {
             Debug.LogWarning("[DimensionsPanelController] TabManagerUIToolkit not found!");
