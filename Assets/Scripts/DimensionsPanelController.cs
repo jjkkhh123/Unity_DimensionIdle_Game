@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -215,7 +216,7 @@ public class DimensionsPanelController : MonoBehaviour
         if (tickspeedMultiplier != null)
         {
             double multiplier = TickSpeedManager.Instance.GetTickspeedMultiplier();
-            tickspeedMultiplier.text = $"x{multiplier:F2}";
+            tickspeedMultiplier.text = $"x{FormatMultiplier(multiplier)}";
         }
 
         if (tickspeedCost != null)
@@ -362,7 +363,7 @@ public class DimensionsPanelController : MonoBehaviour
                     }
 
                     BigDouble totalMultiplier = new BigDouble(prestigeMultiplier) * dim.multiplier * boughtBonus * new BigDouble(shopMultiplier);
-                    ui.multiplier.text = $"x{totalMultiplier.ToDouble():F2}";
+                    ui.multiplier.text = $"x{FormatMultiplier(totalMultiplier)}";
                 }
 
                 // Update production per second (growth rate for all dimensions)
@@ -401,7 +402,8 @@ public class DimensionsPanelController : MonoBehaviour
                 }
 
                 // Update buy button based on current buy mode
-                BigDouble cost = dim.currentPrice;
+                // AD풍: GetCurrentPrice() 사용
+                BigDouble cost = dim.GetCurrentPrice();
                 bool canAfford = GameManager.Instance.antimatter >= cost;
 
                 if (currentBuyMode == BuyMode.BuyOne)
@@ -410,8 +412,33 @@ public class DimensionsPanelController : MonoBehaviour
                 }
                 else // UntilTen
                 {
-                    int buyAmount = CalculateBuyUntilTen(dim);
-                    ui.buyBtn.text = buyAmount > 0 ? $"Buy {buyAmount}\n{cost}" : $"Until 10\n{cost}";
+                    // AD풍: Until 10 표시 (구매 가능 수량에 맞춰 가격 계산)
+                    int remaining = dim.GetRemainingUntil10();
+                    BigDouble currency = GameManager.Instance.antimatter;
+
+                    // 실제로 구매 가능한 수량 계산
+                    int affordable = CalculateAffordableUntil10(dim, currency);
+
+                    if (affordable >= remaining)
+                    {
+                        // 전부 살 수 있음
+                        BigDouble costUntil10 = dim.GetCostUntil10();
+                        ui.buyBtn.text = $"Until 10 ({remaining})\n{costUntil10}";
+                        canAfford = true;
+                    }
+                    else if (affordable > 0)
+                    {
+                        // 일부만 살 수 있음
+                        BigDouble partialCost = CalculateCostForAffordable(dim, affordable);
+                        ui.buyBtn.text = $"Until 10 ({affordable}/{remaining})\n{partialCost}";
+                        canAfford = true;
+                    }
+                    else
+                    {
+                        // 1개도 못 삼
+                        ui.buyBtn.text = $"Until 10 ({remaining})\n{cost}";
+                        canAfford = false;
+                    }
                 }
 
                 ui.buyBtn.style.opacity = canAfford ? 1.0f : 0.6f;
@@ -445,26 +472,25 @@ public class DimensionsPanelController : MonoBehaviour
         int currentBought = dim.bought;
         int ownedInCurrentTen = currentBought % 10; // 0-9
 
-        // Calculate how many can afford until next 10
-        int nextTen = ((currentBought / 10) + 1) * 10;
-        int toBuy = nextTen - currentBought;
+        // AD풍: Until 10까지 남은 개수와 구매 가능 개수 계산
+        int remaining = dim.GetRemainingUntil10();
+        BigDouble currency = GameManager.Instance.antimatter;
+
+        // 구매 가능한 개수 시뮬레이션
         int canAfford = 0;
+        BigDouble tempCost = BigDouble.Zero;
+        int tempBought = dim.bought;
 
-        // Simulate purchases to see how many we can afford
-        Dimension tempDim = new Dimension(dim.tier, dim.basePrice);
-        tempDim.amount = dim.amount;
-        tempDim.currentPrice = dim.currentPrice;
-        tempDim.bought = dim.bought;
-        tempDim.unlocked = dim.unlocked;
-        tempDim.multiplier = dim.multiplier;
-
-        BigDouble tempCurrency = GameManager.Instance.antimatter;
-        for (int i = 0; i < toBuy; i++)
+        for (int i = 0; i < remaining; i++)
         {
-            if (tempCurrency >= tempDim.currentPrice)
+            int sets = tempBought / 10;
+            BigDouble setCost = dim.baseCost * BigDouble.Pow(dim.costIncreasePer10, sets);
+            BigDouble singleCost = setCost / new BigDouble(10);
+
+            if (tempCost + singleCost <= currency)
             {
-                tempCurrency = tempCurrency - tempDim.currentPrice;
-                tempDim.Buy(1);
+                tempCost = tempCost + singleCost;
+                tempBought++;
                 canAfford++;
             }
             else
@@ -502,6 +528,86 @@ public class DimensionsPanelController : MonoBehaviour
         int remainder = currentAmount % 10;
         int amountToBuy = remainder == 0 ? 10 : (10 - remainder);
         return amountToBuy;
+    }
+
+    /// <summary>
+    /// Until 10까지 구매 가능한 수량 계산
+    /// </summary>
+    int CalculateAffordableUntil10(Dimension dim, BigDouble currency)
+    {
+        int remaining = dim.GetRemainingUntil10();
+        int affordable = 0;
+        BigDouble totalCost = BigDouble.Zero;
+        int tempBought = dim.bought;
+
+        for (int i = 0; i < remaining; i++)
+        {
+            int sets = tempBought / 10;
+            BigDouble setCost = dim.baseCost * BigDouble.Pow(dim.costIncreasePer10, sets);
+            BigDouble singleCost = setCost / new BigDouble(10);
+
+            if (totalCost + singleCost <= currency)
+            {
+                totalCost = totalCost + singleCost;
+                tempBought++;
+                affordable++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return affordable;
+    }
+
+    /// <summary>
+    /// 특정 수량 구매 시 총 비용 계산
+    /// </summary>
+    BigDouble CalculateCostForAffordable(Dimension dim, int count)
+    {
+        BigDouble totalCost = BigDouble.Zero;
+        int tempBought = dim.bought;
+
+        for (int i = 0; i < count; i++)
+        {
+            int sets = tempBought / 10;
+            BigDouble setCost = dim.baseCost * BigDouble.Pow(dim.costIncreasePer10, sets);
+            BigDouble singleCost = setCost / new BigDouble(10);
+            totalCost = totalCost + singleCost;
+            tempBought++;
+        }
+
+        return totalCost;
+    }
+
+    /// <summary>
+    /// 배율 포맷: 정수면 소수점 없이, 아니면 소수점 2자리
+    /// </summary>
+    string FormatMultiplier(double value)
+    {
+        if (value >= 1e6)
+        {
+            // 지수 표기
+            int exp = (int)Math.Floor(Math.Log10(value));
+            double mantissa = value / Math.Pow(10, exp);
+            if (Math.Abs(mantissa - Math.Round(mantissa)) < 0.001)
+                return $"{mantissa:F0}e{exp}";
+            return $"{mantissa:F2}e{exp}";
+        }
+        else
+        {
+            // 일반 숫자: 정수로 표시
+            return value.ToString("F0");
+        }
+    }
+
+    /// <summary>
+    /// 배율 포맷 (BigDouble 오버로드)
+    /// </summary>
+    string FormatMultiplier(BigDouble value)
+    {
+        return value.ToString();
     }
 
     // Button Event Handlers
@@ -548,21 +654,8 @@ public class DimensionsPanelController : MonoBehaviour
         }
         else // UntilTen
         {
-            // Buy until next multiple of 10
-            int amountToBuy = CalculateBuyUntilTen(dim);
-
-            // Try to buy the calculated amount
-            for (int i = 0; i < amountToBuy; i++)
-            {
-                if (GameManager.Instance.CanBuyDimension(tier, 1))
-                {
-                    GameManager.Instance.BuyDimension(tier, 1);
-                }
-                else
-                {
-                    break; // Stop if we can't afford more
-                }
-            }
+            // AD풍: Until 10 구매 (새 메서드 사용)
+            GameManager.Instance.BuyDimensionUntil10(tier);
         }
     }
 

@@ -154,17 +154,18 @@ public struct BigDouble : IComparable<BigDouble>
         if (mantissa == 0)
             return "0";
 
+        // 일반 숫자 표기: 항상 정수로 표시
         if (exponent < 6 && exponent > -3)
         {
             double value = ToDouble();
-            // 정수인 경우 소수점 생략
-            if (Math.Abs(value - Math.Round(value)) < 0.001)
-            {
-                return value.ToString("F0");
-            }
-            return value.ToString("F2");
+            return value.ToString("F0");
         }
 
+        // 지수 표기: mantissa가 정수면 소수점 생략, 아니면 소수점 2자리
+        if (Math.Abs(mantissa - Math.Round(mantissa)) < 0.001)
+        {
+            return $"{mantissa:F0}e{exponent}";
+        }
         return $"{mantissa:F2}e{exponent}";
     }
 

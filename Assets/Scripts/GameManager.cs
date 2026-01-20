@@ -127,26 +127,8 @@ public class GameManager : MonoBehaviour
         if (!dim.unlocked)
             return false;
 
-        BigDouble totalCost = dim.currentPrice;
-
-        if (count > 1)
-        {
-            BigDouble tempPrice = dim.currentPrice;
-            totalCost = BigDouble.Zero;
-
-            for (int i = 0; i < count; i++)
-            {
-                totalCost = totalCost + tempPrice;
-                tempPrice = tempPrice * new BigDouble(1.20);
-
-                int justBought = dim.bought + i + 1;
-                if (justBought % 10 == 0 && justBought > 0)
-                {
-                    tempPrice = tempPrice * new BigDouble(5.0);
-                }
-            }
-        }
-
+        // AD풍: 새로운 가격 계산 메서드 사용
+        BigDouble totalCost = dim.GetCostForCount(count);
         return antimatter >= totalCost;
     }
 
@@ -159,28 +141,40 @@ public class GameManager : MonoBehaviour
 
         Dimension dim = dimensions[tier - 1];
 
-        BigDouble totalCost = dim.currentPrice;
-
-        if (count > 1)
-        {
-            BigDouble tempPrice = dim.currentPrice;
-            totalCost = BigDouble.Zero;
-
-            for (int i = 0; i < count; i++)
-            {
-                totalCost = totalCost + tempPrice;
-                tempPrice = tempPrice * new BigDouble(1.20);
-
-                int justBought = dim.bought + i + 1;
-                if (justBought % 10 == 0 && justBought > 0)
-                {
-                    tempPrice = tempPrice * new BigDouble(5.0);
-                }
-            }
-        }
+        // AD풍: 새로운 가격 계산 메서드 사용
+        BigDouble totalCost = dim.GetCostForCount(count);
 
         antimatter = antimatter - totalCost;
         dim.Buy(count);
+    }
+
+    /// <summary>
+    /// "Until 10" 구매: 다음 10개 세트까지 구매 (부분 구매 가능)
+    /// </summary>
+    public void BuyDimensionUntil10(int tier)
+    {
+        if (tier < 1 || tier > dimensions.Count)
+            return;
+
+        Dimension dim = dimensions[tier - 1];
+
+        if (!dim.unlocked)
+            return;
+
+        // 최소 1개라도 살 수 있으면 구매 진행
+        BigDouble singleCost = dim.GetSingleCost();
+        if (antimatter < singleCost)
+            return;
+
+        int amountBought;
+        BigDouble totalCost;
+        dim.BuyUntil10(antimatter, out amountBought, out totalCost);
+
+        if (amountBought > 0)
+        {
+            antimatter = antimatter - totalCost;
+            Debug.Log($"Bought {amountBought}x Dimension {tier} (Until 10). Total Cost: {totalCost}");
+        }
     }
 
     public void BuyMaxDimension(int tier)
@@ -223,7 +217,8 @@ public class GameManager : MonoBehaviour
         if (tier < 1 || tier > dimensions.Count)
             return "0";
 
-        return dimensions[tier - 1].currentPrice.ToString();
+        // AD풍: GetCurrentPrice() 사용
+        return dimensions[tier - 1].GetCurrentPrice().ToString();
     }
 
     public string GetDimensionProductionString(int tier)

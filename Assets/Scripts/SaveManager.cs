@@ -55,7 +55,7 @@ public class DimensionSaveData
 {
     public int tier;
     public BigDouble amount;
-    public BigDouble currentPrice;
+    public BigDouble currentPrice;  // 레거시 호환용 (AD풍에서는 bought 기반 계산)
     public int bought;
     public bool unlocked;
     public BigDouble multiplier;
@@ -64,7 +64,8 @@ public class DimensionSaveData
     {
         tier = dim.tier;
         amount = dim.amount;
-        currentPrice = dim.currentPrice;
+        // AD풍: GetCurrentPrice() 사용
+        currentPrice = dim.GetCurrentPrice();
         bought = dim.bought;
         unlocked = dim.unlocked;
         multiplier = dim.multiplier;
@@ -73,7 +74,7 @@ public class DimensionSaveData
     public void ApplyToDimension(Dimension dim)
     {
         dim.amount = amount;
-        dim.currentPrice = currentPrice;
+        // AD풍: currentPrice는 bought 기반으로 자동 계산되므로 로드하지 않음
         dim.bought = bought;
         dim.unlocked = unlocked;
         dim.multiplier = multiplier;
