@@ -909,3 +909,214 @@
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
+
+.prestige-subtab-container {
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 5px;
+    height: 5%;
+}
+
+.prestige-subtab-btn {
+    flex-grow: 1;
+    height: 100%;
+    font-size: 22%;
+    background-color: rgba(52, 73, 94, 0.6);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.3);
+    margin-left: 5px;
+    margin-right: 5px;
+    transition-duration: 0.2s;
+}
+
+.prestige-subtab-btn:hover {
+    background-color: rgba(52, 152, 219, 0.4);
+}
+
+.prestige-subtab-btn-active {
+    background-color: rgba(52, 152, 219, 0.8);
+    color: rgb(255, 255, 255);
+    border-color: rgb(52, 152, 219);
+}
+
+.milestones-area {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.milestone-card {
+    background-color: rgba(44, 62, 80, 0.8);
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgba(52, 152, 219, 0.5);
+    padding: 15px;
+    margin-bottom: 15px;
+    transition-duration: 0.3s;
+    height: 50%;
+}
+
+.milestone-card-locked {
+    border-color: rgba(127, 140, 141, 0.5);
+    opacity: 0.7;
+    height: 50%;
+}
+
+.milestone-card-unlocked {
+    border-color: rgba(46, 204, 113, 0.8);
+    background-color: rgba(39, 174, 96, 0.3);
+    opacity: 1;
+    height: 50%;
+}
+
+.milestone-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 500%;
+}
+
+.milestone-requirement {
+    font-size: 40%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+}
+
+.milestone-status {
+    font-size: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    -unity-font-style: italic;
+}
+
+.milestone-status-unlocked {
+    color: rgb(46, 204, 113);
+    font-size: 50%;
+}
+
+.milestone-reward {
+    font-size: 250%;
+    color: rgb(255, 255, 255);
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+.milestone-progress-container {
+    height: 20px;
+    font-size: 20%;
+}
+
+.milestone-progress {
+    height: 100%;
+    font-size: 20%;
+}
+
+.autobuyers-section {
+    background-color: rgba(44, 62, 80, 0.6);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    border-width: 2px;
+    border-color: rgba(155, 89, 182, 0.5);
+}
+
+.autobuyers-title {
+    font-size: 200%;
+    color: rgb(155, 89, 182);
+    -unity-font-style: bold;
+    margin-bottom: 15px;
+    -unity-text-align: upper-center;
+}
+
+.autobuyer-row {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 600%;
+}
+
+.autobuyer-locked {
+    opacity: 0.5;
+}
+
+.autobuyer-label {
+    font-size: 20%;
+    color: rgb(255, 255, 255);
+    width: 20%;
+}
+
+.autobuyer-toggle {
+    font-size: 18%;
+    width: 20%;
+    height: 35px;
+    background-color: rgba(231, 76, 60, 0.7);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border-width: 0;
+    margin-right: 10px;
+}
+
+.autobuyer-toggle-on {
+    background-color: rgba(46, 204, 113, 0.8);
+}
+
+.autobuyer-mode {
+    font-size: 18%;
+    width: 25%;
+    height: 35px;
+    background-color: rgba(52, 152, 219, 0.6);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border-width: 0;
+    margin-right: 10px;
+}
+
+.autobuyer-status {
+    font-size: 30%;
+    color: rgba(255, 255, 255, 0.6);
+    flex-grow: 1;
+    -unity-text-align: upper-right;
+}
+
+.speed-upgrade-section {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.speed-upgrade-title {
+    font-size: 220%;
+    color: rgb(241, 196, 15);
+    -unity-font-style: bold;
+    margin-bottom: 5px;
+}
+
+.speed-upgrade-effect {
+    font-size: 200%;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px;
+}
+
+.speed-upgrade-cost {
+    font-size: 200%;
+    color: rgb(255, 255, 255);
+    margin-right: 15px;
+}
+
+.speed-upgrade-btn {
+    font-size: 18%;
+    height: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(155, 89, 182, 0.8);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border-width: 0;
+}

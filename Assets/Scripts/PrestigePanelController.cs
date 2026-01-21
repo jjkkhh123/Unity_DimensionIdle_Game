@@ -21,6 +21,22 @@ public class PrestigePanelController : MonoBehaviour
     // Upgrade elements
     private UpgradeUIElement[] upgradeElements;
 
+    // Subtab elements
+    private Button upgradesTabBtn;
+    private Button milestonesTabBtn;
+    private VisualElement upgradesScroll;
+    private VisualElement milestonesScroll;
+    private bool showingMilestones = false;
+
+    // Milestone UI elements
+    private MilestoneUIElement[] milestoneElements;
+
+    // Autobuyer UI elements
+    private AutoBuyerUIElement[] autoBuyerElements;
+    private Label speedUpgradeEffect;
+    private Label speedUpgradeCost;
+    private Button speedUpgradeBtn;
+
     // Bottom menu buttons
     private Button dimensionsBtn;
     private Button prestigeMenuBtn;
@@ -117,6 +133,46 @@ public class PrestigePanelController : MonoBehaviour
             buyButton = prestigeRoot.Q<Button>("BulkBonusUpgradeBuyBtn")
         };
 
+        // Subtab buttons
+        upgradesTabBtn = prestigeRoot.Q<Button>("UpgradesTabBtn");
+        milestonesTabBtn = prestigeRoot.Q<Button>("MilestonesTabBtn");
+        upgradesScroll = prestigeRoot.Q<VisualElement>("upgrades-scroll");
+        milestonesScroll = prestigeRoot.Q<VisualElement>("milestones-scroll");
+
+        // Milestone UI elements (4 milestones)
+        milestoneElements = new MilestoneUIElement[4];
+        for (int i = 0; i < 4; i++)
+        {
+            int index = i + 1;
+            milestoneElements[i] = new MilestoneUIElement
+            {
+                container = prestigeRoot.Q<VisualElement>($"Milestone{index}"),
+                requirementLabel = prestigeRoot.Q<Label>($"Milestone{index}Requirement"),
+                statusLabel = prestigeRoot.Q<Label>($"Milestone{index}Status"),
+                descLabel = prestigeRoot.Q<Label>($"Milestone{index}Desc"),
+                progressBar = prestigeRoot.Q<ProgressBar>($"Milestone{index}Progress")
+            };
+        }
+
+        // Autobuyer UI elements (2 autobuyers for now)
+        autoBuyerElements = new AutoBuyerUIElement[2];
+        for (int i = 0; i < 2; i++)
+        {
+            int index = i + 1;
+            autoBuyerElements[i] = new AutoBuyerUIElement
+            {
+                container = prestigeRoot.Q<VisualElement>($"AutoBuyer{index}"),
+                toggleBtn = prestigeRoot.Q<Button>($"AutoBuyer{index}Toggle"),
+                modeBtn = prestigeRoot.Q<Button>($"AutoBuyer{index}Mode"),
+                statusLabel = prestigeRoot.Q<Label>($"AutoBuyer{index}Status")
+            };
+        }
+
+        // Speed upgrade
+        speedUpgradeEffect = prestigeRoot.Q<Label>("SpeedUpgradeEffect");
+        speedUpgradeCost = prestigeRoot.Q<Label>("SpeedUpgradeCost");
+        speedUpgradeBtn = prestigeRoot.Q<Button>("SpeedUpgradeBtn");
+
         // Bottom menu
         dimensionsBtn = prestigeRoot.Q<Button>("DimensionsBtn");
         prestigeMenuBtn = prestigeRoot.Q<Button>("PrestigeMenuBtn");
@@ -139,6 +195,37 @@ public class PrestigePanelController : MonoBehaviour
                 int index = i; // Capture for closure
                 upgradeElements[i].buyButton.clicked += () => OnUpgradeBuyClicked(upgradeElements[index].id);
             }
+        }
+
+        // Subtab buttons
+        if (upgradesTabBtn != null)
+        {
+            upgradesTabBtn.clicked += () => ShowUpgradesTab();
+        }
+
+        if (milestonesTabBtn != null)
+        {
+            milestonesTabBtn.clicked += () => ShowMilestonesTab();
+        }
+
+        // Autobuyer buttons
+        for (int i = 0; i < autoBuyerElements.Length; i++)
+        {
+            int index = i;
+            if (autoBuyerElements[i].toggleBtn != null)
+            {
+                autoBuyerElements[i].toggleBtn.clicked += () => OnAutoBuyerToggle(index);
+            }
+            if (autoBuyerElements[i].modeBtn != null)
+            {
+                autoBuyerElements[i].modeBtn.clicked += () => OnAutoBuyerModeToggle(index);
+            }
+        }
+
+        // Speed upgrade button
+        if (speedUpgradeBtn != null)
+        {
+            speedUpgradeBtn.clicked += OnSpeedUpgradeClicked;
         }
 
         // Bottom menu
@@ -174,7 +261,16 @@ public class PrestigePanelController : MonoBehaviour
 
         UpdateHeader();
         UpdatePrestigeAction();
-        UpdateUpgrades();
+
+        if (showingMilestones)
+        {
+            UpdateMilestones();
+            UpdateAutoBuyers();
+        }
+        else
+        {
+            UpdateUpgrades();
+        }
     }
 
     void UpdateHeader()
@@ -364,6 +460,218 @@ public class PrestigePanelController : MonoBehaviour
         }
     }
 
+    // ===== Subtab Methods =====
+
+    void ShowUpgradesTab()
+    {
+        showingMilestones = false;
+
+        if (upgradesScroll != null)
+            upgradesScroll.style.display = DisplayStyle.Flex;
+        if (milestonesScroll != null)
+            milestonesScroll.style.display = DisplayStyle.None;
+
+        // Update tab button styles
+        if (upgradesTabBtn != null)
+            upgradesTabBtn.AddToClassList("prestige-subtab-btn-active");
+        if (milestonesTabBtn != null)
+            milestonesTabBtn.RemoveFromClassList("prestige-subtab-btn-active");
+    }
+
+    void ShowMilestonesTab()
+    {
+        showingMilestones = true;
+
+        if (upgradesScroll != null)
+            upgradesScroll.style.display = DisplayStyle.None;
+        if (milestonesScroll != null)
+            milestonesScroll.style.display = DisplayStyle.Flex;
+
+        // Update tab button styles
+        if (upgradesTabBtn != null)
+            upgradesTabBtn.RemoveFromClassList("prestige-subtab-btn-active");
+        if (milestonesTabBtn != null)
+            milestonesTabBtn.AddToClassList("prestige-subtab-btn-active");
+    }
+
+    // ===== Milestone Methods =====
+
+    void UpdateMilestones()
+    {
+        if (PrestigeManager.Instance == null || milestoneElements == null)
+            return;
+
+        int totalPrestiges = PrestigeManager.Instance.totalPrestiges;
+
+        for (int i = 0; i < milestoneElements.Length && i < PrestigeManager.Instance.milestones.Count; i++)
+        {
+            MilestoneUIElement ui = milestoneElements[i];
+            Milestone milestone = PrestigeManager.Instance.milestones[i];
+
+            if (ui.container == null)
+                continue;
+
+            bool isUnlocked = milestone.isUnlocked;
+
+            // Update status
+            if (ui.statusLabel != null)
+            {
+                ui.statusLabel.text = isUnlocked ? "UNLOCKED" : "LOCKED";
+                if (isUnlocked)
+                    ui.statusLabel.AddToClassList("milestone-status-unlocked");
+                else
+                    ui.statusLabel.RemoveFromClassList("milestone-status-unlocked");
+            }
+
+            // Update card style
+            if (isUnlocked)
+            {
+                ui.container.RemoveFromClassList("milestone-card-locked");
+                ui.container.AddToClassList("milestone-card-unlocked");
+            }
+            else
+            {
+                ui.container.AddToClassList("milestone-card-locked");
+                ui.container.RemoveFromClassList("milestone-card-unlocked");
+            }
+
+            // Update progress bar
+            if (ui.progressBar != null)
+            {
+                float progress = isUnlocked ? 100f : (totalPrestiges / (float)milestone.requiredPrestiges * 100f);
+                ui.progressBar.value = Mathf.Min(progress, 100f);
+            }
+        }
+    }
+
+    // ===== Autobuyer Methods =====
+
+    void UpdateAutoBuyers()
+    {
+        if (AutoBuyerManager.Instance == null || autoBuyerElements == null)
+            return;
+
+        for (int i = 0; i < autoBuyerElements.Length; i++)
+        {
+            AutoBuyerUIElement ui = autoBuyerElements[i];
+            if (ui.container == null)
+                continue;
+
+            bool isUnlocked = AutoBuyerManager.Instance.dimensionAutoBuyersUnlocked[i];
+            bool isEnabled = AutoBuyerManager.Instance.dimensionAutoBuyersEnabled[i];
+            AutoBuyerManager.BuyMode mode = AutoBuyerManager.Instance.dimensionBuyModes[i];
+
+            // Update locked status
+            if (isUnlocked)
+            {
+                ui.container.RemoveFromClassList("autobuyer-locked");
+                if (ui.statusLabel != null)
+                    ui.statusLabel.text = "";
+            }
+            else
+            {
+                ui.container.AddToClassList("autobuyer-locked");
+                if (ui.statusLabel != null)
+                    ui.statusLabel.text = "(Locked)";
+            }
+
+            // Update toggle button
+            if (ui.toggleBtn != null)
+            {
+                ui.toggleBtn.text = isEnabled ? "ON" : "OFF";
+                ui.toggleBtn.SetEnabled(isUnlocked);
+                if (isEnabled)
+                    ui.toggleBtn.AddToClassList("autobuyer-toggle-on");
+                else
+                    ui.toggleBtn.RemoveFromClassList("autobuyer-toggle-on");
+            }
+
+            // Update mode button
+            if (ui.modeBtn != null)
+            {
+                ui.modeBtn.text = mode == AutoBuyerManager.BuyMode.Single ? "Single" : "Bulk";
+                ui.modeBtn.SetEnabled(isUnlocked);
+            }
+        }
+
+        // Update speed upgrade
+        if (speedUpgradeEffect != null)
+        {
+            float currentInterval = AutoBuyerManager.Instance.GetAutoBuyInterval();
+            float nextInterval = AutoBuyerManager.Instance.GetNextInterval();
+            int level = AutoBuyerManager.Instance.speedUpgradeLevel;
+
+            if (level >= AutoBuyerManager.MAX_SPEED_LEVEL)
+            {
+                speedUpgradeEffect.text = $"Interval: {currentInterval:F1}s (MAX)";
+            }
+            else
+            {
+                speedUpgradeEffect.text = $"Interval: {currentInterval:F1}s → {nextInterval:F1}s";
+            }
+        }
+
+        if (speedUpgradeCost != null)
+        {
+            int level = AutoBuyerManager.Instance.speedUpgradeLevel;
+            if (level >= AutoBuyerManager.MAX_SPEED_LEVEL)
+            {
+                speedUpgradeCost.text = "MAX LEVEL";
+            }
+            else
+            {
+                int cost = AutoBuyerManager.Instance.GetSpeedUpgradeCost();
+                speedUpgradeCost.text = $"Cost: {cost} PP";
+            }
+        }
+
+        if (speedUpgradeBtn != null)
+        {
+            bool canUpgrade = AutoBuyerManager.Instance.CanUpgradeSpeed();
+            speedUpgradeBtn.SetEnabled(canUpgrade);
+            speedUpgradeBtn.style.opacity = canUpgrade ? 1.0f : 0.5f;
+
+            if (AutoBuyerManager.Instance.speedUpgradeLevel >= AutoBuyerManager.MAX_SPEED_LEVEL)
+            {
+                speedUpgradeBtn.text = "MAX";
+            }
+            else
+            {
+                speedUpgradeBtn.text = "UPGRADE";
+            }
+        }
+    }
+
+    void OnAutoBuyerToggle(int index)
+    {
+        if (AutoBuyerManager.Instance == null)
+            return;
+
+        AutoBuyerManager.Instance.ToggleAutoBuyer(index);
+    }
+
+    void OnAutoBuyerModeToggle(int index)
+    {
+        if (AutoBuyerManager.Instance == null)
+            return;
+
+        // Toggle between Single and Bulk
+        AutoBuyerManager.BuyMode currentMode = AutoBuyerManager.Instance.dimensionBuyModes[index];
+        AutoBuyerManager.BuyMode newMode = currentMode == AutoBuyerManager.BuyMode.Single
+            ? AutoBuyerManager.BuyMode.Bulk
+            : AutoBuyerManager.BuyMode.Single;
+
+        AutoBuyerManager.Instance.SetBuyMode(index, newMode);
+    }
+
+    void OnSpeedUpgradeClicked()
+    {
+        if (AutoBuyerManager.Instance == null)
+            return;
+
+        AutoBuyerManager.Instance.UpgradeSpeed();
+    }
+
     void SwitchToPanel(string panelName)
     {
         if (tabManager != null)
@@ -414,5 +722,24 @@ public class PrestigePanelController : MonoBehaviour
         public Label effectLabel;
         public Label costLabel;
         public Button buyButton;
+    }
+
+    // Helper class for milestone UI elements
+    private class MilestoneUIElement
+    {
+        public VisualElement container;
+        public Label requirementLabel;
+        public Label statusLabel;
+        public Label descLabel;
+        public ProgressBar progressBar;
+    }
+
+    // Helper class for autobuyer UI elements
+    private class AutoBuyerUIElement
+    {
+        public VisualElement container;
+        public Button toggleBtn;
+        public Button modeBtn;
+        public Label statusLabel;
     }
 }

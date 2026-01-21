@@ -225,7 +225,11 @@
                 <ui:Button text="PRESTIGE" name="PrestigeBtn" class="prestige-button"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 75%; display: flex; flex-grow: 0; padding-top: 3%;">
+        <ui:VisualElement name="prestige-subtab-container" class="prestige-subtab-container" style="font-size: 150%;">
+            <ui:Button text="Upgrades" name="UpgradesTabBtn" class="prestige-subtab-btn prestige-subtab-btn-active"/>
+            <ui:Button text="Milestones" name="MilestonesTabBtn" class="prestige-subtab-btn"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="upgrades-scroll" class="upgrades-area" style="height: 70%; display: flex; flex-grow: 0; padding-top: 1%;">
             <ui:VisualElement name="upgrades-container" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-content: flex-start; height: 100%;">
                 <ui:VisualElement name="TickspeedUpgrade" class="upgrade-card" style="height: 18%;">
                     <ui:VisualElement class="upgrade-header">
@@ -368,6 +372,75 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="milestones-scroll" class="milestones-area" style="height: 70%; display: none; flex-grow: 0; padding-top: 1%; padding-left: 3%; padding-right: 3%;">
+            <ui:ScrollView name="milestones-scrollview" style="flex-grow: 1;">
+                <ui:VisualElement name="milestones-container" style="flex-direction: column;">
+                    <ui:VisualElement name="Milestone1" class="milestone-card milestone-card-locked">
+                        <ui:VisualElement class="milestone-header">
+                            <ui:Label text="5 Prestiges" name="Milestone1Requirement" class="milestone-requirement"/>
+                            <ui:Label text="LOCKED" name="Milestone1Status" class="milestone-status"/>
+                        </ui:VisualElement>
+                        <ui:Label text="Unlock Tickspeed Bulk Buy" name="Milestone1Desc" class="milestone-reward"/>
+                        <ui:VisualElement class="milestone-progress-container">
+                            <ui:ProgressBar value="0" name="Milestone1Progress" class="milestone-progress"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Milestone2" class="milestone-card milestone-card-locked">
+                        <ui:VisualElement class="milestone-header">
+                            <ui:Label text="10 Prestiges" name="Milestone2Requirement" class="milestone-requirement"/>
+                            <ui:Label text="LOCKED" name="Milestone2Status" class="milestone-status"/>
+                        </ui:VisualElement>
+                        <ui:Label text="Double Prestige Points gain" name="Milestone2Desc" class="milestone-reward"/>
+                        <ui:VisualElement class="milestone-progress-container">
+                            <ui:ProgressBar value="0" name="Milestone2Progress" class="milestone-progress"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Milestone3" class="milestone-card milestone-card-locked">
+                        <ui:VisualElement class="milestone-header">
+                            <ui:Label text="25 Prestiges" name="Milestone3Requirement" class="milestone-requirement"/>
+                            <ui:Label text="LOCKED" name="Milestone3Status" class="milestone-status"/>
+                        </ui:VisualElement>
+                        <ui:Label text="Unlock Dimension 1 Autobuyer" name="Milestone3Desc" class="milestone-reward"/>
+                        <ui:VisualElement class="milestone-progress-container">
+                            <ui:ProgressBar value="0" name="Milestone3Progress" class="milestone-progress"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Milestone4" class="milestone-card milestone-card-locked">
+                        <ui:VisualElement class="milestone-header">
+                            <ui:Label text="50 Prestiges" name="Milestone4Requirement" class="milestone-requirement"/>
+                            <ui:Label text="LOCKED" name="Milestone4Status" class="milestone-status"/>
+                        </ui:VisualElement>
+                        <ui:Label text="Unlock Dimension 2 Autobuyer" name="Milestone4Desc" class="milestone-reward"/>
+                        <ui:VisualElement class="milestone-progress-container">
+                            <ui:ProgressBar value="0" name="Milestone4Progress" class="milestone-progress"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="autobuyers-section" class="autobuyers-section">
+                    <ui:Label text="Auto Buyers" class="autobuyers-title"/>
+                    <ui:VisualElement name="AutoBuyer1" class="autobuyer-row autobuyer-locked">
+                        <ui:Label text="Dim 1:" class="autobuyer-label"/>
+                        <ui:Button text="OFF" name="AutoBuyer1Toggle" class="autobuyer-toggle"/>
+                        <ui:Button text="Single" name="AutoBuyer1Mode" class="autobuyer-mode"/>
+                        <ui:Label text="(Locked)" name="AutoBuyer1Status" class="autobuyer-status"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="AutoBuyer2" class="autobuyer-row autobuyer-locked">
+                        <ui:Label text="Dim 2:" class="autobuyer-label"/>
+                        <ui:Button text="OFF" name="AutoBuyer2Toggle" class="autobuyer-toggle"/>
+                        <ui:Button text="Single" name="AutoBuyer2Mode" class="autobuyer-mode"/>
+                        <ui:Label text="(Locked)" name="AutoBuyer2Status" class="autobuyer-status"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="speed-upgrade-section" class="speed-upgrade-section">
+                        <ui:Label text="Speed Upgrade" class="speed-upgrade-title"/>
+                        <ui:Label text="Interval: 1.0s" name="SpeedUpgradeEffect" class="speed-upgrade-effect"/>
+                        <ui:VisualElement style="flex-direction: row; align-items: center;">
+                            <ui:Label text="Cost: 5 PP" name="SpeedUpgradeCost" class="speed-upgrade-cost"/>
+                            <ui:Button text="UPGRADE" name="SpeedUpgradeBtn" class="speed-upgrade-btn"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement name="menu" style="flex-grow: 0; flex-shrink: 0; height: 5%; flex-direction: row; margin-left: 5%; margin-right: 5%; margin-top: 1%; margin-bottom: 2%; width: 90%;">
             <ui:Button text="Dimensions" name="DimensionsBtn" class="dimensions-buy-btn" style="flex-grow: 1; flex-shrink: 1; color: rgb(255, 255, 255); margin-left: 1px; margin-right: 1px; font-size: 25%;"/>

@@ -2,6 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 마일스톤 클래스
+[System.Serializable]
+public class Milestone
+{
+    public int requiredPrestiges;
+    public string rewardId;
+    public string description;
+    public bool isUnlocked;
+
+    public Milestone(int required, string id, string desc)
+    {
+        requiredPrestiges = required;
+        rewardId = id;
+        description = desc;
+        isUnlocked = false;
+    }
+}
+
 public class PrestigeManager : MonoBehaviour
 {
     public static PrestigeManager Instance { get; private set; }
@@ -11,6 +29,9 @@ public class PrestigeManager : MonoBehaviour
 
     public Dictionary<string, PrestigeUpgrade> upgrades = new Dictionary<string, PrestigeUpgrade>();
 
+    // 마일스톤 시스템
+    public List<Milestone> milestones = new List<Milestone>();
+
     void Awake()
     {
         if (Instance == null)
@@ -18,11 +39,24 @@ public class PrestigeManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeUpgrades();
+            InitializeMilestones();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    void InitializeMilestones()
+    {
+        milestones.Clear();
+        milestones.Add(new Milestone(5, "tickspeed_bulk", "Unlock Tickspeed Bulk Buy"));
+        milestones.Add(new Milestone(10, "pp_double", "Double Prestige Points gain"));
+        milestones.Add(new Milestone(25, "autobuyer_dim1", "Unlock Dimension 1 Autobuyer"));
+        milestones.Add(new Milestone(50, "autobuyer_dim2", "Unlock Dimension 2 Autobuyer"));
+        // 이후 추가 마일스톤
+        // milestones.Add(new Milestone(75, "autobuyer_dim3", "Unlock Dimension 3 Autobuyer"));
+        // ...
     }
 
     void InitializeUpgrades()
@@ -91,13 +125,15 @@ public class PrestigeManager : MonoBehaviour
             return;
         }
 
-        int pointsGained = CalculatePrestigePointsGained();
+        int basePointsGained = CalculatePrestigePointsGained();
+        int pointsGained = (int)(basePointsGained * GetPPMultiplier());
         prestigePoints += pointsGained;
         totalPrestiges++;
 
-        Debug.Log($"Prestige! Gained {pointsGained} prestige points. Total: {prestigePoints}");
+        Debug.Log($"Prestige! Gained {pointsGained} prestige points (x{GetPPMultiplier()}). Total: {prestigePoints}");
 
         ResetDimensions();
+        CheckMilestones();
     }
 
     private void ResetDimensions()
@@ -193,5 +229,69 @@ public class PrestigeManager : MonoBehaviour
 
         int pointsGained = CalculatePrestigePointsGained();
         return $"Prestige: +{pointsGained} points (Total: {prestigePoints})";
+    }
+
+    // ===== 마일스톤 시스템 =====
+
+    public void CheckMilestones()
+    {
+        foreach (var milestone in milestones)
+        {
+            if (!milestone.isUnlocked && totalPrestiges >= milestone.requiredPrestiges)
+            {
+                milestone.isUnlocked = true;
+                OnMilestoneUnlocked(milestone);
+            }
+        }
+    }
+
+    private void OnMilestoneUnlocked(Milestone milestone)
+    {
+        Debug.Log($"[Milestone] Unlocked: {milestone.description} ({milestone.requiredPrestiges} prestiges)");
+
+        switch (milestone.rewardId)
+        {
+            case "tickspeed_bulk":
+                if (TickSpeedManager.Instance != null)
+                    TickSpeedManager.Instance.bulkBuyUnlocked = true;
+                break;
+            case "autobuyer_dim1":
+                if (AutoBuyerManager.Instance != null)
+                    AutoBuyerManager.Instance.UnlockAutoBuyer(0);
+                break;
+            case "autobuyer_dim2":
+                if (AutoBuyerManager.Instance != null)
+                    AutoBuyerManager.Instance.UnlockAutoBuyer(1);
+                break;
+            // pp_double은 GetPPMultiplier()에서 자동 적용
+        }
+    }
+
+    public bool IsMilestoneUnlocked(string rewardId)
+    {
+        foreach (var milestone in milestones)
+        {
+            if (milestone.rewardId == rewardId)
+                return milestone.isUnlocked;
+        }
+        return false;
+    }
+
+    public double GetPPMultiplier()
+    {
+        double multiplier = 1.0;
+        if (IsMilestoneUnlocked("pp_double"))
+            multiplier *= 2.0;
+        return multiplier;
+    }
+
+    public Milestone GetMilestone(string rewardId)
+    {
+        foreach (var milestone in milestones)
+        {
+            if (milestone.rewardId == rewardId)
+                return milestone;
+        }
+        return null;
     }
 }
