@@ -209,7 +209,7 @@ public class PrestigePanelController : MonoBehaviour
             else
             {
                 prestigeRequirement.text = $"Requirement: {requirement} antimatter (Current: {currentAntimatter})";
-                prestigeRequirement.style.color = new Color(231f/255f, 76f/255f, 60f/255f); // Red
+                prestigeRequirement.style.color = new Color(255f/255f, 150f/255f, 130f/255f); // Bright Coral
             }
         }
 

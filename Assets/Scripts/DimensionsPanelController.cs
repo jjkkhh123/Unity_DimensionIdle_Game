@@ -597,8 +597,10 @@ public class DimensionsPanelController : MonoBehaviour
         }
         else
         {
-            // 일반 숫자: 정수로 표시
-            return value.ToString("F0");
+            // 일반 숫자: 소수점 2자리까지 표시
+            if (Math.Abs(value - Math.Round(value)) < 0.001)
+                return value.ToString("F0"); // 정수면 소수점 생략
+            return value.ToString("F2"); // 소수점 있으면 2자리
         }
     }
 

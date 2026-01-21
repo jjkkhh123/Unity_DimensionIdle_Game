@@ -23,6 +23,7 @@
     color: rgb(255, 255, 255);
     background-color: rgba(41, 128, 185, 0.15);
     transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+    height: 80%;
 }
 
 .dimensions-buy-btn:hover {
@@ -60,7 +61,7 @@
 }
 
 .progress-container {
-    height: 6px;
+    height: 6%;
     width: 110%;
     margin-left: -5%;
     margin-top: 3px;
@@ -154,7 +155,7 @@
 }
 
 .upgrade-effect {
-    font-size: 20%;
+    font-size: 24%;
     color: rgb(241, 196, 15);
     -unity-font-style: bold;
     flex-shrink: 1;
@@ -162,7 +163,7 @@
 }
 
 .upgrade-cost {
-    font-size: 18%;
+    font-size: 22%;
     color: rgb(255, 255, 255);
     margin-right: 0;
     flex-shrink: 0;
@@ -183,7 +184,7 @@
     border-top-color: rgba(46, 204, 113, 0.6);
     border-bottom-color: rgba(46, 204, 113, 0.6);
     color: rgb(255, 255, 255);
-    font-size: 18%;
+    font-size: 22%;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 5px;
@@ -750,7 +751,6 @@
     background-color: rgb(41, 128, 185);
 }
 
-/* Popup Styles */
 .popup-overlay {
     position: absolute;
     top: 0;
@@ -871,7 +871,6 @@
     background-color: rgb(52, 152, 219);
 }
 
-/* ===== Help Inline Menu Styles ===== */
 .help-menu-btn {
     height: 50px;
     font-size: 280%;
