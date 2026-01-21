@@ -623,7 +623,15 @@ public class DimensionsPanelController : MonoBehaviour
     {
         if (TickSpeedManager.Instance != null)
         {
-            TickSpeedManager.Instance.BuyTickspeed();
+            // Until 10 모드이고 벌크 구매 해금 시 MAX 구매
+            if (currentBuyMode == BuyMode.UntilTen && TickSpeedManager.Instance.bulkBuyUnlocked)
+            {
+                TickSpeedManager.Instance.BuyTickspeedMax();
+            }
+            else
+            {
+                TickSpeedManager.Instance.BuyTickspeed();
+            }
         }
     }
 

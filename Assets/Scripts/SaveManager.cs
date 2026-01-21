@@ -22,6 +22,13 @@ public class GameSaveData
     public double storedOfflineTime;
     public int maxTimeUpgradeLevel;
     public int efficiencyUpgradeLevel;
+
+    // Milestone/Autobuyer data
+    public bool tickspeedBulkUnlocked;
+    public bool[] autoBuyersUnlocked;
+    public bool[] autoBuyersEnabled;
+    public int[] autoBuyerModes; // 0 = Single, 1 = Bulk
+    public int autoBuyerSpeedLevel;
 }
 
 [System.Serializable]
@@ -213,6 +220,24 @@ public class SaveManager : MonoBehaviour
             saveData.efficiencyUpgradeLevel = OfflineManager.Instance.efficiencyUpgradeLevel;
         }
 
+        // Milestone/Autobuyer 데이터 저장
+        if (TickSpeedManager.Instance != null)
+        {
+            saveData.tickspeedBulkUnlocked = TickSpeedManager.Instance.bulkBuyUnlocked;
+        }
+
+        if (AutoBuyerManager.Instance != null)
+        {
+            saveData.autoBuyersUnlocked = (bool[])AutoBuyerManager.Instance.dimensionAutoBuyersUnlocked.Clone();
+            saveData.autoBuyersEnabled = (bool[])AutoBuyerManager.Instance.dimensionAutoBuyersEnabled.Clone();
+            saveData.autoBuyerModes = new int[8];
+            for (int i = 0; i < 8; i++)
+            {
+                saveData.autoBuyerModes[i] = (int)AutoBuyerManager.Instance.dimensionBuyModes[i];
+            }
+            saveData.autoBuyerSpeedLevel = AutoBuyerManager.Instance.speedUpgradeLevel;
+        }
+
         try
         {
             string json = JsonUtility.ToJson(saveData, true);
@@ -325,6 +350,44 @@ public class SaveManager : MonoBehaviour
                         }
                     }
                 }
+            }
+
+            // Milestone/Autobuyer 데이터 로드
+            if (TickSpeedManager.Instance != null)
+            {
+                TickSpeedManager.Instance.bulkBuyUnlocked = saveData.tickspeedBulkUnlocked;
+            }
+
+            if (AutoBuyerManager.Instance != null)
+            {
+                if (saveData.autoBuyersUnlocked != null)
+                {
+                    for (int i = 0; i < saveData.autoBuyersUnlocked.Length && i < 8; i++)
+                    {
+                        AutoBuyerManager.Instance.dimensionAutoBuyersUnlocked[i] = saveData.autoBuyersUnlocked[i];
+                    }
+                }
+                if (saveData.autoBuyersEnabled != null)
+                {
+                    for (int i = 0; i < saveData.autoBuyersEnabled.Length && i < 8; i++)
+                    {
+                        AutoBuyerManager.Instance.dimensionAutoBuyersEnabled[i] = saveData.autoBuyersEnabled[i];
+                    }
+                }
+                if (saveData.autoBuyerModes != null)
+                {
+                    for (int i = 0; i < saveData.autoBuyerModes.Length && i < 8; i++)
+                    {
+                        AutoBuyerManager.Instance.dimensionBuyModes[i] = (AutoBuyerManager.BuyMode)saveData.autoBuyerModes[i];
+                    }
+                }
+                AutoBuyerManager.Instance.speedUpgradeLevel = saveData.autoBuyerSpeedLevel;
+            }
+
+            // 로드 완료 후 마일스톤 체크 (totalPrestiges 기반으로 해금)
+            if (PrestigeManager.Instance != null)
+            {
+                PrestigeManager.Instance.CheckMilestones();
             }
 
             Debug.Log($"Game loaded from {saveFilePath} (Saved: {saveData.saveTime})");

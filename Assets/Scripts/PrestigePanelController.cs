@@ -548,8 +548,10 @@ public class PrestigePanelController : MonoBehaviour
 
     void UpdateAutoBuyers()
     {
-        if (AutoBuyerManager.Instance == null || autoBuyerElements == null)
+        if (autoBuyerElements == null)
             return;
+
+        bool hasAutoBuyerManager = AutoBuyerManager.Instance != null;
 
         for (int i = 0; i < autoBuyerElements.Length; i++)
         {
@@ -557,29 +559,31 @@ public class PrestigePanelController : MonoBehaviour
             if (ui.container == null)
                 continue;
 
-            bool isUnlocked = AutoBuyerManager.Instance.dimensionAutoBuyersUnlocked[i];
-            bool isEnabled = AutoBuyerManager.Instance.dimensionAutoBuyersEnabled[i];
-            AutoBuyerManager.BuyMode mode = AutoBuyerManager.Instance.dimensionBuyModes[i];
+            bool isUnlocked = hasAutoBuyerManager && AutoBuyerManager.Instance.dimensionAutoBuyersUnlocked[i];
+            bool isEnabled = hasAutoBuyerManager && AutoBuyerManager.Instance.dimensionAutoBuyersEnabled[i];
+            AutoBuyerManager.BuyMode mode = hasAutoBuyerManager ? AutoBuyerManager.Instance.dimensionBuyModes[i] : AutoBuyerManager.BuyMode.Single;
 
-            // Update locked status
-            if (isUnlocked)
+            // 해금되지 않은 오토바이어는 숨기기
+            if (!isUnlocked)
             {
-                ui.container.RemoveFromClassList("autobuyer-locked");
-                if (ui.statusLabel != null)
-                    ui.statusLabel.text = "";
+                ui.container.style.display = DisplayStyle.None;
+                continue;
             }
             else
             {
-                ui.container.AddToClassList("autobuyer-locked");
-                if (ui.statusLabel != null)
-                    ui.statusLabel.text = "(Locked)";
+                ui.container.style.display = DisplayStyle.Flex;
+                ui.container.RemoveFromClassList("autobuyer-locked");
             }
+
+            // Update status label
+            if (ui.statusLabel != null)
+                ui.statusLabel.text = "";
 
             // Update toggle button
             if (ui.toggleBtn != null)
             {
                 ui.toggleBtn.text = isEnabled ? "ON" : "OFF";
-                ui.toggleBtn.SetEnabled(isUnlocked);
+                ui.toggleBtn.SetEnabled(true);
                 if (isEnabled)
                     ui.toggleBtn.AddToClassList("autobuyer-toggle-on");
                 else
@@ -590,7 +594,7 @@ public class PrestigePanelController : MonoBehaviour
             if (ui.modeBtn != null)
             {
                 ui.modeBtn.text = mode == AutoBuyerManager.BuyMode.Single ? "Single" : "Bulk";
-                ui.modeBtn.SetEnabled(isUnlocked);
+                ui.modeBtn.SetEnabled(true);
             }
         }
 

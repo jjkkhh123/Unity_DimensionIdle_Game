@@ -47,6 +47,12 @@ public class PrestigeManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // 게임 로드 시 이미 달성한 마일스톤 체크
+        CheckMilestones();
+    }
+
     void InitializeMilestones()
     {
         milestones.Clear();
@@ -237,17 +243,25 @@ public class PrestigeManager : MonoBehaviour
     {
         foreach (var milestone in milestones)
         {
-            if (!milestone.isUnlocked && totalPrestiges >= milestone.requiredPrestiges)
+            bool shouldBeUnlocked = totalPrestiges >= milestone.requiredPrestiges;
+
+            if (shouldBeUnlocked)
             {
+                bool wasNewlyUnlocked = !milestone.isUnlocked;
                 milestone.isUnlocked = true;
-                OnMilestoneUnlocked(milestone);
+
+                // 보상 적용 (새로 해금되었거나 이미 해금된 경우 모두)
+                ApplyMilestoneReward(milestone, wasNewlyUnlocked);
             }
         }
     }
 
-    private void OnMilestoneUnlocked(Milestone milestone)
+    private void ApplyMilestoneReward(Milestone milestone, bool showLog)
     {
-        Debug.Log($"[Milestone] Unlocked: {milestone.description} ({milestone.requiredPrestiges} prestiges)");
+        if (showLog)
+        {
+            Debug.Log($"[Milestone] Unlocked: {milestone.description} ({milestone.requiredPrestiges} prestiges)");
+        }
 
         switch (milestone.rewardId)
         {
