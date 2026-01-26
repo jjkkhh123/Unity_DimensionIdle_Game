@@ -11,15 +11,11 @@
 > 8개의 차원을 통해 반물질을 **무한대(1.79e308)**까지 생산하는 것이 목표입니다.
 
 <p align="center">
-  <img src="Assets/Screenshots/main_gameplay.jpg" alt="메인 게임플레이" width="300"/>
+  <img src="images/main_gameplay.jpg" alt="메인 게임플레이" width="300"/>
 </p>
 
 <!-- 🎬 유튜브 영상 링크 삽입 위치
-<p align="center">
-  <a href="YOUR_YOUTUBE_LINK_HERE">
-    <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg" alt="게임플레이 영상" width="600"/>
-  </a>
-</p>
+[![게임플레이 영상](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](YOUR_YOUTUBE_LINK_HERE)
 -->
 
 ---
@@ -79,11 +75,11 @@
 
 | Dimensions | Prestige | Options |
 |:----------:|:--------:|:-------:|
-| ![Dimensions](Assets/Screenshots/01_dimensions.png) | ![Prestige](Assets/Screenshots/02_prestige.png) | ![Options](Assets/Screenshots/03_options.png) |
+| ![Dimensions](images/01_dimensions.png) | ![Prestige](images/02_prestige.png) | ![Options](images/03_options.png) |
 
 | Shop | Offline Progress |
 |:----:|:----------------:|
-| ![Shop](Assets/Screenshots/04_shop.png) | ![Offline](Assets/Screenshots/05_offline.png) |
+| ![Shop](images/04_shop.png) | ![Offline](images/05_offline.png) |
 
 ---
 
