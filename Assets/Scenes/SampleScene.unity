@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 1734420537}
   - component: {fileID: 1734420542}
   - component: {fileID: 1734420541}
+  - component: {fileID: 1734420545}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -536,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickspeedLevel: 0
+  bulkBuyUnlocked: 0
 --- !u!114 &1734420537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prestigePoints: 0
   totalPrestiges: 0
+  milestones: []
 --- !u!114 &1734420539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +659,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DimBoostManager
   dimBoosts: 0
+--- !u!114 &1734420545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734420535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f19ecf18fc0bf04d949f1c7cc859715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoBuyerManager
+  dimensionAutoBuyersUnlocked: 0000000000000000
+  dimensionAutoBuyersEnabled: 0000000000000000
+  dimensionBuyModes: 0000000000000000000000000000000000000000000000000000000000000000
+  speedUpgradeLevel: 0
 --- !u!1 &1954966665
 GameObject:
   m_ObjectHideFlags: 0
